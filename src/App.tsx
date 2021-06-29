@@ -7,6 +7,8 @@ import { Container } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import { useStore } from "./app/stores/stores";
 import { observer } from "mobx-react-lite";
+import StoryCard from "./components/storyCard/StoryCard";
+import CreateStory from "./components/forms/CreateStory";
 
 function App() {
   const { user } = useStore();
@@ -20,16 +22,18 @@ function App() {
   return (
     <>
       <NavBar />
-      <Switch>
-        <Container style={{ marginTop: "7em" }}>
+      <div className="container">
+        <Switch>
           <Route path="/register">
             {user.isAuth ? <Redirect to="/" /> : <RegisterForm />}
           </Route>
           <Route path="/login">
             {user.isAuth ? <Redirect to="/" /> : <LoginForm />}
           </Route>
-        </Container>
-      </Switch>
+          <Route path="/stories" component={StoryCard} />
+          <Route path="/create" component={CreateStory} />
+        </Switch>
+      </div>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
+import { request } from "http";
 import { string } from "yup/lib/locale";
-import { Login, Register, User } from "../interfaces";
+import { Login, Register, Story, User } from "../interfaces";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -8,7 +9,8 @@ axios.defaults.baseURL = "http://127.0.0.1:3333/api";
 
 const requests = {
   get: <T>(url: string) => axios.get<T>(url).then(response),
-  post: <T>(url: string, body: {}) => axios.post<T>(url, body).then(response),
+  post: <T>(url: string, body: {}, headers?: {}) =>
+    axios.post<T>(url, body, headers).then(response),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(response),
   delete: <T>(url: string) => axios.delete<T>(url).then(response),
 };
@@ -21,7 +23,19 @@ export const user = {
   validate: () => requests.get<User>("/validate"),
 };
 
-export const agent_user = { user };
+export const story = {
+  create: ({ title, story, photo_url, category }: Story) =>
+    requests.post<Story>(
+      "/post/create",
+      { title, story, photo_url, category },
+      { headers: { Authorization: `${localStorage.getItem("Authorization")}` } }
+    ),
+  edit: ({ title, story, photo_url, id }: Story) =>
+    requests.put<Story>("/post/update", { title, story, photo_url }),
+  get: (id: string) => requests.get<Story>(`/show/${id}`),
+};
+
+export const agent = { user, story };
 /*
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;

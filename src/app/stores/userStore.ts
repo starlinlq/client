@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { Register, User, Login, Profile } from "../interfaces";
-import { agent_user } from "../api/user";
+import { agent } from "../api/agent";
 import axios from "axios";
 
 export class UserStore {
@@ -35,14 +35,14 @@ export class UserStore {
 
   registerUser = async ({ name, email, password }: Register) => {
     this.loading = true;
-    agent_user.user.register({ name, email, password }).then((r: any) => {
+    agent.user.register({ name, email, password }).then((r: any) => {
       console.log(r);
       this.name = r.name;
       this.id = r.id;
       this.profile = r.profile;
       this.setToken(r.token.token);
       runInAction(() => {
-        this.isAuth = true;
+      this.isAuth = true;
         this.loading = false;
       });
     });
@@ -50,7 +50,7 @@ export class UserStore {
 
   getUser = ({ email, password }: Login) => {
     this.loading = true;
-    agent_user.user.login({ email, password }).then((r: any) => {
+    agent.user.login({ email, password }).then((r: any) => {
       console.log(r);
       this.setToken(r.token);
       this.validate();

@@ -4,6 +4,15 @@ export interface Register {
   password: string;
   id?: number | undefined;
 }
+
+export interface Story {
+  story: string;
+  photo_url: string;
+  title: string;
+  name?: string;
+  id?: number;
+  category: string;
+}
 export interface User {
   name: string;
   id: number;

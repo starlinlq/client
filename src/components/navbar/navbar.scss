@@ -1,0 +1,30 @@
+@import "../../styles//global";
+@import "../../styles//typography";
+
+.nav_container {
+  width: 100%;
+  border-bottom: 1px solid black;
+  a {
+    font-family: $font-primary;
+    text-decoration: none;
+    color: $primary-color;
+    margin: 0 15px;
+  }
+
+  ._nav {
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: $font-primary;
+  }
+  .user-links {
+    align-items: center;
+    height: 100%;
+  }
+
+  .n-link {
+  }
+}

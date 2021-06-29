@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles.css";
+import "./styles/index.scss";
 import App from "./App";
 import { Router } from "react-router-dom";
-import "semantic-ui-css/semantic.min.css";
 import { createBrowserHistory } from "history";
 import { store, StoreContext } from "./app/stores/stores";
 export const history = createBrowserHistory();

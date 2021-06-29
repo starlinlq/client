@@ -1,0 +1,78 @@
+@import "_typography";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+._a {
+  font-family: $font-primary;
+  text-decoration: none;
+  color: $primary-color;
+}
+
+._textarea {
+  margin: 6px 0;
+}
+._select {
+  margin: 6px 0;
+  padding: 5px 0;
+}
+
+._input {
+  background-color: none;
+  padding: 5px 0;
+  margin: 6px 0;
+}
+._form {
+  display: flex;
+  flex-direction: column;
+}
+.button {
+  padding: 0.35em 1.2em;
+  border: 0.1em solid black;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  text-align: center;
+  transition: all 0.2s;
+  color: black;
+
+  &:hover {
+    border-color: orangered;
+  }
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 576px) {
+  .container {
+    width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+  }
+}
+
+.d-flex {
+  display: flex;
+}

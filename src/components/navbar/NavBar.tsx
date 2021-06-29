@@ -7,55 +7,40 @@ import { useStore } from "../../app/stores/stores";
 function NavBar() {
   const { user } = useStore();
   const { isAuth } = user;
+  const test = true;
   return (
-    <Menu pointing secondary widths="five">
-      <Container>
-        <Menu.Item as={NavLink} to="/" exact header>
-          <h4 style={{ marginRight: "10px" }}> SHARE</h4>
-        </Menu.Item>
-        <Menu.Item as={NavLink} to="/activities" name="stories" />
-        <Menu.Item as={NavLink} to="/test" name="testing" />
-        {isAuth ? (
-          <>
-            <Menu.Item>
-              <Button
-                floated="right"
-                as={NavLink}
-                to="createActivity"
-                color="black"
-                content="Create Activity"
-              />
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                floated="right"
-                as={NavLink}
-                to="/profile"
-                content="profile"
-                color="black"
-              />
-            </Menu.Item>
-          </>
-        ) : (
-          <>
-            <Menu.Item>
-              {" "}
-              <Button as={NavLink} to="/register" content="register" />{" "}
-            </Menu.Item>
-            <Menu.Item>
-              {" "}
-              <Button
-                as={NavLink}
-                secondary
-                to="/login"
-                primary
-                content="log in"
-              />{" "}
-            </Menu.Item>
-          </>
-        )}
-      </Container>
-    </Menu>
+    <header className="nav_container">
+      <nav className="_nav container d-flex">
+        <div className="logo">
+          <h4>storynary</h4>
+        </div>
+
+        <div className="n-link d-flex">
+          <a href="/stories">Stories</a>
+          <a href="/top">Top</a>
+        </div>
+
+        <div className="user-links d-flex">
+          {isAuth ? (
+            <>
+              <a href="/create" className="button">
+                Create Story
+              </a>
+              <a href="/account">Account</a>
+            </>
+          ) : (
+            <>
+              <a href="/login" className="button ">
+                Log In
+              </a>
+              <a href="/register" className="button ">
+                Register
+              </a>
+            </>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 }
 
