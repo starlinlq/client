@@ -9,6 +9,7 @@ import { useStore } from "./app/stores/stores";
 import { observer } from "mobx-react-lite";
 import StoryCard from "./components/storyCard/StoryCard";
 import CreateStory from "./components/forms/CreateStory";
+import SingleStory from "./components/singlestory/SingleStory";
 
 function App() {
   const { user } = useStore();
@@ -32,6 +33,7 @@ function App() {
           </Route>
           <Route path="/stories" component={StoryCard} />
           <Route path="/create" component={CreateStory} />
+          <Route path="/story/:id" component={SingleStory} />
         </Switch>
       </div>
     </>

@@ -10,7 +10,7 @@ export interface Story {
   photo_url: string;
   title: string;
   name?: string;
-  id?: number;
+  id?: string;
   category: string;
 }
 export interface User {

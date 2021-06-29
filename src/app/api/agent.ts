@@ -32,7 +32,7 @@ export const story = {
     ),
   edit: ({ title, story, photo_url, id }: Story) =>
     requests.put<Story>("/post/update", { title, story, photo_url }),
-  get: (id: string) => requests.get<Story>(`/show/${id}`),
+  get: (id: string) => requests.get<Story>(`post/show/${id}`),
 };
 
 export const agent = { user, story };
