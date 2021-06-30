@@ -5,22 +5,27 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
+import Loading from "../../features/loader/Loading";
 
 function SingleStory() {
   const { id } = useParams<{ id: string }>();
   const { post } = useStore();
-  const { story } = post;
+  const { selectedStory, loading } = post;
 
-  useEffect(get_story, [id]);
+  useEffect(get_story, [id, post, selectedStory]);
 
   function get_story() {
-    if (id) {
+    if (id && selectedStory.length !== 1) {
       post.show(id);
     }
   }
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
-      {story.map((content: Story) => (
+      {selectedStory.map((content: Story) => (
         <div key={content.id} className="singleStory_container">
           <div className="photo">
             <img src={content.photo_url} alt="photo_test" />

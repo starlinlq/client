@@ -4,34 +4,60 @@ import { agent } from "../api/agent";
 import { history } from "../../";
 
 export class PostStore {
-  story:
-    | {
-        title: string;
-        photo_url: string;
-        name: string;
-        story: string;
-        id: string;
-      }[]
-    | any = [];
+  loading = false;
+  editMode = false;
+  loadingInitial = false;
+  selectedStory: Story[] = [];
+  story: Story[] = [];
   comments: object[] = [];
   constructor() {
     makeAutoObservable(this);
   }
 
-  show = async (id: string) => {
+  get = async () => {
+    this.loading = true;
     try {
-      console.log(id);
-      let post = await agent.story.get(id);
+      let data = await agent.story.all();
       runInAction(() => {
-        this.story = [post];
+        this.story = data;
+        this.loading = false;
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
+
+  show = async (id: string) => {
+    this.loading = true;
+    try {
+      let post = await agent.story.show(id);
+      runInAction(() => {
+        this.selectedStory = [post];
+        this.loading = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
   };
 
   create = async (data: Story) => {
+    this.loading = true;
     try {
-      let d = await agent.story.create({ ...data });
-      console.log(d);
-    } catch (error) {}
+      let story = await agent.story.create({ ...data });
+      runInAction(() => {
+        this.selectedStory = [story];
+        this.loading = false;
+        history.push(`/story/${story.id}`);
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
   };
 }

@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import { agent } from "../../app/api/agent";
+import Loading from "../../features/loader/Loading";
 
 function CreateStory() {
   const history = useHistory();
@@ -23,6 +24,7 @@ function CreateStory() {
   ] = useState<Story>();
   const { id } = useParams<{ id: string }>();
   const { post } = useStore();
+  const { loading } = post;
 
   const validationSchema = Yup.object({
     title: Yup.string().required("the activity title is required"),
@@ -41,6 +43,9 @@ function CreateStory() {
     post.create(data);
   };
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <header>Create Story</header>

@@ -6,10 +6,12 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Login } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import { history } from "../../";
+import { observer } from "mobx-react-lite";
 
 function RegisterForm() {
   let login: Login = { email: "", password: "" };
   const { user } = useStore();
+  const { isAuth } = user;
 
   const validationSchema = Yup.object({
     email: Yup.string().required("email is required"),
@@ -17,8 +19,10 @@ function RegisterForm() {
   });
 
   function handlFormSubmit(data: Login) {
-    console.log(data);
     user.getUser(data);
+  }
+
+  if (isAuth) {
     history.push("/");
   }
 
@@ -52,4 +56,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default observer(RegisterForm);

@@ -1,12 +1,12 @@
 import React from "react";
 import { Story } from "../../app/interfaces";
 
-function StoryCard({}: Story) {
+function StoryCard({ name, story, title, id }: Story) {
   return (
     <div className="story_card d-flex">
       <div className="_content ">
-        <p className="title">The new nature era</p>
-        <p className="author">By Steven thomas</p>
+        <p className="title">{title}</p>
+        <p className="author">By {name}</p>
         <div className="story_link">
           <a className="_a" href={`/story/${2}`}>
             Read Story

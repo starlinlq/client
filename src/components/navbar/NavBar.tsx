@@ -26,7 +26,13 @@ function NavBar() {
               <a href="/create" className="button">
                 Create Story
               </a>
-              <a href="/account">Account</a>
+              <div className="account">
+                <a href="/account">Account</a>
+                <div>
+                  <a href="/dashboard">dashboard</a>
+                  <a href="/">Log out</a>
+                </div>
+              </div>
             </>
           ) : (
             <>
