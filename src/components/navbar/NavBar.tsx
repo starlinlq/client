@@ -1,13 +1,20 @@
-import react from "react";
-import { NavLink } from "react-router-dom";
-import { Button, Container, Menu } from "semantic-ui-react";
+import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/stores";
 
 function NavBar() {
+  const [active, setActive] = useState(false);
   const { user } = useStore();
   const { isAuth } = user;
-  const test = true;
+
+  function handleLogOut() {
+    user.logOutUser();
+  }
+
+  function handleClick() {
+    setActive(!active);
+  }
+
   return (
     <header className="nav_container">
       <nav className="_nav container d-flex">
@@ -26,11 +33,14 @@ function NavBar() {
               <a href="/create" className="button">
                 Create Story
               </a>
-              <div className="account">
-                <a href="/account">Account</a>
-                <div>
-                  <a href="/dashboard">dashboard</a>
-                  <a href="/">Log out</a>
+              <div onClick={handleClick} className="account">
+                <p>account</p>
+                <div className={active ? "active" : "not_active"}>
+                  <a href="/account">Account</a>
+                  <a href="/profile">Profile</a>
+                  <button className="button" onClick={handleLogOut}>
+                    Log out
+                  </button>
                 </div>
               </div>
             </>

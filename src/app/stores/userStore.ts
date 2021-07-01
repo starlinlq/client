@@ -1,7 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { Register, User, Login, Profile } from "../interfaces";
-import { agent } from "../api/agent";
+import { agent, user } from "../api/agent";
 import axios from "axios";
+import { history } from "../../";
 
 export class UserStore {
   name: string = "";
@@ -22,10 +23,11 @@ export class UserStore {
       })
       .then((r: any) => {
         if (r.data) {
-          this.loading = false;
           this.name = r.data.name;
           this.id = r.data.id;
           this.profile = r.data.profile;
+          this.isAuth = true;
+          this.loading = false;
         }
       })
       .catch((error) => {
@@ -34,11 +36,6 @@ export class UserStore {
           this.isAuth = false;
         });
       });
-
-    runInAction(() => {
-      this.isAuth = true;
-      this.loading = false;
-    });
   };
 
   registerUser = async ({ name, email, password }: Register) => {
@@ -75,13 +72,22 @@ export class UserStore {
         console.log(error);
       });
   };
-  logOutUser = () => {
+  logOutUser = async () => {
     this.loading = true;
-    this.removeToken();
-    runInAction(() => {
-      this.isAuth = false;
-      this.loading = false;
-    });
+
+    try {
+      await agent.user.logOut();
+      runInAction(() => {
+        this.isAuth = false;
+        this.loading = false;
+      });
+      this.removeToken();
+      history.push("/");
+    } catch (error) {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
   };
 
   setToken = (token: string) => {

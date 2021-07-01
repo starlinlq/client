@@ -5,9 +5,9 @@ import { Segment, Header, Button } from "semantic-ui-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Login } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
-import { history } from "../../";
 import { observer } from "mobx-react-lite";
-
+import Loading from "../../features/loader/Loading";
+import { history } from "../../";
 function RegisterForm() {
   let login: Login = { email: "", password: "" };
   const { user } = useStore();
@@ -22,7 +22,10 @@ function RegisterForm() {
     user.getUser(data);
   }
 
-  if (isAuth) {
+  if (user.loading) {
+    return <Loading />;
+  }
+  if (user.isAuth) {
     history.push("/");
   }
 

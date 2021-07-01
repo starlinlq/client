@@ -16,7 +16,8 @@ const sleep = (time: number) => {
 axios.defaults.baseURL = "http://127.0.0.1:3333/api";
 
 const requests = {
-  get: <T>(url: string) => axios.get<T>(url).then(response),
+  get: <T>(url: string, headers?: {}) =>
+    axios.get<T>(url, headers).then(response),
   post: <T>(url: string, body: {}, headers?: {}) =>
     axios.post<T>(url, body, headers).then(response),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(response),
@@ -29,6 +30,10 @@ export const user = {
   login: ({ email, password }: Login) =>
     requests.post<User>("/login", { email, password }),
   validate: () => requests.get<User>("/validate"),
+  logOut: () =>
+    requests.get<void>("/logout", {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
 };
 
 export const story = {
@@ -46,7 +51,7 @@ export const story = {
 
 axios.interceptors.response.use(
   async (response) => {
-    await sleep(1000);
+    await sleep(100);
     return response;
   },
   (error: AxiosError) => {

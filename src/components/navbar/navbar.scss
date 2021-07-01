@@ -8,7 +8,8 @@
     font-family: $font-primary;
     text-decoration: none;
     color: $primary-color;
-    margin: 0 15px;
+    margin: 5px;
+    width: 100%;
   }
 
   ._nav {
@@ -31,4 +32,33 @@
   .account {
     position: relative;
   }
+}
+
+.active {
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+  width: 200px;
+  height: 200px;
+  a {
+    display: block;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+  }
+  button {
+    font-family: $font-primary;
+    text-decoration: none;
+    color: $primary-color;
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    background: transparent;
+    font-weight: 500;
+  }
+}
+
+.not_active {
+  display: none;
 }
