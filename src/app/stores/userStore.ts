@@ -9,7 +9,7 @@ export class UserStore {
   id: number | undefined = undefined;
   loading: boolean = false;
   isAuth: boolean = false;
-  profile: Profile | null = null;
+  profile: Profile[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -23,11 +23,13 @@ export class UserStore {
       })
       .then((r: any) => {
         if (r.data) {
-          this.name = r.data.name;
-          this.id = r.data.id;
-          this.profile = r.data.profile;
-          this.isAuth = true;
-          this.loading = false;
+          runInAction(() => {
+            this.name = r.data.name;
+            this.id = r.data.id;
+            this.profile = [r.data.profile];
+            this.isAuth = true;
+            this.loading = false;
+          });
         }
       })
       .catch((error) => {
@@ -46,7 +48,7 @@ export class UserStore {
         console.log(r);
         this.name = r.name;
         this.id = r.id;
-        this.profile = r.profile;
+        this.profile = [r.profile];
         this.setToken(r.token.token);
         runInAction(() => {
           this.isAuth = true;

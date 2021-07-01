@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Loading from "./features/loader/Loading";
 import DisplayStories from "./components/displaystories/DisplayStories";
 import SingleStory from "./components/singlestory/SingleStory";
+import Profile from "./components/profile/Profile";
 
 function App() {
   const { user } = useStore();
@@ -42,7 +43,7 @@ function App() {
           <Route path="/stories" component={DisplayStories} />
           <Route path="/create" component={CreateStory} />
           <Route path="/story/:id" component={SingleStory} />
-          <Route path="/test" component={Loading} />
+          <Route path="/profile" component={Profile} />
         </Switch>
       </div>
     </>

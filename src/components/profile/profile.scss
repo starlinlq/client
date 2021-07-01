@@ -1,0 +1,45 @@
+.profile {
+  position: relative;
+
+  .stories {
+    position: relative;
+    bottom: 90px;
+  }
+
+  .background {
+    img {
+      width: 100%;
+      height: 300px;
+    }
+  }
+  .account {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 100px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+    .details {
+      text-align: center;
+
+      .followers {
+        width: 100%;
+        span {
+          padding-right: 5px;
+        }
+      }
+    }
+    img {
+      width: 250px;
+      height: 200px;
+      border-radius: 7px;
+    }
+
+    h1 {
+      height: fit-content;
+      width: fit-content;
+    }
+  }
+}
