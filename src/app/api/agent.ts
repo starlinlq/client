@@ -34,6 +34,10 @@ export const user = {
     requests.get<void>("/logout", {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
+  loadStories: () =>
+    requests.get<Story[]>("/post/user/stories", {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
 };
 
 export const story = {

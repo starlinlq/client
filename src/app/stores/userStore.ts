@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Register, User, Login, Profile } from "../interfaces";
+import { Register, Story, Login, Profile } from "../interfaces";
 import { agent, user } from "../api/agent";
 import axios from "axios";
 import { history } from "../../";
@@ -10,6 +10,8 @@ export class UserStore {
   loading: boolean = false;
   isAuth: boolean = false;
   profile: Profile[] = [];
+  editMode = false;
+  posts: Story[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -89,6 +91,19 @@ export class UserStore {
       runInAction(() => {
         this.loading = false;
       });
+    }
+  };
+
+  loadUserStories = async () => {
+    this.loading = true;
+    try {
+      let data = await agent.user.loadStories();
+      runInAction(() => {
+        this.posts = data;
+        this.loading = false;
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 

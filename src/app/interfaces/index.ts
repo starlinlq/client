@@ -27,6 +27,7 @@ export interface Profile {
   city: string;
   profile_pic_url: string;
   about_me: string;
+  name: string;
 }
 
 /*
