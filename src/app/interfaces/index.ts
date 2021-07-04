@@ -5,6 +5,13 @@ export interface Register {
   id?: number | undefined;
 }
 
+export interface Comment {
+  id: string;
+  user_id: string;
+  name: string;
+  comment: string;
+}
+
 export interface Story {
   story: string;
   photo_url: string;
@@ -12,6 +19,7 @@ export interface Story {
   name?: string;
   id?: string;
   category: string;
+  comments?: any;
 }
 export interface User {
   name: string;

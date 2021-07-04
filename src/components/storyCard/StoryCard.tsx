@@ -8,7 +8,7 @@ function StoryCard({ name, story, title, id }: Story) {
         <p className="title">{title}</p>
         <p className="author">By {name}</p>
         <div className="story_link">
-          <a className="_a" href={`/story/${2}`}>
+          <a className="_a" href={`/story/${id}`}>
             Read Story
           </a>
         </div>

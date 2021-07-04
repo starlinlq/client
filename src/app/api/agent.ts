@@ -20,8 +20,25 @@ const requests = {
     axios.get<T>(url, headers).then(response),
   post: <T>(url: string, body: {}, headers?: {}) =>
     axios.post<T>(url, body, headers).then(response),
-  put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(response),
-  delete: <T>(url: string) => axios.delete<T>(url).then(response),
+  put: <T>(url: string, body: {}, headers: {}) =>
+    axios.put<T>(url, body, headers).then(response),
+  delete: <T>(url: string, headers: {}) =>
+    axios.delete<T>(url, headers).then(response),
+};
+
+export const _comments = {
+  create: (comment: { comment: string; story_id: string }) =>
+    requests.post<Comment>(`comment/create/${comment.story_id}`, comment, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
+  edit: (comment: { comment: string; id: string }) =>
+    requests.put(`api/comment/update/${comment.id}`, comment, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
+  delete: (id: string) =>
+    requests.delete(`comment/delete/${id}`, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
 };
 
 export const user = {
@@ -48,7 +65,11 @@ export const story = {
       { headers: { Authorization: `${localStorage.getItem("Authorization")}` } }
     ),
   edit: ({ title, story, photo_url, id }: Story) =>
-    requests.put<Story>("/post/update", { title, story, photo_url }),
+    requests.put<Story>(
+      "/post/update",
+      { title, story, photo_url },
+      { headers: { Authorization: `${localStorage.getItem("Authoriation")}` } }
+    ),
   show: (id: string) => requests.get<Story>(`post/show/${id}`),
   all: () => requests.get<Story[]>("/post/stories"),
 };
@@ -73,9 +94,10 @@ axios.interceptors.response.use(
         toast.error("invalid account details");
         break;
       case 401:
-        if (localStorage.getItem("Authorization")) {
+        /* if (localStorage.getItem("Authorization")) {
           localStorage.removeItem("Authorization");
         }
+        */
         toast.error("Unathorize Request");
         break;
       case 404:
@@ -92,4 +114,4 @@ axios.interceptors.response.use(
   }
 );
 
-export const agent = { user, story };
+export const agent = { user, story, _comments };

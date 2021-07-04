@@ -9,7 +9,7 @@ export class PostStore {
   loadingInitial = false;
   selectedStory: Story[] = [];
   story: Story[] = [];
-  comments: object[] = [];
+  comments: Comment[] = [];
   constructor() {
     makeAutoObservable(this);
   }
@@ -34,8 +34,10 @@ export class PostStore {
     this.loading = true;
     try {
       let post = await agent.story.show(id);
+      console.log(post.comments);
       runInAction(() => {
         this.selectedStory = [post];
+        this.comments = post.comments;
         this.loading = false;
       });
     } catch (error) {
@@ -59,5 +61,21 @@ export class PostStore {
         this.loading = false;
       });
     }
+  };
+
+  create_comment = async (comment: { comment: string }) => {
+    try {
+      let story_id = this.selectedStory[0].id;
+      if (story_id) {
+        let new_comment = await agent._comments.create({
+          ...comment,
+          story_id,
+        });
+        runInAction(() => {
+          this.loading = false;
+          this.comments.unshift(new_comment);
+        });
+      }
+    } catch (error) {}
   };
 }
