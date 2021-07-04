@@ -2,17 +2,25 @@ import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import { Fragment } from "react";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { history } from "../..";
 import { useStore } from "../../app/stores/stores";
 import StoryCard from "../storyCard/StoryCard";
 
 function Profile() {
   const [state, setState] = useState<object[]>([]);
+  const { id } = useParams<{ id: string | undefined }>();
   const { user } = useStore();
   const { profile: p } = user;
 
   useEffect(() => {
-    user.loadUserStories();
-  });
+    console.log(id);
+    if (id) {
+      user.loadUserStories(id);
+    } else {
+      history.push("/");
+    }
+  }, [id, user]);
 
   return (
     <div className="profile">
@@ -37,18 +45,20 @@ function Profile() {
           </div>
           <div className="stories">
             <h1>Stories</h1>
-            {user.posts.map((data) => (
-              <Fragment key={data.id}>
-                <StoryCard
-                  name={data.name}
-                  story={data.story}
-                  id={data.id}
-                  title={data.title}
-                  category={data.category}
-                  photo_url={data.photo_url}
-                />
-              </Fragment>
-            ))}
+            <div className="content">
+              {user.posts.map((data) => (
+                <Fragment key={data.id}>
+                  <StoryCard
+                    name={data.name}
+                    story={data.story}
+                    id={data.id}
+                    title={data.title}
+                    category={data.category}
+                    photo_url={data.photo_url}
+                  />
+                </Fragment>
+              ))}
+            </div>
           </div>
         </Fragment>
       ))}

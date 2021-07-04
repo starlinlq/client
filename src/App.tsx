@@ -43,7 +43,7 @@ function App() {
           <Route path="/stories" component={DisplayStories} />
           <Route path="/create" component={CreateStory} />
           <Route path="/story/:id" component={SingleStory} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile/:id" component={Profile} />
         </Switch>
       </div>
     </>

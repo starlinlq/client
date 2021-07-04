@@ -94,12 +94,14 @@ export class UserStore {
     }
   };
 
-  loadUserStories = async () => {
+  loadUserStories = async (id: string) => {
     this.loading = true;
     try {
-      let data = await agent.user.loadStories();
+      let data = await agent.user.loadStories(id);
+      console.log(data);
       runInAction(() => {
-        this.posts = data;
+        this.profile = data.profile;
+        this.posts = data.posts;
         this.loading = false;
       });
     } catch (error) {

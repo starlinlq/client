@@ -37,7 +37,7 @@ function NavBar() {
                 <p>account</p>
                 <div className={active ? "active" : "not_active"}>
                   <a href="/account">Account</a>
-                  <a href="/profile">Profile</a>
+                  <a href={`/profile/${user.id}`}>Profile</a>
                   <button className="button" onClick={handleLogOut}>
                     Log out
                   </button>

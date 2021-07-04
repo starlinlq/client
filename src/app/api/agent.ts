@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { request } from "http";
 import { string } from "yup/lib/locale";
-import { Login, Register, Story, User } from "../interfaces";
+import { Login, Register, Story, User, Profile } from "../interfaces";
 import { toast } from "react-toastify";
 import { history } from "../../";
 
@@ -34,8 +34,8 @@ export const user = {
     requests.get<void>("/logout", {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
-  loadStories: () =>
-    requests.get<Story[]>("/post/user/stories", {
+  loadStories: (id: string) =>
+    requests.get<{ posts: Story[]; profile: Profile[] }>(`/profile/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
 };
