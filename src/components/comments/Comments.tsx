@@ -1,9 +1,7 @@
 import { observer } from "mobx-react-lite";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useStore } from "../../app/stores/stores";
 import CreateComment from "./CreateComment";
-import DisplayComment from "./DisplayComment";
-import { Comment } from "../../app/interfaces/";
 
 const Comments = () => {
   const { post } = useStore();

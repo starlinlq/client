@@ -1,6 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { request } from "http";
-import { string } from "yup/lib/locale";
 import { Login, Register, Story, User, Profile } from "../interfaces";
 import { toast } from "react-toastify";
 import { history } from "../../";

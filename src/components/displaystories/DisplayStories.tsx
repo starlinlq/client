@@ -1,7 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
 import { useEffect } from "react";
-import { agent } from "../../app/api/agent";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";

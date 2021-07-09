@@ -1,6 +1,4 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Story } from "../../app/interfaces";
