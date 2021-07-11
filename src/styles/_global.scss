@@ -14,18 +14,36 @@
   margin: 6px 0;
 }
 ._select {
-  margin: 6px 0;
-  padding: 5px 0;
+  margin-top: 60px;
+  margin-bottom: 5px;
+  padding: 18px 10px;
+  border: solid 1px #cccccc;
 }
 
 ._input {
   background-color: none;
-  padding: 5px 0;
-  margin: 6px 0;
+  padding: 18px 10px;
+  margin: 15px 0;
+  border: solid 1px #cccccc;
 }
+
 ._form {
   display: flex;
   flex-direction: column;
+  .testing02 {
+    height: 200px;
+  }
+}
+
+.create_title {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.button-w {
+  padding: 10px 60px !important;
 }
 .button {
   padding: 0.35em 1.2em;
@@ -39,6 +57,8 @@
   text-align: center;
   transition: all 0.2s;
   color: black;
+  background-color: white;
+  cursor: pointer;
 
   &:hover {
     border-color: orangered;
@@ -84,4 +104,3 @@
   justify-content: center;
   align-items: center;
 }
-

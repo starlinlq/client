@@ -1,10 +1,12 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { story } from "../../app/api/agent";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";
 import Comments from "../comments/Comments";
+import ReactHtmlParser from "react-html-parser";
 
 function SingleStory() {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +33,7 @@ function SingleStory() {
           </div>
           <div className="content">
             <h1>{content.title}</h1>
-            <p>{content.story}</p>
+            <div>{ReactHtmlParser(content.story)}</div>
           </div>
           <div className="comments">
             <Comments />
