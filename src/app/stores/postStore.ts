@@ -47,15 +47,20 @@ export class PostStore {
     }
   };
 
-  create = async (data: Story) => {
+  create = async (data: any) => {
     this.loading = true;
+    const image = new FormData();
+    image.append("image", data.image);
     try {
-      let story = await agent.story.create({ ...data });
+      let img = await agent.story.upload(image);
+      console.log(img);
+      /* let story = await agent.story.create({ ...data, photo_url: img.url });
       runInAction(() => {
         this.selectedStory = [story];
         this.loading = false;
         history.push(`/story/${story.id}`);
       });
+      */
     } catch (error) {
       runInAction(() => {
         this.loading = false;

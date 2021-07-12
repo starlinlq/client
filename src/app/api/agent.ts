@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Login, Register, Story, User, Profile } from "../interfaces";
 import { toast } from "react-toastify";
 import { history } from "../../";
+import { request } from "http";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -56,6 +57,11 @@ export const user = {
 };
 
 export const story = {
+  upload: (image: any) =>
+    requests.post<{ status: string; url: string }>("/post/upload", image, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+      ...image.getHeaders(),
+    }),
   create: ({ title, story, photo_url, category }: Story) =>
     requests.post<Story>(
       "/post/create",

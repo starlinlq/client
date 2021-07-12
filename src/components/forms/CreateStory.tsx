@@ -31,11 +31,11 @@ function CreateStory() {
   const [
     story_data = {
       title: "",
-      image: undefined,
       category: "",
     },
     setStory_data,
   ] = useState<Story>();
+  const [selectedFile, setSelectedFile] = useState({});
   const [story, setStory] = useState("");
   const { id } = useParams<{ id: string }>();
   const { post } = useStore();
@@ -43,23 +43,15 @@ function CreateStory() {
 
   const validationSchema = Yup.object({
     title: Yup.string().required("the activity title is required"),
-    story: Yup.string().required("the activity description is required"),
-    photo_url: Yup.string().required("a photo is required"),
     category: Yup.string().required("please select a category"),
   });
 
-  useEffect(() => {
-    if (id) {
-      //load story
-    }
-  }, []);
-
-  const handleOnChangte = (data: string) => {
+  const handleOnChange = (data: string) => {
     setStory(data);
   };
 
   const handleFormSubmit = (data: Story | any) => {
-    post.create(data);
+    post.create({ ...data, story, image: selectedFile });
   };
 
   if (loading) {
@@ -82,7 +74,7 @@ function CreateStory() {
               className="testing02"
               theme="snow"
               value={story}
-              onChange={(e: string) => handleOnChangte(e)}
+              onChange={(e: string) => handleOnChange(e)}
               placeholder={"Write something amazing..."}
               modules={modules}
             />
@@ -91,11 +83,14 @@ function CreateStory() {
               <option value="2">Nature</option>
               <option value="3">Life</option>
             </Field>
-            <Field
+            <input
               type="file"
-              className="_input"
-              name="image"
-              placeholder="Please pick a story photo"
+              name="file"
+              accept="image/*"
+              placeholder="Upload an Image"
+              onChange={(e: any) =>
+                setSelectedFile({ image: e.target.files[0] })
+              }
             />
             <div>
               <button type="submit" className="button button-w">
