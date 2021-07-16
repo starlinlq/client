@@ -53,15 +53,17 @@ export class PostStore {
     image.append("image", data.image);
     try {
       let img = await agent.story.upload(image);
-      console.log(img);
-      /* let story = await agent.story.create({ ...data, photo_url: img.url });
-      runInAction(() => {
-        this.selectedStory = [story];
-        this.loading = false;
-        history.push(`/story/${story.id}`);
-      });
-      */
+      if (img) {
+        console.log(img.url);
+        let story = await agent.story.create({ ...data, photo_url: img.url });
+        runInAction(() => {
+          this.selectedStory = [story];
+          this.loading = false;
+          history.push(`/story/${story.id}`);
+        });
+      }
     } catch (error) {
+      console.log(error);
       runInAction(() => {
         this.loading = false;
       });

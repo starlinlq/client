@@ -1,13 +1,10 @@
-import React, { ChangeEvent } from "react";
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
-import { Button, Segment, Header } from "semantic-ui-react";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
-import { agent } from "../../app/api/agent";
 import Loading from "../../features/loader/Loading";
 import ReactQuill from "react-quill";
 
@@ -51,7 +48,7 @@ function CreateStory() {
   };
 
   const handleFormSubmit = (data: Story | any) => {
-    post.create({ ...data, story, image: selectedFile });
+    post.create({ ...data, story, ...selectedFile });
   };
 
   if (loading) {
@@ -84,6 +81,7 @@ function CreateStory() {
               <option value="3">Life</option>
             </Field>
             <input
+              className="_input"
               type="file"
               name="file"
               accept="image/*"

@@ -60,7 +60,6 @@ export const story = {
   upload: (image: any) =>
     requests.post<{ status: string; url: string }>("/post/upload", image, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
-      ...image.getHeaders(),
     }),
   create: ({ title, story, photo_url, category }: Story) =>
     requests.post<Story>(
