@@ -1,0 +1,22 @@
+@import "../../styles/global";
+
+.upload {
+  .file_input {
+    margin: 10px 0;
+  }
+  label {
+    font-weight: bold;
+  }
+
+  .upload_buttons {
+    :first-child {
+      margin-right: 7px;
+    }
+    button {
+      cursor: pointer;
+      background-color: white;
+      padding: 2px 5px;
+      border: 1px solid black;
+    }
+  }
+}

@@ -7,6 +7,7 @@ import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";
 import ReactQuill from "react-quill";
+import Upload from "../../features/upload/Upload";
 
 const modules = {
   toolbar: [
@@ -80,16 +81,7 @@ function CreateStory() {
               <option value="2">Nature</option>
               <option value="3">Life</option>
             </Field>
-            <input
-              className="_input"
-              type="file"
-              name="file"
-              accept="image/*"
-              placeholder="Upload an Image"
-              onChange={(e: any) =>
-                setSelectedFile({ image: e.target.files[0] })
-              }
-            />
+            <Upload />
             <div>
               <button type="submit" className="button button-w">
                 Submit
