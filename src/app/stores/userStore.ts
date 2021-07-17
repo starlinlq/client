@@ -26,10 +26,10 @@ export class UserStore {
       .then((r: any) => {
         if (r.data) {
           runInAction(() => {
+            this.isAuth = true;
             this.name = r.data.name;
             this.id = r.data.id;
             this.profile = [r.data.profile];
-            this.isAuth = true;
             this.loading = false;
           });
         }

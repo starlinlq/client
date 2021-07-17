@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Segment, Header, Button } from "semantic-ui-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Register } from "../../app/interfaces";
@@ -10,6 +10,8 @@ import { history } from "../../";
 function RegisterForm() {
   let register: Register = { name: "", email: "", password: "" };
   const { user } = useStore();
+  const { id } = useParams<{ id: string }>();
+  console.log(id);
 
   const validationSchema = Yup.object({
     email: Yup.string().required("email is required"),
@@ -19,7 +21,9 @@ function RegisterForm() {
 
   function handlFormSubmit(data: Register) {
     user.registerUser(data).then(() => {
-      history.push("/");
+      if (id) {
+        history.push(`/story/${id}`);
+      } else history.push("/");
     });
   }
 

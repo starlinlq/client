@@ -18,6 +18,16 @@ function CreateComment() {
     post.create_comment({ ...data });
   }
 
+  if (post.creatingComment) {
+    return (
+      <div className="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
+  }
+
   return (
     <Fragment>
       <h4 className="comment_author">{user.name}</h4>

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { story, user } from "../../app/api/agent";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
@@ -12,8 +12,9 @@ import { Comment } from "../../app/interfaces";
 
 function SingleStory() {
   const { id } = useParams<{ id: string }>();
-  const { post } = useStore();
+  const { post, user } = useStore();
   const { selectedStory, loading, comments } = post;
+  const { isAuth } = user;
 
   useEffect(get_story, [id, post, selectedStory]);
 
@@ -40,10 +41,25 @@ function SingleStory() {
         </div>
       ))}
       <div className="comments">
-        <CreateComment />
+        {isAuth ? (
+          <CreateComment />
+        ) : (
+          <div className="comment_login">
+            Please
+            <a href={`/login/${selectedStory[0] && selectedStory[0].id}`}>
+              Login
+            </a>
+            Or
+            <a href={`/register/${selectedStory[0] && selectedStory[0].id}`}>
+              Register
+            </a>
+            to share your thoughts
+          </div>
+        )}
+
         {comments.map((data: Comment) => (
           <Comments
-            key={data.user_id + data.user_name}
+            key={data.user_id + data.user_name + data.id}
             comment={data.comment}
             user_id={data.user_id}
             user_name={data.user_name}

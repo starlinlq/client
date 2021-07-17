@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Segment, Header, Button } from "semantic-ui-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Login } from "../../app/interfaces";
@@ -10,6 +10,7 @@ import Loading from "../../features/loader/Loading";
 import { history } from "../../";
 function RegisterForm() {
   let login: Login = { email: "", password: "" };
+  const { id } = useParams<{ id: string }>();
   const { user } = useStore();
   const { isAuth } = user;
 
@@ -17,16 +18,19 @@ function RegisterForm() {
     email: Yup.string().required("email is required"),
     password: Yup.string().required("name is required"),
   });
+  console.log(id);
 
   function handlFormSubmit(data: Login) {
     user.getUser(data);
+    if (id) {
+      history.push(`/story/${id}`);
+    } else if (user.isAuth) {
+      history.push("/");
+    }
   }
 
   if (user.loading) {
     return <Loading />;
-  }
-  if (user.isAuth) {
-    history.push("/");
   }
 
   return (

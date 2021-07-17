@@ -1,9 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Story } from "../../app/interfaces";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";
 import ReactQuill from "react-quill";
@@ -40,7 +37,7 @@ function CreateStory() {
   const [warning = { title: false, image: false, story: false }, setWarning] =
     useState<Warning>();
   const { id } = useParams<{ id: string }>();
-  const { post, features } = useStore();
+  const { post, features, user } = useStore();
   const { loading } = post;
 
   const handleOnChange = (e: any) => {
@@ -64,6 +61,8 @@ function CreateStory() {
       post.create({ ...story_data, photo_url: features.url });
     }
   };
+
+  useEffect(function () {}, []);
 
   if (loading) {
     return <Loading />;

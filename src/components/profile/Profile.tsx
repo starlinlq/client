@@ -20,7 +20,7 @@ function Profile() {
     } else {
       history.push("/");
     }
-  }, [id, user]);
+  }, [id]);
 
   return (
     <div className="profile">

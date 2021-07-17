@@ -23,6 +23,7 @@ function App() {
       user.validate();
     }
   }, []);
+
   return (
     <>
       <NavBar />
@@ -34,14 +35,16 @@ function App() {
       />
       <div className="container">
         <Switch>
-          <Route path="/register">
+          <Route path="/register/:id?">
             {user.isAuth ? <Redirect to="/" /> : <RegisterForm />}
           </Route>
-          <Route path="/login">
+          <Route path="/login/:id?">
             {user.isAuth ? <Redirect to="/" /> : <LoginForm />}
           </Route>
+          <Route exact path="/create">
+            <CreateStory />
+          </Route>
           <Route path="/stories" component={DisplayStories} />
-          <Route path="/create" component={CreateStory} />
           <Route path="/story/:id" component={SingleStory} />
           <Route path="/profile/:id" component={Profile} />
         </Switch>
