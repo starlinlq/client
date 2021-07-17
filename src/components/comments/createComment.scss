@@ -1,0 +1,25 @@
+.comment_form {
+  .comment_input {
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 100px;
+    border-radius: 5px;
+  }
+
+  .b-comment {
+    width: 100%;
+    padding: 10px 0;
+    border: solid 1px #cccccc;
+    background: lightgray;
+    border-radius: 5px;
+    font-family: $title-font;
+  }
+}
+
+.comment_author {
+  font-family: $author-font;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: darkblue;
+}

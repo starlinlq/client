@@ -1,6 +1,9 @@
 @import "_typography";
 $primary-font: "Roboto Slab", serif;
 $bluebell: #979fd0;
+$secondary-font: "Roboto", sans-serif;
+$title-font: "Merriweather", serif;
+$author-font: "Oswald", sans-serif;
 .loadingspinner {
   pointer-events: none;
   width: 2.5em;
@@ -55,6 +58,11 @@ $bluebell: #979fd0;
   position: absolute;
 }
 
+._required {
+  margin-top: 5px;
+  color: red;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -89,6 +97,7 @@ $bluebell: #979fd0;
   flex-direction: column;
   .testing02 {
     height: 200px;
+    margin: 10px 0;
   }
 }
 

@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { agent } from "../../app/api/agent";
 import { useStore } from "../../app/stores/stores";
 
@@ -19,11 +20,17 @@ export default observer(function Upload() {
   const handleUpload = async () => {
     if (selectedFile) {
       features.upload_image(selectedFile.image);
+    }
+  };
+
+  useEffect(
+    function () {
       if (features.url) {
         setUploaded(true);
       }
-    }
-  };
+    },
+    [features.url]
+  );
 
   const handleCancel = () => {};
 
@@ -38,7 +45,11 @@ export default observer(function Upload() {
       ) : (
         <>
           <div>
-            {uploaded && <span>Image Uploaded</span>}
+            {uploaded && (
+              <p className="_required" style={{ paddingBottom: 10 }}>
+                Image Uploaded
+              </p>
+            )}
             <label htmlFor="files">Select Image</label>
             <input
               className="file_input"

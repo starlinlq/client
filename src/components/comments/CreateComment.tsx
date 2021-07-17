@@ -4,13 +4,14 @@ import { Form } from "semantic-ui-react";
 import { useStore } from "../../app/stores/stores";
 import * as Yup from "yup";
 import { useState } from "react";
+import { observer } from "mobx-react-lite";
 
-export default function CreateComment() {
+function CreateComment() {
   const [comment, setComment] = useState({ comment: "" });
-  const { post } = useStore();
+  const { post, user } = useStore();
 
   const validationSchema = Yup.object({
-    comment: Yup.string().required("comment is required"),
+    comment: Yup.string().required("Comment is required"),
   });
 
   function handlFormSubmit(data: { comment: string }) {
@@ -19,7 +20,7 @@ export default function CreateComment() {
 
   return (
     <Fragment>
-      <header>Create Comment</header>
+      <h4 className="comment_author">{user.name}</h4>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}
@@ -27,18 +28,25 @@ export default function CreateComment() {
         onSubmit={(values) => handlFormSubmit(values)}
       >
         {({ handleSubmit }) => (
-          <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
-            <Field
-              component="textarea"
+          <Form
+            className="ui form comment_form"
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <ErrorMessage
+              className="_required"
               name="comment"
-              placeholder="Write your comment"
+              component="div"
             />
-            <ErrorMessage name="comment" component="div" />
-            <button className="button" type="submit">
-              Submit
-            </button>
-            <button type="button" className="button">
-              Cancel
+            <Field
+              className="_input comment_input"
+              component="input"
+              name="comment"
+              placeholder="Share your thoughts"
+            />
+
+            <button className="button b-comment" type="submit">
+              Post
             </button>
           </Form>
         )}
@@ -46,3 +54,5 @@ export default function CreateComment() {
     </Fragment>
   );
 }
+
+export default observer(CreateComment);

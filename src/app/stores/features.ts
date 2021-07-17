@@ -16,11 +16,15 @@ class Features {
     newForm.append("image", image);
     let img = await agent.story.upload(newForm);
     if (img) {
-      console.log(img);
+      this.set_url(img.url);
       this.set_loading(false);
     } else {
       this.set_loading(false);
     }
+  }
+
+  set_url(url: string) {
+    this.url = url;
   }
 
   set_loading(b: boolean) {

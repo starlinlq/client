@@ -1,7 +1,19 @@
 import React from "react";
 import { Story } from "../../app/interfaces";
 
-function StoryCard({ name, story, title, id }: Story) {
+function StoryCard({
+  name,
+  story,
+  title,
+  id,
+}: {
+  name: string;
+  story: string;
+  title: string;
+  id: string;
+  photo_url: string;
+  category: string;
+}) {
   return (
     <div className="story_card d-flex">
       <div className="_content ">

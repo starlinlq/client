@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Story } from "../interfaces";
+import { Story, Comment } from "../interfaces";
 import { agent } from "../api/agent";
 import { history } from "../../";
 
@@ -49,19 +49,14 @@ export class PostStore {
 
   create = async (data: any) => {
     this.loading = true;
-    const image = new FormData();
-    image.append("image", data.image);
+
     try {
-      let img = await agent.story.upload(image);
-      if (img) {
-        console.log(img.url);
-        let story = await agent.story.create({ ...data, photo_url: img.url });
-        runInAction(() => {
-          this.selectedStory = [story];
-          this.loading = false;
-          history.push(`/story/${story.id}`);
-        });
-      }
+      let story = await agent.story.create({ ...data });
+      runInAction(() => {
+        this.selectedStory = [story];
+        this.loading = false;
+        history.push(`/story/${story.id}`);
+      });
     } catch (error) {
       console.log(error);
       runInAction(() => {
@@ -80,7 +75,7 @@ export class PostStore {
         });
         runInAction(() => {
           this.loading = false;
-          this.comments.unshift(new_comment);
+          // this.selectedStory[0].comments.unshift(new_comment);
         });
       }
     } catch (error) {}

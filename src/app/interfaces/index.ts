@@ -8,7 +8,7 @@ export interface Register {
 export interface Comment {
   id: string;
   user_id: string;
-  name: string;
+  user_name: string;
   comment: string;
 }
 
@@ -16,10 +16,10 @@ export interface Story {
   story: string;
   photo_url: string;
   title: string;
-  name?: string;
-  id?: string;
+  name: string;
+  id: string;
   category: string;
-  comments?: any;
+  comments: Comment[];
 }
 export interface User {
   name: string;
