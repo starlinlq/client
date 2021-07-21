@@ -6,7 +6,7 @@
   .l_name {
     font-family: $name_font;
     background-color: #eeeeee;
-    border-radius: 50%;
+    border-radius: 5px;
     border: 1px solid #eeeeee;
     height: 50px;
     width: 50px;
@@ -27,14 +27,23 @@
       color: black;
       text-align: justify;
     }
-    .author_name {
-      background-color: white;
-      border: none;
-      cursor: pointer;
-      font-family: $author-font;
-      text-decoration: none;
-      font-size: 18px;
-      color: darkblue;
+    .author {
+      display: flex;
+      justify-content: space-between;
+      .icon {
+        font-size: 18px;
+        cursor: pointer;
+        color: red;
+      }
+      .author_name {
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        font-family: $author-font;
+        text-decoration: none;
+        font-size: 18px;
+        color: darkblue;
+      }
     }
   }
 }
