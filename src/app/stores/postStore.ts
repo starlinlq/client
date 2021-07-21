@@ -11,6 +11,8 @@ export class PostStore {
   story: Story[] = [];
   comments: any[] = [];
   creatingComment = false;
+  deletingComment = false;
+  editingComment = false;
   constructor() {
     makeAutoObservable(this);
   }
@@ -69,6 +71,7 @@ export class PostStore {
 
   create_comment = async (comment: { comment: string }) => {
     this.creatingComment = true;
+
     try {
       let story_id = this.selectedStory[0].id;
       if (story_id) {
@@ -81,6 +84,39 @@ export class PostStore {
           this.creatingComment = false;
         });
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  edit_comment = async (comment: { comment: string; id: string }) => {
+    this.editingComment = true;
+    try {
+      await agent._comments.edit(comment);
+      runInAction(() => {
+        let updated = this.comments.map((c) => {
+          if (c.id === comment.id) {
+            c.comment = comment.comment;
+          }
+          return c;
+        });
+        this.comments = updated;
+        this.editingComment = false;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  delete_comment = async (c_id: string) => {
+    this.deletingComment = true;
+
+    try {
+      await agent._comments.delete(c_id);
+      let comments = this.comments.filter((c) => c.id !== c_id);
+      this.comments = comments;
+      runInAction(() => {
+        this.deletingComment = false;
+      });
     } catch (error) {
       console.log(error);
     }

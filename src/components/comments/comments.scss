@@ -20,6 +20,15 @@
     margin-left: 15px;
     padding-bottom: 15px;
     .comment {
+      textarea {
+        width: 100%;
+        padding-bottom: 80px;
+        padding-top: 5px;
+        border: 1px solid black;
+        /* border-radius: 5px; */
+        padding-left: 5px;
+        margin-top: 5px;
+      }
       font-family: $primary-font;
       letter-spacing: -0.003em;
       line-height: 20px;
@@ -31,9 +40,17 @@
       display: flex;
       justify-content: space-between;
       .icon {
-        font-size: 18px;
-        cursor: pointer;
-        color: red;
+        .edit {
+          color: black;
+          margin-right: 10px;
+          cursor: pointer;
+          font-size: 18px;
+        }
+        .delete {
+          font-size: 18px;
+          cursor: pointer;
+          color: red;
+        }
       }
       .author_name {
         background-color: white;

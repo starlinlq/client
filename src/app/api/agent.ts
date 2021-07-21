@@ -31,11 +31,11 @@ export const _comments = {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
   edit: (comment: { comment: string; id: string }) =>
-    requests.put(`api/comment/update/${comment.id}`, comment, {
+    requests.put(`comment/update/${comment.id}`, comment, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
   delete: (id: string) =>
-    requests.delete(`comment/delete/${id}`, {
+    requests.delete<void>(`comment/delete/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
 };

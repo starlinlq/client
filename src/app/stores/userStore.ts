@@ -6,7 +6,7 @@ import { history } from "../../";
 
 export class UserStore {
   name: string = "";
-  id: number | undefined = undefined;
+  id: string = "";
   loading: boolean = false;
   isAuth: boolean = false;
   profile: Profile[] = [];
