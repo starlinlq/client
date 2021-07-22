@@ -4,6 +4,27 @@
 .nav_container {
   width: 100%;
   border-bottom: 1px solid black;
+  position: relative;
+
+  .nav_menus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .b_menu {
+      display: none;
+      .burger {
+        font-size: 23px;
+        margin-left: 15px;
+        cursor: pointer;
+      }
+
+      @media screen and (max-width: 700px) {
+        display: block;
+      }
+    }
+  }
+
   a {
     font-family: $font-primary;
     text-decoration: none;
@@ -31,6 +52,15 @@
 
   .account {
     position: relative;
+  }
+
+  @media screen and (max-width: 700px) {
+    .account {
+      display: none;
+    }
+    .n-link {
+      display: none;
+    }
   }
 }
 

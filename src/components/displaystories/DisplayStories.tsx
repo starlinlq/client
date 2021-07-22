@@ -20,17 +20,19 @@ function DisplayStories() {
   }
   return (
     <div className="display_stories">
-      {story.map(({ story, title, name, id, photo_url, category }: Story) => (
-        <StoryCard
-          key={id}
-          story={story}
-          title={title}
-          name={name}
-          id={id}
-          photo_url={photo_url}
-          category={category}
-        />
-      ))}
+      {story.map(
+        ({ story, title, user_name, id, photo_url, category }: Story) => (
+          <StoryCard
+            key={id}
+            story={story}
+            title={title}
+            name={user_name}
+            id={id}
+            photo_url={photo_url}
+            category={category}
+          />
+        )
+      )}
     </div>
   );
 }

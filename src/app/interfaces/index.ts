@@ -17,6 +17,7 @@ export interface Story {
   photo_url: string;
   title: string;
   name: string;
+  user_name?: string;
   id: string;
   category: string;
   comments: Comment[];
