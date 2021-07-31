@@ -17,6 +17,7 @@ function Profile() {
     console.log(id);
     if (id) {
       user.loadUserStories(id);
+      //getting user stories
     } else {
       history.push("/");
     }
