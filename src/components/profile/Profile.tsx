@@ -6,12 +6,22 @@ import { useParams } from "react-router-dom";
 import { history } from "../..";
 import { useStore } from "../../app/stores/stores";
 import StoryCard from "../storyCard/StoryCard";
+import { BiEdit } from "react-icons/bi";
+import useComponentVisible from "../../hooks/useComponentVisible";
+import EditProfile from "../editprofile/EditProfile";
 
 function Profile() {
-  const [state, setState] = useState<object[]>([]);
   const { id } = useParams<{ id: string | undefined }>();
+  const [active, setActive] = useState(false);
   const { user } = useStore();
   const { profile: p } = user;
+  const { visible, ref } = useComponentVisible(false);
+
+  const handleEdit = () => {};
+
+  const handleActive = () => {
+    setActive(!active);
+  };
 
   useEffect(() => {
     console.log(id);
@@ -25,6 +35,8 @@ function Profile() {
 
   return (
     <div className="profile">
+      <div>{active && <EditProfile setActive={setActive} />}</div>
+
       {p.map((data) => (
         <Fragment key={data.id}>
           <div className="background">
@@ -36,7 +48,14 @@ function Profile() {
           <div className="account">
             <img src={data.profile_pic_url} alt="profile_picture" />
             <div className="details">
-              <h1>{user.name}</h1>
+              <div className="edit">
+                {" "}
+                <p>{user.name}</p>
+                <div onClick={handleActive}>
+                  {" "}
+                  <BiEdit className="icon" onClick={handleEdit} />
+                </div>
+              </div>
               <span>{data.city} </span>
               <div className="followers">
                 <span>followers</span>
