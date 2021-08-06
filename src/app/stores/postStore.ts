@@ -21,6 +21,7 @@ export class PostStore {
     this.loading = true;
     try {
       let data = await agent.story.all();
+      console.log(data);
       runInAction(() => {
         this.story = data;
         this.loading = false;

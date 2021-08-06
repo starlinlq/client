@@ -11,7 +11,7 @@ function CreateComment() {
   const { post, user } = useStore();
 
   const validationSchema = Yup.object({
-    comment: Yup.string().required("Comment is required"),
+    comment: Yup.string().required("Write a comment before posting"),
   });
 
   function handlFormSubmit(data: { comment: string }) {
@@ -30,7 +30,6 @@ function CreateComment() {
 
   return (
     <Fragment>
-      <h4 className="comment_author">{user.name}</h4>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}

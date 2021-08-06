@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/stores";
-import { RiMenu3Fill, RiCloseLine } from "react-icons/ri";
+import { RiMenu3Fill, RiCloseLine, RiAccountCircleLine } from "react-icons/ri";
 import MobileMenu from "../mobilemenu/MobileMenu";
+import useComponentVisible from "../../hooks/useComponentVisible";
 
 function NavBar() {
-  const [active, setActive] = useState(false);
   const [mobile, setMobile] = useState(false);
+  const { ref, visible } = useComponentVisible(false);
   const { user } = useStore();
   const { isAuth } = user;
 
@@ -14,9 +15,6 @@ function NavBar() {
     user.logOutUser();
   }
 
-  function handleClick() {
-    setActive(!active);
-  }
   function handleMobile() {
     setMobile(!mobile);
   }
@@ -40,12 +38,16 @@ function NavBar() {
                 <a href="/create" className="button">
                   Create Story
                 </a>
-                <div onClick={handleClick} className="account">
-                  <p>account</p>
-                  <div className={active ? "active" : "not_active"}>
+                <div ref={ref} className="account">
+                  <div className="user">
+                    <RiAccountCircleLine />
+                    <p> Hi {user.name}</p>
+                  </div>
+
+                  <div className={visible ? "active" : "not_active"}>
                     <a href="/account">Account</a>
                     <a href={`/profile/${user.id}`}>Profile</a>
-                    <button className="button" onClick={handleLogOut}>
+                    <button className="" type="button" onClick={handleLogOut}>
                       Log out
                     </button>
                   </div>

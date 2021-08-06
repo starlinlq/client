@@ -7,6 +7,7 @@
   position: relative;
 
   .nav_menus {
+    font-weight: 500;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +30,7 @@
     font-family: $font-primary;
     text-decoration: none;
     color: $primary-color;
-    margin: 5px;
+    margin: 5px 0;
     width: 100%;
   }
 
@@ -45,6 +46,7 @@
   .user-links {
     align-items: center;
     height: 100%;
+    width: 300px;
   }
 
   .n-link {
@@ -52,6 +54,17 @@
 
   .account {
     position: relative;
+
+    .user {
+      cursor: pointer;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      min-width: 100px;
+      p {
+        padding-left: 5px;
+      }
+    }
   }
 
   @media screen and (max-width: 700px) {
@@ -70,23 +83,29 @@
   position: absolute;
   right: 0px;
   top: 40px;
-  width: 200px;
+
   height: 200px;
+
+  button,
   a {
     display: block;
-    border: 1px solid black;
-    padding: 5px;
     text-align: center;
-  }
-  button {
+    border-radius: 5px;
     font-family: $font-primary;
     text-decoration: none;
     color: $primary-color;
-    width: 100%;
-    margin: 5px;
-    padding: 5px;
-    background: transparent;
-    font-weight: 500;
+    width: 220px;
+    padding: 10px 0;
+    background-color: ghostwhite;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      color: orangered;
+    }
   }
 }
 

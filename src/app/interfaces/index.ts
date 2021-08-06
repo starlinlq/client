@@ -21,6 +21,7 @@ export interface Story {
   id: string;
   category: string;
   comments: Comment[];
+  created_at: string;
 }
 export interface User {
   name: string;

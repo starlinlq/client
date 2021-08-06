@@ -21,9 +21,18 @@ function DisplayStories() {
   return (
     <div className="display_stories">
       {story.map(
-        ({ story, title, user_name, id, photo_url, category }: Story) => (
+        ({
+          story,
+          title,
+          user_name,
+          id,
+          photo_url,
+          category,
+          created_at,
+        }: Story) => (
           <StoryCard
             key={id}
+            date={created_at}
             story={story}
             title={title}
             name={user_name}

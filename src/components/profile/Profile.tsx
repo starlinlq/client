@@ -50,6 +50,7 @@ function Profile() {
               {user.posts.map((data) => (
                 <Fragment key={data.id}>
                   <StoryCard
+                    date={data.created_at.slice(0, 10)}
                     name={data.name}
                     story={data.story}
                     id={data.id}
