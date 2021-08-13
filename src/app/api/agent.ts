@@ -54,6 +54,15 @@ export const user = {
     requests.get<{ posts: Story[]; profile: Profile[] }>(`/profile/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
+  editProfile: (userInfo: {
+    name: string;
+    about: string;
+    url: string;
+    city: string;
+  }) =>
+    requests.put("/profile/update", userInfo, {
+      headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+    }),
 };
 
 export const story = {

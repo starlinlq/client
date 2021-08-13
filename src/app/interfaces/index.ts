@@ -33,7 +33,7 @@ export interface Login {
 }
 
 export interface Profile {
-  id: number;
+  id: string;
   city: string;
   profile_pic_url: string;
   about_me: string;

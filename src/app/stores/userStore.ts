@@ -109,6 +109,32 @@ export class UserStore {
     }
   };
 
+  editUserProfile = async (userData: {
+    name: string;
+    about: string;
+    url: string;
+    city: string;
+  }) => {
+    this.editMode = true;
+    try {
+      await agent.user.editProfile(userData);
+      runInAction(() => {
+        this.editMode = false;
+        this.profile = [
+          {
+            id: this.id,
+            city: userData.city,
+            profile_pic_url: userData.url,
+            about_me: userData.about,
+            name: userData.name,
+          },
+        ];
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   setToken = (token: string) => {
     let t = ` bearer ${token}`;
     localStorage.setItem("Authorization", t);

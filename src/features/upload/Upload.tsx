@@ -58,7 +58,7 @@ export default observer(function Upload() {
               name="file"
               accept="image/*"
               placeholder="Upload an Image"
-              onChange={(e: any) => handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div className="upload_buttons">

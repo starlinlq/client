@@ -1,20 +1,55 @@
 import React from "react";
+import { useState } from "react";
+import { useStore } from "../../app/stores/stores";
 import Upload from "../../features/upload/Upload";
 
 function EditProfile({ setActive }: { setActive: Function }) {
-  function handleForm(e: React.SyntheticEvent) {}
+  const [data, setData] = useState({ name: "", about: "", city: "" });
+  const { features, user } = useStore();
+
+  function handleFormSubmit(e: React.SyntheticEvent) {
+    e.preventDefault();
+    console.log("heyu");
+    if (features.url) {
+      console.log("heyud22");
+      user.editUserProfile({ ...data, url: features.url });
+    }
+  }
+
+  function handleFormData(
+    e:
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>
+  ) {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  }
+
   function handleActive() {
     setActive(false);
   }
   return (
     <div className="profile_edit">
-      <form onSubmit={handleForm}>
+      <form onSubmit={handleFormSubmit}>
         <div>
           <label htmlFor="name">Name</label>
           <input
+            value={data.name}
+            onChange={handleFormData}
             type="text"
             name="name"
             placeholder="name"
+            className="_input"
+          />
+        </div>
+        <div>
+          <label htmlFor="city">City</label>
+          <input
+            value={data.city}
+            onChange={handleFormData}
+            type="text"
+            name="city"
+            placeholder="City"
             className="_input"
           />
         </div>
@@ -22,7 +57,13 @@ function EditProfile({ setActive }: { setActive: Function }) {
         <div>
           {" "}
           <label htmlFor="about">About</label>
-          <textarea name="about" placeholder="about" className="_input" />
+          <textarea
+            value={data.about}
+            name="about"
+            placeholder="about"
+            className="_input"
+            onChange={handleFormData}
+          />
         </div>
         <div>
           <label htmlFor="profile picture">Profile picture</label>
