@@ -120,6 +120,7 @@ export class UserStore {
       await agent.user.editProfile(userData);
       runInAction(() => {
         this.editMode = false;
+        this.name = userData.name;
         this.profile = [
           {
             id: this.id,

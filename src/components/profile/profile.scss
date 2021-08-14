@@ -2,14 +2,19 @@
   position: relative;
 
   .stories {
-    position: relative;
-    bottom: 90px;
-
+    h1 {
+      margin-left: 20px;
+    }
     .content {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
     }
+  }
+
+  .container {
+    display: flex;
+    margin-top: 40px;
   }
 
   .background {
@@ -20,12 +25,11 @@
     }
   }
   .account {
-    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    bottom: 100px;
+
     padding-bottom: 15px;
     border-bottom: 1px solid lightgray;
 
@@ -33,7 +37,7 @@
       position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+
       p {
         font-size: 20px;
         font-weight: bold;
@@ -50,7 +54,7 @@
       }
     }
     .details {
-      text-align: center;
+      width: 100%;
       h3 {
         width: 100%;
       }
@@ -63,8 +67,8 @@
       }
     }
     img {
-      width: 250px;
-      height: 200px;
+      width: 230px;
+      height: 250px;
       border-radius: 7px;
       object-fit: cover;
     }

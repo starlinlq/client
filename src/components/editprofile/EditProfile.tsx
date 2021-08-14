@@ -9,10 +9,10 @@ function EditProfile({ setActive }: { setActive: Function }) {
 
   function handleFormSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    console.log("heyu");
+
     if (features.url) {
-      console.log("heyud22");
       user.editUserProfile({ ...data, url: features.url });
+      setActive(false);
     }
   }
 
@@ -38,7 +38,7 @@ function EditProfile({ setActive }: { setActive: Function }) {
             onChange={handleFormData}
             type="text"
             name="name"
-            placeholder="name"
+            placeholder="Your name"
             className="_input"
           />
         </div>
@@ -49,7 +49,7 @@ function EditProfile({ setActive }: { setActive: Function }) {
             onChange={handleFormData}
             type="text"
             name="city"
-            placeholder="City"
+            placeholder="Where are you from"
             className="_input"
           />
         </div>
@@ -60,7 +60,7 @@ function EditProfile({ setActive }: { setActive: Function }) {
           <textarea
             value={data.about}
             name="about"
-            placeholder="about"
+            placeholder="Something about you"
             className="_input"
             onChange={handleFormData}
           />

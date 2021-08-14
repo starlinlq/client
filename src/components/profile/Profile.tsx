@@ -15,6 +15,7 @@ function Profile() {
   const [active, setActive] = useState(false);
   const { user } = useStore();
   const { profile: p } = user;
+  //visible
   const { visible, ref } = useComponentVisible(false);
 
   const handleEdit = () => {};
@@ -36,27 +37,23 @@ function Profile() {
   return (
     <div className="profile">
       <div>{active && <EditProfile setActive={setActive} />}</div>
-
       {p.map((data) => (
-        <Fragment key={data.id}>
-          <div className="background">
-            <img
-              src="https://wallpaperaccess.com/full/1853607.jpg"
-              alt="background"
-            />
-          </div>
+        <div className="container" key={data.id}>
           <div className="account">
             <img src={data.profile_pic_url} alt="profile_picture" />
             <div className="details">
               <div className="edit">
                 {" "}
-                <p>{user.name}</p>
+                <p>starlin</p>
                 <div onClick={handleActive}>
                   {" "}
                   <BiEdit className="icon" onClick={handleEdit} />
                 </div>
               </div>
-              <span>{data.city} </span>
+              <span>{`From: ${data.city}`} </span>
+              <div>
+                <p>{data.about_me}</p>
+              </div>
               <div className="followers">
                 <span>followers</span>
                 <span>following</span>
@@ -64,7 +61,7 @@ function Profile() {
             </div>
           </div>
           <div className="stories">
-            <h1>Stories</h1>
+            <h1>starlin's stories</h1>
             <div className="content">
               {user.posts.map((data) => (
                 <Fragment key={data.id}>
@@ -81,7 +78,7 @@ function Profile() {
               ))}
             </div>
           </div>
-        </Fragment>
+        </div>
       ))}
     </div>
   );
