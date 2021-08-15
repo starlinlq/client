@@ -2,7 +2,7 @@
 $primary-font: "Roboto Slab", serif;
 $bluebell: #979fd0;
 $secondary-font: "Roboto", sans-serif;
-$title-font: "Merriweather", serif;
+$title-font: "Merriwe1ather", serif;
 $author-font: "Oswald", sans-serif;
 $name_font: "Anton", sans-serif;
 .loadingspinner {
@@ -20,6 +20,12 @@ $name_font: "Anton", sans-serif;
   100% {
     transform: rotate(360deg);
   }
+}
+
+.box-shadow {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
 .loading {

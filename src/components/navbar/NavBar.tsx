@@ -44,7 +44,7 @@ function NavBar() {
                     <p> Hi {user.name}</p>
                   </div>
 
-                  <div className={visible ? "active" : "not_active"}>
+                  <div className={visible ? "active box-shadow" : "not_active"}>
                     <a href="/account">Account</a>
                     <a href={`/profile/${user.id}`}>Profile</a>
                     <button className="" type="button" onClick={handleLogOut}>

@@ -1,0 +1,25 @@
+.author {
+  width: 100%;
+  text-align: center;
+  .content {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //border: 1px solid black;
+    padding: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+
+    p {
+      padding-left: 10px;
+      font-size: 18px;
+    }
+    img {
+      border-radius: 50%;
+      width: 40px;
+      object-fit: cover;
+    }
+  }
+}

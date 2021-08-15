@@ -2,6 +2,11 @@
   position: relative;
 
   .stories {
+    .featured {
+      font-size: 25px;
+      font-family: $title-font;
+      margin-left: 30px;
+    }
     h1 {
       margin-left: 20px;
     }
@@ -15,23 +20,23 @@
   .container {
     display: flex;
     margin-top: 40px;
-  }
 
-  .background {
-    img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
     }
   }
+
   .account {
-    width: 100%;
+    width: 230px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
     padding-bottom: 15px;
     border-bottom: 1px solid lightgray;
+
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
 
     .edit {
       position: relative;
@@ -39,9 +44,10 @@
       align-items: center;
 
       p {
-        font-size: 20px;
-        font-weight: bold;
         padding: 10px 0;
+        font-size: 20px;
+        font-family: $name_font;
+        letter-spacing: 0.9px;
       }
 
       .icon {
@@ -55,14 +61,32 @@
     }
     .details {
       width: 100%;
-      h3 {
-        width: 100%;
+      .about {
+        margin: 15px 0;
+        p {
+          font-size: 16px;
+          padding-top: 5px;
+          color: gray;
+          text-align: left;
+        }
+      }
+      .location {
+        h4 {
+          margin-bottom: 5px;
+          font-size: 15px;
+        }
+        p {
+          color: grey;
+        }
       }
 
       .followers {
         width: 100%;
+
         span {
-          padding-right: 5px;
+          font-size: 16px;
+          padding-right: 25px;
+          font-weight: bold;
         }
       }
     }
@@ -71,6 +95,10 @@
       height: 250px;
       border-radius: 7px;
       object-fit: cover;
+
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
     }
 
     h1 {

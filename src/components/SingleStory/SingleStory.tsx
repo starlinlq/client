@@ -9,6 +9,7 @@ import Comments from "../comments/Comments";
 import ReactHtmlParser from "react-html-parser";
 import CreateComment from "../comments/CreateComment";
 import { Comment } from "../../app/interfaces";
+import Author from "../author/Author";
 
 function SingleStory() {
   const { id } = useParams<{ id: string }>();
@@ -36,6 +37,13 @@ function SingleStory() {
           </div>
           <div className="content">
             <h1 className="title">{content.title}</h1>
+            <div>
+              <Author
+                name={content.user_name}
+                profile_photo={content.profile_photo}
+                id={content.user_id}
+              />
+            </div>
             <div className="story">{ReactHtmlParser(content.story)}</div>
           </div>
         </div>

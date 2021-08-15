@@ -1,5 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Login, Register, Story, User, Profile } from "../interfaces";
+import {
+  Login,
+  Register,
+  Story,
+  User,
+  Profile,
+  SingleStory,
+} from "../interfaces";
 import { toast } from "react-toastify";
 import { history } from "../../";
 import { request } from "http";
@@ -82,7 +89,7 @@ export const story = {
       { title, story, photo_url },
       { headers: { Authorization: `${localStorage.getItem("Authoriation")}` } }
     ),
-  show: (id: string) => requests.get<Story>(`post/show/${id}`),
+  show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),
   all: () => requests.get<Story[]>("/post/stories"),
 };
 

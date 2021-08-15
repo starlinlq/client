@@ -22,10 +22,10 @@ function StoryCard({
   return (
     <div className="story_card d-flex">
       <img src={photo_url} alt={title} />
-      <div className="_content ">
+      <div className="_content">
         <p className="date">{date.slice(0, 10)}</p>
-        <p className="title">{title.slice(0, 40)}</p>
-        <div className="author">
+        <p className="title">{title.slice(0, 40).toUpperCase()}</p>
+        <div className="author_name">
           <span>by</span>
           <p>{name}</p>
         </div>

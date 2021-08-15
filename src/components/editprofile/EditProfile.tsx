@@ -1,10 +1,15 @@
+import { Observer } from "mobx-react-lite";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useStore } from "../../app/stores/stores";
 import Upload from "../../features/upload/Upload";
-
-function EditProfile({ setActive }: { setActive: Function }) {
+interface Props {
+  setActive: Function;
+}
+export default function EditProfile({ setActive }: Props) {
   const [data, setData] = useState({ name: "", about: "", city: "" });
+  const [warning, setWarning] = useState(false);
   const { features, user } = useStore();
 
   function handleFormSubmit(e: React.SyntheticEvent) {
@@ -13,8 +18,14 @@ function EditProfile({ setActive }: { setActive: Function }) {
     if (features.url) {
       user.editUserProfile({ ...data, url: features.url });
       setActive(false);
+      setWarning(false);
+    } else {
+      setWarning(true);
     }
   }
+  useEffect(() => {
+    setWarning(false);
+  }, [features.url]);
 
   function handleFormData(
     e:
@@ -30,10 +41,13 @@ function EditProfile({ setActive }: { setActive: Function }) {
   }
   return (
     <div className="profile_edit">
-      <form onSubmit={handleFormSubmit}>
+      <form className="box-shadow" onSubmit={handleFormSubmit}>
         <div>
           <label htmlFor="name">Name</label>
           <input
+            minLength={1}
+            maxLength={15}
+            required
             value={data.name}
             onChange={handleFormData}
             type="text"
@@ -45,6 +59,9 @@ function EditProfile({ setActive }: { setActive: Function }) {
         <div>
           <label htmlFor="city">City</label>
           <input
+            required
+            minLength={1}
+            maxLength={20}
             value={data.city}
             onChange={handleFormData}
             type="text"
@@ -58,6 +75,9 @@ function EditProfile({ setActive }: { setActive: Function }) {
           {" "}
           <label htmlFor="about">About</label>
           <textarea
+            required
+            minLength={5}
+            maxLength={360}
             value={data.about}
             name="about"
             placeholder="Something about you"
@@ -67,6 +87,9 @@ function EditProfile({ setActive }: { setActive: Function }) {
         </div>
         <div>
           <label htmlFor="profile picture">Profile picture</label>
+          {warning && (
+            <span style={{ color: "red" }}> Please upload a picture</span>
+          )}
           <Upload />
         </div>
 
@@ -80,5 +103,3 @@ function EditProfile({ setActive }: { setActive: Function }) {
     </div>
   );
 }
-
-export default EditProfile;

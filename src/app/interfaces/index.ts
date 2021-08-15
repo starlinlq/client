@@ -22,6 +22,13 @@ export interface Story {
   category: string;
   comments: Comment[];
   created_at: string;
+  profile_photo: string;
+  user_id: string;
+}
+
+export interface SingleStory {
+  post: Story;
+  url: string;
 }
 export interface User {
   name: string;

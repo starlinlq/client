@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Story, Comment } from "../interfaces";
+import { Story, Comment, SingleStory } from "../interfaces";
 import { agent } from "../api/agent";
 import { history } from "../../";
 
@@ -35,13 +35,13 @@ export class PostStore {
   };
 
   show = async (id: string) => {
-    this.loading = true;
+    this.loading = false;
     try {
       let post = await agent.story.show(id);
-      console.log(post.comments);
+      console.log(post);
       runInAction(() => {
-        this.selectedStory = [post];
-        this.comments = post.comments;
+        this.selectedStory = [{ ...post.post, profile_photo: post.url }];
+        this.comments = post.post.comments;
         this.loading = false;
       });
     } catch (error) {
