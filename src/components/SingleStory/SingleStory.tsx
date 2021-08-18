@@ -36,7 +36,7 @@ function SingleStory() {
             <img src={content.photo_url} alt="photo_test" />
           </div>
           <div className="content">
-            <h1 className="title">{content.title}</h1>
+            <h1 className="title">{content.title.toUpperCase()}</h1>
             <div>
               <Author
                 name={content.user_name}

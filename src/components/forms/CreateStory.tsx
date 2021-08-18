@@ -113,9 +113,10 @@ function CreateStory() {
           name="category"
         >
           <option value="">Select Category</option>
-          <option value="1">Adventure</option>
-          <option value="2">Nature</option>
-          <option value="3">Life</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Nature">Nature</option>
+          <option value="Life">Life</option>
+          <option value="Universe">Universe</option>
         </select>
 
         {warning.image && (
