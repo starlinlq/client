@@ -36,9 +36,7 @@ function Profile() {
 
   return (
     <div className="profile">
-      <div>
-        {active && <EditProfile setActive={setActive}  />}
-      </div>
+      <div>{active && <EditProfile setActive={setActive} />}</div>
 
       {p.map((data) => (
         <div className="container" key={data.id}>

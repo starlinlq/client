@@ -91,6 +91,8 @@ export const story = {
     ),
   show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),
   all: () => requests.get<Story[]>("/post/stories"),
+  category: (category: string) =>
+    requests.get<Story[]>(`/post/category/${category}`),
 };
 
 axios.interceptors.response.use(

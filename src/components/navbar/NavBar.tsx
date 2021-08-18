@@ -2,6 +2,7 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/stores";
 import { RiMenu3Fill, RiCloseLine, RiAccountCircleLine } from "react-icons/ri";
+import { GiPhotoCamera } from "react-icons/gi";
 import MobileMenu from "../mobilemenu/MobileMenu";
 import useComponentVisible from "../../hooks/useComponentVisible";
 
@@ -20,16 +21,18 @@ function NavBar() {
   }
 
   return (
-    <header className="nav_container">
+    <div className="nav_container box-shadow">
       <nav className="_nav container d-flex">
         {mobile && <MobileMenu />}
         <div className="logo">
-          <h4>storynary</h4>
+          <GiPhotoCamera className="icon" />
+          <a href="/">STORYNARY</a>
         </div>
 
-        <div className="n-link d-flex">
-          <a href="/stories">Stories</a>
-          <a href="/top">Top</a>
+        <div className="nav-links d-flex">
+          <a href="/">HOME</a>
+          <a href="/stories">STORIES</a>
+          <a href="/top">TOP</a>
         </div>
         <div className="nav_menus">
           <div className="user-links d-flex">
@@ -73,7 +76,7 @@ function NavBar() {
           </div>
         </div>
       </nav>
-    </header>
+    </div>
   );
 }
 

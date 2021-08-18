@@ -68,7 +68,7 @@ function CreateStory() {
     return <Loading />;
   }
   return (
-    <div>
+    <div className="create_story_container box-shadow">
       <header className="create_title">Begin writing your story.</header>
       <form
         className="_form"
@@ -81,7 +81,7 @@ function CreateStory() {
           minLength={12}
           type="text"
           required
-          className="_input"
+          className="_input "
           value={story_data.title}
           onChange={(e) => {
             handleOnChange(e);

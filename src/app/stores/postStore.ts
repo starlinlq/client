@@ -122,4 +122,17 @@ export class PostStore {
       console.log(error);
     }
   };
+
+  show_category = async (category: string) => {
+    this.loading = true;
+    try {
+      let data = await agent.story.category(category);
+      runInAction(() => {
+        this.story = data;
+        this.loading = false;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }

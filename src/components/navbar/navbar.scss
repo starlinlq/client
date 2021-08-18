@@ -3,8 +3,9 @@
 
 .nav_container {
   width: 100%;
-  border-bottom: 1px solid black;
+  padding: 3px 0;
   position: relative;
+  background-color: white !important;
 
   .nav_menus {
     font-weight: 500;
@@ -30,18 +31,32 @@
     font-family: $font-primary;
     text-decoration: none;
     color: $primary-color;
-
-    width: 160px;
   }
 
   ._nav {
     height: 50px;
     justify-content: space-between;
     align-items: center;
+
+    .nav-links {
+      a {
+        margin-right: 30px;
+        &:hover {
+          color: orangered;
+        }
+      }
+    }
   }
 
   .logo {
     font-family: $font-primary;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      font-size: 22px;
+      margin-right: 5px;
+    }
   }
   .user-links {
     align-items: center;
@@ -70,7 +85,7 @@
     .account {
       display: none;
     }
-    .n-link {
+    .nav-links {
       display: none;
     }
   }

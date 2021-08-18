@@ -5,6 +5,17 @@ $secondary-font: "Roboto", sans-serif;
 $title-font: "Merriwe1ather", serif;
 $author-font: "Oswald", sans-serif;
 $name_font: "Anton", sans-serif;
+
+body {
+  background-color: #fafafa;
+}
+.create_story_container {
+  background: white;
+  padding: 5px;
+  margin-top: 44px;
+  border-radius: 2px;
+}
+
 .loadingspinner {
   pointer-events: none;
   width: 2.5em;
@@ -174,7 +185,6 @@ $name_font: "Anton", sans-serif;
 
 .loader {
   width: 100%;
-  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;

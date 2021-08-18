@@ -5,21 +5,23 @@
     .featured {
       font-size: 25px;
       font-family: $title-font;
-      margin-left: 30px;
+      margin-left: 44px;
     }
     h1 {
       margin-left: 20px;
     }
     .content {
       display: flex;
-      justify-content: center;
+
+      width: 100%;
       flex-wrap: wrap;
+      margin-left: 44px;
     }
   }
 
   .container {
     display: flex;
-    margin-top: 40px;
+    margin-top: 44px;
 
     @media screen and (max-width: 800px) {
       flex-direction: column;
@@ -32,7 +34,6 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 15px;
-    border-bottom: 1px solid lightgray;
 
     @media screen and (max-width: 800px) {
       width: 100%;

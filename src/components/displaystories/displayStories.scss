@@ -1,4 +1,12 @@
-.display_stories {
-  display: flex;
-  flex-wrap: wrap;
+.stories_container {
+  .filter {
+    margin: 44px 0;
+    padding: 10px 0;
+    background-color: white;
+  }
+  .display_stories {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
