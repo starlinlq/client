@@ -93,6 +93,7 @@ export const story = {
   all: () => requests.get<Story[]>("/post/stories"),
   category: (category: string) =>
     requests.get<Story[]>(`/post/category/${category}`),
+  limit: (limit: number) => requests.get<Story[]>(`post/show/amount/${limit}`),
 };
 
 axios.interceptors.response.use(

@@ -12,13 +12,15 @@
     max-width: 700px;
     margin: auto;
     .story {
-      font-family: $secondary-font;
-      font-weight: 600;
+      font-family: $title-font;
+
       letter-spacing: -0.003em;
-      line-height: 30px;
+      line-height: 32px;
       margin: 10px 0;
-      color: black;
-      text-align: justify;
+      color: black !important;
+      text-align: left;
+      font-size: 21px;
+      clear: left;
     }
     .title {
       text-transform: capitalize;

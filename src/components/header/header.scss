@@ -1,0 +1,65 @@
+.header_container {
+  padding-top: 10px;
+  position: relative;
+  img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    filter: brightness(75%);
+    object-position: center;
+  }
+  .description {
+    position: absolute;
+    bottom: 130px;
+    width: 400px;
+    margin-left: 80px;
+    color: white;
+    height: fit-content;
+
+    .author_info {
+      p {
+        display: inline-block;
+        margin-right: 7px;
+      }
+      a {
+        color: #fafafa;
+      }
+    }
+
+    span,
+    p,
+    a {
+      font-size: 15px;
+    }
+
+    span {
+      color: #fafafa;
+    }
+    p {
+      margin-top: 5px;
+      margin-bottom: 15px;
+      color: lightgray;
+    }
+
+    h1 {
+      width: 350px;
+      margin-top: 5px;
+    }
+
+    a {
+      margin-top: 5px;
+      text-decoration: none;
+      color: white;
+    }
+
+    @media screen and (max-width: 600px) {
+      margin-left: 5px;
+      transform: scale(0.9);
+    }
+
+    @media screen and (max-width: 400px) {
+      transform: scale(0.8);
+      left: -27px;
+    }
+  }
+}
