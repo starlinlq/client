@@ -1,12 +1,56 @@
 .header_container {
   padding-top: 10px;
   position: relative;
+
+  @keyframes test {
+    from {
+      filter: brightness(20%);
+    }
+    to {
+      filter: brightness(80%);
+    }
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .dot_container {
+      display: inline-block;
+      margin: 0 5px;
+      cursor: pointer;
+      height: fit-content;
+      width: fit-content;
+    }
+
+    .round {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #b61919;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: #fafafa;
+      border-radius: 50%;
+    }
+  }
   img {
     width: 100%;
     height: 500px;
     object-fit: cover;
     filter: brightness(75%);
     object-position: center;
+    // animation: test 2s linear forwards;
   }
   .description {
     position: absolute;
