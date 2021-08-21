@@ -9,7 +9,6 @@ export default function Header() {
   const [current, setCurrent] = useState<any>();
   const [active, setActive] = useState(0);
   const storiesRef = useRef(stories);
-
   storiesRef.current = stories;
   let number = 0;
 
@@ -49,7 +48,7 @@ export default function Header() {
     <div className="header_container">
       {current && (
         <>
-          <img src={current.photo_url} alt="test" />
+          <img src={current.photo_url} alt="test" className="animate" />
           <div className="description">
             <span>FEATURED STORIES</span>
             <h1>{current.title.toUpperCase()}</h1>
@@ -77,7 +76,7 @@ export default function Header() {
                     handleHover(index);
                   }}
                 >
-                  <div className={active === index ? "round" : ""}>
+                  <div className={active === index ? "round " : ""}>
                     <div className="dot"></div>
                   </div>
                 </div>

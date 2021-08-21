@@ -17,10 +17,10 @@ function SingleStory() {
   const { selectedStory, loading, comments } = post;
   const { isAuth } = user;
 
-  useEffect(get_story, [id, post, selectedStory]);
+  useEffect(get_story, [id]);
 
   function get_story() {
-    if (id && selectedStory.length !== 1) {
+  if (id) {
       post.show(id);
     }
   }
@@ -29,53 +29,61 @@ function SingleStory() {
     return <Loading />;
   }
   return (
-    <>
-      {selectedStory.map((content: Story) => (
-        <div key={content.title} className="singleStory_container">
-          <div className="photo">
-            <img src={content.photo_url} alt="photo_test" />
-          </div>
-          <div className="content">
-            <h1 className="title">{content.title.toUpperCase()}</h1>
-            <div>
-              <Author
-                name={content.user_name}
-                profile_photo={content.profile_photo}
-                id={content.user_id}
-              />
+    <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {selectedStory.map((content: Story) => (
+            <div key={content.title} className="singleStory_container">
+              <div className="photo">
+                <img src={content.photo_url} alt="photo_test" />
+              </div>
+              <div className="content">
+                <h1 className="title">{content.title.toUpperCase()}</h1>
+                <div>
+                  <Author
+                    name={content.user_name}
+                    profile_photo={content.profile_photo}
+                    id={content.user_id}
+                  />
+                </div>
+                <div className="story">{ReactHtmlParser(content.story)}</div>
+              </div>
             </div>
-            <div className="story">{ReactHtmlParser(content.story)}</div>
-          </div>
-        </div>
-      ))}
-      <div className="comments">
-        {isAuth ? (
-          <CreateComment />
-        ) : (
-          <div className="comment_login">
-            Please
-            <a href={`/login/${selectedStory[0] && selectedStory[0].id}`}>
-              Login
-            </a>
-            Or
-            <a href={`/register/${selectedStory[0] && selectedStory[0].id}`}>
-              Register
-            </a>
-            to share your thoughts
-          </div>
-        )}
+          ))}
+          <div className="comments">
+            {isAuth ? (
+              <CreateComment />
+            ) : (
+              <div className="comment_login">
+                Please
+                <a href={`/login/${selectedStory[0] && selectedStory[0].id}`}>
+                  Login
+                </a>
+                Or
+                <a
+                  href={`/register/${selectedStory[0] && selectedStory[0].id}`}
+                >
+                  Register
+                </a>
+                to share your thoughts
+              </div>
+            )}
 
-        {comments.map((data: Comment) => (
-          <Comments
-            key={data.user_id + data.user_name + data.id}
-            comment={data.comment}
-            user_id={data.user_id}
-            user_name={data.user_name}
-            id={data.id}
-          />
-        ))}
-      </div>
-    </>
+            {comments.map((data: Comment) => (
+              <Comments
+                key={data.user_id + data.user_name + data.id}
+                comment={data.comment}
+                user_id={data.user_id}
+                user_name={data.user_name}
+                id={data.id}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

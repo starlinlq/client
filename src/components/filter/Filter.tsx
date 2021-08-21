@@ -1,13 +1,14 @@
+import { observable } from "mobx";
 import React from "react";
 import { BsFilter } from "react-icons/bs";
 import { useStore } from "../../app/stores/stores";
 
-export default function Filter() {
+function Filter() {
   const { post } = useStore();
   function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
     const category = e.target.value;
     if (category === "all") {
-      post.get();
+      post.get(1);
     } else {
       post.show_category(category);
     }
@@ -32,3 +33,4 @@ export default function Filter() {
     </div>
   );
 }
+export default Filter;

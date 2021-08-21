@@ -13,17 +13,20 @@ export class PostStore {
   creatingComment = false;
   deletingComment = false;
   editingComment = false;
+  lastPage: number = 1;
   constructor() {
     makeAutoObservable(this);
   }
 
-  get = async () => {
+  get = async (page: number) => {
     this.loading = true;
     try {
-      let data = await agent.story.all();
-      console.log(data);
+      console.log(page);
+      let posts = await agent.story.all(page);
+      console.log(posts);
       runInAction(() => {
-        this.story = data;
+        this.story = posts.data;
+        this.lastPage = posts.meta.last_page;
         this.loading = false;
       });
     } catch (error) {
@@ -35,7 +38,7 @@ export class PostStore {
   };
 
   show = async (id: string) => {
-    this.loading = false;
+    this.loading = true;
     try {
       let post = await agent.story.show(id);
       console.log(post);

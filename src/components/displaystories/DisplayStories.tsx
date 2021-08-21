@@ -4,6 +4,7 @@ import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";
 import Filter from "../filter/Filter";
+import Paginate from "../paginate/Paginate";
 import StoryCard from "../storyCard/StoryCard";
 
 function DisplayStories() {
@@ -12,7 +13,7 @@ function DisplayStories() {
 
   useEffect(() => {
     if (story.length === 0) {
-      post.get();
+      post.get(1);
     }
   }, []);
 
@@ -53,6 +54,7 @@ function DisplayStories() {
           )}
         </div>
       )}
+      <Paginate />
     </div>
   );
 }
