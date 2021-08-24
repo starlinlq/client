@@ -4,8 +4,13 @@ import { agent } from "../api/agent";
 class Features {
   loading = false;
   url: string | null = null;
+  currentPage: number = 1;
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
   }
 
   set_image_url(url: string) {}

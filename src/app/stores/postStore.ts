@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { Story, Comment, SingleStory } from "../interfaces";
 import { agent } from "../api/agent";
 import { history } from "../../";
+import { GiHeavyThornyTriskelion } from "react-icons/gi";
 
 export class PostStore {
   loading = false;
@@ -14,18 +15,33 @@ export class PostStore {
   deletingComment = false;
   editingComment = false;
   lastPage: number = 1;
+  currentPage: number = 1;
+  persistPage: number = 1;
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setPersistPage(number: number) {}
+
+  paginateLogic(page: number) {
+    if (this.currentPage < page && this.currentPage + 1 < this.lastPage) {
+      this.persistPage += 1;
+      console.log(this.currentPage);
+    } else if (this.currentPage > page && this.persistPage - 1 !== 0) {
+      this.persistPage -= 1;
+    }
   }
 
   get = async (page: number) => {
     this.loading = true;
     try {
-      console.log(page);
       let posts = await agent.story.all(page);
-      console.log(posts);
       runInAction(() => {
+        this.paginateLogic(page);
+        console.log(posts);
         this.story = posts.data;
+        this.currentPage = posts.meta.current_page;
         this.lastPage = posts.meta.last_page;
         this.loading = false;
       });
