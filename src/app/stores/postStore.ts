@@ -14,22 +14,20 @@ export class PostStore {
   creatingComment = false;
   deletingComment = false;
   editingComment = false;
-  lastPage: number = 1;
+  //pagination
+  updatePages: number = 1;
+  totalPages: number = 1;
   currentPage: number = 1;
-  persistPage: number = 1;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setPersistPage(number: number) {}
-
   paginateLogic(page: number) {
-    if (this.currentPage < page && this.currentPage + 1 < this.lastPage) {
-      this.persistPage += 1;
-      console.log(this.currentPage);
-    } else if (this.currentPage > page && this.persistPage - 1 !== 0) {
-      this.persistPage -= 1;
+    if (page === 1 && this.updatePages + 4 < this.totalPages) {
+      this.updatePages += 1;
+    } else if (page === -1 && this.updatePages - 1 > 0) {
+      this.updatePages -= 1;
     }
   }
 
@@ -42,7 +40,8 @@ export class PostStore {
         console.log(posts);
         this.story = posts.data;
         this.currentPage = posts.meta.current_page;
-        this.lastPage = posts.meta.last_page;
+        console.log(this.currentPage);
+        this.totalPages = posts.meta.last_page;
         this.loading = false;
       });
     } catch (error) {
