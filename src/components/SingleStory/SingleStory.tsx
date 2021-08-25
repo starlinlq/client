@@ -10,6 +10,7 @@ import ReactHtmlParser from "react-html-parser";
 import CreateComment from "../comments/CreateComment";
 import { Comment } from "../../app/interfaces";
 import Author from "../author/Author";
+import Paginate from "../paginate/Paginate";
 
 function SingleStory() {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +21,7 @@ function SingleStory() {
   useEffect(get_story, [id]);
 
   function get_story() {
-  if (id) {
+    if (id) {
       post.show(id);
     }
   }
@@ -80,6 +81,9 @@ function SingleStory() {
                 id={data.id}
               />
             ))}
+          </div>
+          <div className="loadMore">
+            <p>Load More</p>
           </div>
         </>
       )}

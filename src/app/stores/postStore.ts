@@ -18,10 +18,21 @@ export class PostStore {
   updatePages: number = 1;
   totalPages: number = 1;
   currentPage: number = 1;
+  selectedCategory = "all";
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  handlePageJump = (page: number) => {
+    if (page < 5 && page > 0) {
+      this.updatePages = page;
+      this.get(page, this.selectedCategory);
+    } else if (page >= 5) {
+      this.updatePages = page - 4;
+      this.get(page, this.selectedCategory);
+    }
+  };
 
   paginateLogic(page: number) {
     if (page === 1 && this.updatePages + 4 < this.totalPages) {
@@ -31,12 +42,12 @@ export class PostStore {
     }
   }
 
-  get = async (page: number) => {
+  get = async (page: number, category = "all") => {
     this.loading = true;
     try {
-      let posts = await agent.story.all(page);
+      let posts = await agent.story.all(page, category);
       runInAction(() => {
-        this.paginateLogic(page);
+        this.selectedCategory = category;
         console.log(posts);
         this.story = posts.data;
         this.currentPage = posts.meta.current_page;

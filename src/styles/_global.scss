@@ -10,7 +10,6 @@ body {
   background-color: #fafafa;
 }
 .create_story_container {
-  background: white;
   padding: 5px;
   margin-top: 44px;
   border-radius: 2px;
@@ -94,7 +93,7 @@ body {
 }
 
 ._textarea {
-  margin: 6px 0;
+  background-color: white;
 }
 ._select {
   margin-top: 60px;
@@ -104,7 +103,7 @@ body {
 }
 
 ._input {
-  background-color: none;
+  background-color: white;
   padding: 18px 10px;
   margin: 15px 0;
   border: solid 1px #cccccc;

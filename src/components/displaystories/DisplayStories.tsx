@@ -13,7 +13,7 @@ function DisplayStories() {
 
   useEffect(() => {
     if (story.length === 0) {
-      post.get(1);
+      post.get(1, "all");
     }
   }, []);
 
@@ -54,7 +54,7 @@ function DisplayStories() {
           )}
         </div>
       )}
-      <Paginate />
+      <Paginate type="posts" />
     </div>
   );
 }

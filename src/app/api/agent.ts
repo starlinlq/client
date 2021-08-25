@@ -90,7 +90,10 @@ export const story = {
       { headers: { Authorization: `${localStorage.getItem("Authoriation")}` } }
     ),
   show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),
-  all: (page: number) => requests.get<any>(`/post/stories/page/${page}`),
+  all: (page: number, category: string) =>
+    requests.get<any>(`/post/stories/page/${page}`, {
+      headers: { category },
+    }),
   category: (category: string) =>
     requests.get<Story[]>(`/post/category/${category}`),
   limit: (limit: number) => requests.get<Story[]>(`post/show/amount/${limit}`),

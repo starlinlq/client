@@ -7,11 +7,7 @@ function Filter() {
   const { post } = useStore();
   function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
     const category = e.target.value;
-    if (category === "all") {
-      post.get(1);
-    } else {
-      post.show_category(category);
-    }
+    post.get(1, category);
   }
 
   return (

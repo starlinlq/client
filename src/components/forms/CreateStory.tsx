@@ -68,7 +68,7 @@ function CreateStory() {
     return <Loading />;
   }
   return (
-    <div className="create_story_container box-shadow">
+    <div className="create_story_container ">
       <header className="create_title">Begin writing your story.</header>
       <form
         className="_form"

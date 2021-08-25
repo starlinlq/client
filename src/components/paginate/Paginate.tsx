@@ -10,21 +10,31 @@ import { BsTypeH1 } from "react-icons/bs";
 
 import { observer } from "mobx-react-lite";
 
-function Paginate() {
+interface Props {
+  type: string;
+}
+
+function Paginate({ type }: Props) {
   const { post } = useStore();
   const [pages, setPages] = useState<number[]>([]);
+  const [pageJump, setPageJump] = useState<number>(1);
 
   useEffect(
     function () {
-      let totalPages = range(1, 5);
+      let totalPages: number[] = [];
+      if (post.totalPages < 5) {
+        totalPages = range(1, post.totalPages);
+      } else totalPages = range(1, 5);
       setPages(totalPages);
-      console.log(totalPages);
     },
     [post.totalPages]
   );
 
   function handlePage(page: number) {
-    post.get(page);
+    if (type === "posts") {
+      post.get(page, post.selectedCategory);
+    } else if (type === "commets") {
+    }
   }
 
   const range = (from: number, to: number, step: number = 1) => {
@@ -35,6 +45,12 @@ function Paginate() {
       i += step;
     }
     return range;
+  };
+
+  const handleJump = () => {
+    if (pageJump !== post.currentPage && pageJump <= post.totalPages) {
+      post.handlePageJump(pageJump);
+    }
   };
 
   const handlePrevious = () => {
@@ -50,8 +66,8 @@ function Paginate() {
       <div className="pagination  box-shadow">
         <GrFormPrevious className="icon" onClick={handlePrevious} />
         {pages.map((page, index) => (
-          <>
-            <div>
+          <div key={index + page}>
+            {post.totalPages > 5 ? (
               <div
                 className={
                   index + post.updatePages === post.currentPage
@@ -66,12 +82,28 @@ function Paginate() {
                   {index + post.updatePages}
                 </span>
               </div>
-            </div>
-          </>
+            ) : (
+              <div className={page === post.currentPage ? "current" : "circle"}>
+                <span className="page " onClick={() => handlePage(page)}>
+                  {page}
+                </span>
+              </div>
+            )}
+          </div>
         ))}
         <GrFormNext className="icon" onClick={handleNext} />
         <div className="totalPages">
           <p>Total {post.totalPages} pages</p>
+        </div>
+        <div className="jumpPage">
+          <p>Go to Page</p>
+          <input
+            onChange={(e) => setPageJump(parseInt(e.target.value))}
+            placeholder="12"
+          />
+          <button type="button" onClick={handleJump}>
+            Jump
+          </button>
         </div>
       </div>
     </div>
