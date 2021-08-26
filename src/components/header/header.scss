@@ -119,5 +119,9 @@
       transform: scale(0.8);
       left: -27px;
     }
+    @media screen and (max-width: 350px) {
+      transform: scale(0.7);
+      left: -55px;
+    }
   }
 }

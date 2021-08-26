@@ -11,6 +11,7 @@ export class PostStore {
   selectedStory: Story[] = [];
   story: Story[] = [];
   comments: any[] = [];
+  currentComments: any[] = [];
   creatingComment = false;
   deletingComment = false;
   editingComment = false;
@@ -19,6 +20,7 @@ export class PostStore {
   totalPages: number = 1;
   currentPage: number = 1;
   selectedCategory = "all";
+  isLoadingMore = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -41,6 +43,12 @@ export class PostStore {
       this.updatePages -= 1;
     }
   }
+
+  loadMorelogic = (index: number) => {
+    console.log(index);
+    this.currentComments = this.comments.slice(0, index);
+    console.log(this.currentComments);
+  };
 
   get = async (page: number, category = "all") => {
     this.loading = true;
@@ -66,11 +74,12 @@ export class PostStore {
   show = async (id: string) => {
     this.loading = true;
     try {
-      let post = await agent.story.show(id);
-      console.log(post);
+      let data = await agent.story.show(id);
+      console.log(data);
       runInAction(() => {
-        this.selectedStory = [{ ...post.post, profile_photo: post.url }];
-        this.comments = post.post.comments;
+        this.selectedStory = [{ ...data.post[0], profile_photo: data.url }];
+        this.comments = data.post[0].comments;
+        this.currentComments = data.post[0].comments.slice(0, 10);
         this.loading = false;
       });
     } catch (error) {
@@ -110,7 +119,7 @@ export class PostStore {
           story_id,
         });
         runInAction(() => {
-          this.comments.unshift(new_comment);
+          this.currentComments.unshift(new_comment);
           this.creatingComment = false;
         });
       }

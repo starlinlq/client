@@ -65,8 +65,15 @@
   width: 100%;
   text-align: center;
   padding-bottom: 40px;
-  p {
+  padding-top: 40px;
+  button {
+    font-size: 16px;
     color: #31c6ff;
     cursor: pointer;
+    border: none;
+    background: none;
+    &:hover {
+      color: orangered;
+    }
   }
 }

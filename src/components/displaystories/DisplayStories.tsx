@@ -36,10 +36,12 @@ function DisplayStories() {
                 user_name,
                 id,
                 photo_url,
-                category,
+
                 created_at,
+                category_title,
               }: Story) => (
                 <StoryCard
+                  flex={true}
                   key={id}
                   date={created_at}
                   story={story}
@@ -47,7 +49,7 @@ function DisplayStories() {
                   name={user_name}
                   id={id}
                   photo_url={photo_url}
-                  category={category}
+                  category={category_title}
                 />
               )
             )

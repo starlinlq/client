@@ -77,10 +77,10 @@ export const story = {
     requests.post<{ status: string; url: string }>("/post/upload", image, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
-  create: ({ title, story, photo_url, category }: Story) =>
+  create: ({ title, story, photo_url, category_title }: Story) =>
     requests.post<Story>(
       "/post/create",
-      { title, story, photo_url, category },
+      { title, story, photo_url, category: category_title },
       { headers: { Authorization: `${localStorage.getItem("Authorization")}` } }
     ),
   edit: ({ title, story, photo_url, id }: Story) =>
@@ -94,9 +94,10 @@ export const story = {
     requests.get<any>(`/post/stories/page/${page}`, {
       headers: { category },
     }),
-  category: (category: string) =>
-    requests.get<Story[]>(`/post/category/${category}`),
-  limit: (limit: number) => requests.get<Story[]>(`post/show/amount/${limit}`),
+  category: (category: string, limit?: number) =>
+    requests.get<Story[]>(`/post/category/${category}`, { headers: { limit } }),
+  limit: (limit: number, category?: string) =>
+    requests.get<Story[]>(`post/show/amount/${limit}`),
 };
 
 axios.interceptors.response.use(

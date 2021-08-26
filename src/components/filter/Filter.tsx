@@ -13,6 +13,7 @@ function Filter() {
   return (
     <div className="filter_container">
       <BsFilter className="icon" />
+      <p>CATEGORY : </p>
       <select
         name="category"
         className="category"

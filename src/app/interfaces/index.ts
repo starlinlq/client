@@ -19,7 +19,7 @@ export interface Story {
   name: string;
   user_name?: string;
   id: string;
-  category: string;
+  category_title: string;
   comments: Comment[];
   created_at: string;
   profile_photo: string;
@@ -27,7 +27,7 @@ export interface Story {
 }
 
 export interface SingleStory {
-  post: Story;
+  post: Story[];
   url: string;
 }
 export interface User {

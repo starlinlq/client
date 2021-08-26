@@ -1,0 +1,22 @@
+.like_container {
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  justify-content: space-between;
+  z-index: 1;
+  color: white;
+  border: 1px solid white;
+  width: 65px;
+  border-radius: 10px;
+  cursor: pointer;
+  .heart {
+    font-size: 25px;
+  }
+  p {
+    height: 100%;
+    color: black;
+    padding: 0 5px;
+    background-color: #fafafa;
+    border-radius: 5px;
+  }
+}

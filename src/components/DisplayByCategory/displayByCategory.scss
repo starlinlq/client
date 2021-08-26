@@ -1,0 +1,31 @@
+.displayByCategory {
+  margin: 20px 0;
+  overflow: hidden;
+  .container-column {
+    display: flex;
+    height: 100%;
+    overflow-x: scroll;
+  }
+  .container-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-height: 800px;
+    overflow-y: scroll;
+  }
+
+  .categoryTitle {
+    h2 {
+      margin-bottom: 10px;
+      font-family: $title-font;
+      font-weight: 500;
+    }
+  }
+
+  .container-column::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  .container-row::-webkit-scrollbar {
+    width: 0 !important;
+  }
+}

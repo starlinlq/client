@@ -2,6 +2,8 @@ import React from "react";
 import { Story } from "../../app/interfaces";
 import { CgArrowLongRight } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { IoIosHeartEmpty } from "react-icons/io";
+import Like from "../like/Like";
 
 function StoryCard({
   name,
@@ -10,6 +12,8 @@ function StoryCard({
   id,
   photo_url,
   date,
+  flex,
+  category,
 }: {
   name: string | undefined;
   story: string;
@@ -18,9 +22,12 @@ function StoryCard({
   photo_url: string;
   category: string;
   date: string;
+  flex?: boolean;
 }) {
   return (
-    <div className="story_card d-flex">
+    <div
+      className={`story_card d-flex ${flex ? "column-width" : "row-width"} `}
+    >
       <img src={photo_url} alt={title} />
       <div className="_content">
         <p className="date">{date.slice(0, 10)}</p>
@@ -33,6 +40,14 @@ function StoryCard({
           Read Story
           <CgArrowLongRight className="icon" />
         </Link>
+      </div>
+      <div className="category_like_container">
+        <div className="category_title">
+          <p>{category}</p>
+        </div>
+        <div className="likes">
+          <Like />
+        </div>
       </div>
     </div>
   );

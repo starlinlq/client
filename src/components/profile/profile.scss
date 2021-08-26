@@ -1,27 +1,28 @@
 .profile {
   position: relative;
+  display: flex;
+  margin-top: 44px;
 
   .stories {
     .featured {
-      font-size: 25px;
+      font-size: 20px;
       font-family: $title-font;
-      margin-left: 44px;
+      margin-left: 40px;
+      padding-bottom: 10px;
     }
     h1 {
       margin-left: 20px;
     }
     .content {
       display: flex;
-
       width: 100%;
       flex-wrap: wrap;
       margin-left: 44px;
     }
   }
 
-  .container {
+  .p_container {
     display: flex;
-    margin-top: 44px;
 
     @media screen and (max-width: 800px) {
       flex-direction: column;
@@ -96,6 +97,7 @@
       height: 250px;
       border-radius: 7px;
       object-fit: cover;
+      margin-top: 5px;
 
       @media screen and (max-width: 800px) {
         width: 100%;

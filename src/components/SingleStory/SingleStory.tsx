@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { story, user } from "../../app/api/agent";
 import { Story } from "../../app/interfaces";
@@ -15,10 +15,17 @@ import Paginate from "../paginate/Paginate";
 function SingleStory() {
   const { id } = useParams<{ id: string }>();
   const { post, user } = useStore();
-  const { selectedStory, loading, comments } = post;
+  const { selectedStory, loading, currentComments, comments, loadMorelogic } =
+    post;
   const { isAuth } = user;
+  const [loadIndex, setLoadIndex] = useState(15);
 
   useEffect(get_story, [id]);
+
+  const handleLoadMore = () => {
+    setLoadIndex(loadIndex + 5);
+    loadMorelogic(loadIndex);
+  };
 
   function get_story() {
     if (id) {
@@ -72,7 +79,7 @@ function SingleStory() {
               </div>
             )}
 
-            {comments.map((data: Comment) => (
+            {currentComments.map((data: Comment) => (
               <Comments
                 key={data.user_id + data.user_name + data.id}
                 comment={data.comment}
@@ -83,7 +90,21 @@ function SingleStory() {
             ))}
           </div>
           <div className="loadMore">
-            <p>Load More</p>
+            <button
+              type="button"
+              disabled={
+                comments.length < 10 || loadIndex >= comments.length
+                  ? true
+                  : false
+              }
+              onClick={handleLoadMore}
+            >
+              {currentComments.length === 0
+                ? "No comments"
+                : comments.length < 10 || loadIndex >= comments.length
+                ? "No more comments to display"
+                : "Load More"}
+            </button>
           </div>
         </>
       )}
