@@ -6,8 +6,8 @@ export interface Register {
 }
 
 export interface Comment {
-  id: string;
-  user_id: string;
+  id: number;
+  user_id: number;
   user_name: string;
   comment: string;
 }
@@ -18,12 +18,19 @@ export interface Story {
   title: string;
   name: string;
   user_name?: string;
-  id: string;
+  id: number;
   category_title: string;
   comments: Comment[];
   created_at: string;
   profile_photo: string;
   user_id: string;
+  likes: {
+    user_id: number;
+    post_id: number;
+    created_at: string;
+    id: number;
+    updated_at: string;
+  }[];
 }
 
 export interface SingleStory {
@@ -40,7 +47,7 @@ export interface Login {
 }
 
 export interface Profile {
-  id: string;
+  id: number;
   city: string;
   profile_pic_url: string;
   about_me: string;

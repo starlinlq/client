@@ -128,7 +128,7 @@ export class PostStore {
     }
   };
 
-  edit_comment = async (comment: { comment: string; id: string }) => {
+  edit_comment = async (comment: { comment: string; id: number }) => {
     this.editingComment = true;
     try {
       await agent._comments.edit(comment);
@@ -146,7 +146,7 @@ export class PostStore {
       console.log(error);
     }
   };
-  delete_comment = async (c_id: string) => {
+  delete_comment = async (c_id: number) => {
     this.deletingComment = true;
 
     try {

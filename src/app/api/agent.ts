@@ -12,7 +12,9 @@ import { history } from "../../";
 import { request } from "http";
 
 const response = <T>(response: AxiosResponse<T>) => response.data;
-
+const headers = {
+  headers: { Authorization: `${localStorage.getItem("Authorization")}` },
+};
 const sleep = (time: number) => {
   return new Promise((resolve) => {
     setTimeout(resolve, time);
@@ -33,15 +35,15 @@ const requests = {
 };
 
 export const _comments = {
-  create: (comment: { comment: string; story_id: string }) =>
+  create: (comment: { comment: string; story_id: number }) =>
     requests.post<Comment>(`comment/create/${comment.story_id}`, comment, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
-  edit: (comment: { comment: string; id: string }) =>
+  edit: (comment: { comment: string; id: number }) =>
     requests.put(`comment/update/${comment.id}`, comment, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
-  delete: (id: string) =>
+  delete: (id: number) =>
     requests.delete<void>(`comment/delete/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
@@ -57,7 +59,7 @@ export const user = {
     requests.get<void>("/logout", {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
-  loadStories: (id: string) =>
+  loadStories: (id: number) =>
     requests.get<{ posts: Story[]; profile: Profile[] }>(`/profile/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
@@ -98,6 +100,16 @@ export const story = {
     requests.get<Story[]>(`/post/category/${category}`, { headers: { limit } }),
   limit: (limit: number, category?: string) =>
     requests.get<Story[]>(`post/show/amount/${limit}`),
+  disLike: (like_id: number) =>
+    requests.delete(`post/like/${like_id}`, headers),
+  like: (story_id: number) =>
+    requests.post<{
+      user_id: number;
+      post_id: number;
+      created_at: string;
+      id: number;
+      updated_at: string;
+    }>(`post/like/${story_id}`, {}, headers),
 };
 
 axios.interceptors.response.use(

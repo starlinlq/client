@@ -6,10 +6,10 @@ import { useStore } from "../../app/stores/stores";
 import { useState } from "react";
 
 const Comments = ({ id, user_id, comment, user_name }: Comment) => {
-  const [deleting, setDeleting] = useState("");
+  const [deleting, setDeleting] = useState<number>();
   const [editing, setEditing] = useState({
     active: false,
-    id: "",
+    id: 0,
     comment: "",
   });
   const { post, user } = useStore();
@@ -19,11 +19,11 @@ const Comments = ({ id, user_id, comment, user_name }: Comment) => {
     history.push(`/profile/${user_id}`);
   };
 
-  const handleDelete = (comment_id: string) => {
+  const handleDelete = (comment_id: number) => {
     setDeleting(comment_id);
     post.delete_comment(comment_id);
   };
-  const handleEdit = (comment_id: string) => {
+  const handleEdit = (comment_id: number) => {
     setEditing({ ...editing, active: true, id: comment_id, comment });
   };
 

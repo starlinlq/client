@@ -36,11 +36,12 @@ function DisplayStories() {
                 user_name,
                 id,
                 photo_url,
-
                 created_at,
                 category_title,
+                likes,
               }: Story) => (
                 <StoryCard
+                  likes={likes}
                   flex={true}
                   key={id}
                   date={created_at}

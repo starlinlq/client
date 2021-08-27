@@ -1,4 +1,5 @@
 .like_container {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0 4px;
@@ -6,17 +7,53 @@
   z-index: 1;
   color: white;
   border: 1px solid white;
-  width: 65px;
+  min-width: 75px;
   border-radius: 10px;
   cursor: pointer;
-  .heart {
+
+  .notAuth {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 5px;
+    z-index: 999;
+    width: 180px;
+    cursor: default;
+  }
+
+  .isAuth {
+    display: none;
+  }
+  .like {
     font-size: 25px;
+    color: white;
+    &:hover {
+      color: red;
+    }
   }
   p {
     height: 100%;
+    margin-left: 5px;
     color: black;
-    padding: 0 5px;
+    padding: 0 12px;
     background-color: #fafafa;
     border-radius: 5px;
+    width: fit-content;
+    text-align: center;
+  }
+
+  .liked {
+    font-size: 25px;
+    color: red;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  &:hover {
+    .notAuth {
+      display: block;
+    }
   }
 }

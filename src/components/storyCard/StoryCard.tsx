@@ -14,15 +14,23 @@ function StoryCard({
   date,
   flex,
   category,
+  likes,
 }: {
   name: string | undefined;
   story: string;
   title: string;
-  id: string;
+  id: number;
   photo_url: string;
   category: string;
   date: string;
   flex?: boolean;
+  likes: {
+    user_id: number;
+    post_id: number;
+    created_at: string;
+    id: number;
+    updated_at: string;
+  }[];
 }) {
   return (
     <div
@@ -30,23 +38,28 @@ function StoryCard({
     >
       <img src={photo_url} alt={title} />
       <div className="_content">
-        <p className="date">{date.slice(0, 10)}</p>
-        <p className="title">{title.slice(0, 40).toUpperCase()}</p>
-        <div className="author_name">
-          <span>by</span>
-          <p>{name}</p>
+        <div className="title_container">
+          <p className="date">{date.slice(0, 10)}</p>
+          <p className="title">{title.slice(0, 45).toUpperCase()}</p>
+          <div className="author_name">
+            <span>by</span>
+            <p>{name}</p>
+          </div>
         </div>
-        <Link className="story_link _a" to={`/story/${id}`}>
-          Read Story
-          <CgArrowLongRight className="icon" />
-        </Link>
+
+        <div className="story_link_container">
+          <Link className="story_link _a" to={`/story/${id}`}>
+            <p>Read Story</p>
+            <CgArrowLongRight className="icon" />
+          </Link>
+        </div>
       </div>
       <div className="category_like_container">
         <div className="category_title">
           <p>{category}</p>
         </div>
         <div className="likes">
-          <Like />
+          <Like likes={likes} story_id={id} />
         </div>
       </div>
     </div>

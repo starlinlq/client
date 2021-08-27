@@ -13,7 +13,7 @@ import { Story } from "../../app/interfaces";
 function Profile() {
   const { id } = useParams<{ id: string | undefined }>();
   const [active, setActive] = useState(false);
-  const { user, features } = useStore();
+  const { user } = useStore();
   const { profile: p } = user;
   const [currentDisplay, setCurrentDisplay] = useState(18);
   const [userStories, setUserStories] = useState<Story[]>([]);
@@ -31,7 +31,7 @@ function Profile() {
 
   useEffect(() => {
     if (id) {
-      user.loadUserStories(id);
+      user.loadUserStories(parseInt(id));
       //getting user stories
     } else {
       history.push("/");
@@ -83,6 +83,7 @@ function Profile() {
             userStories.map((data) => (
               <Fragment key={data.id}>
                 <StoryCard
+                  likes={data.likes}
                   date={data.created_at.slice(0, 10)}
                   name={data.user_name}
                   story={data.story}

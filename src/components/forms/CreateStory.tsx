@@ -31,7 +31,7 @@ function CreateStory() {
   const [story_data, setStoryData] = useState({
     story: "",
     title: "",
-    category: "",
+    category_title: "",
   });
 
   const [warning = { title: false, image: false, story: false }, setWarning] =
@@ -105,14 +105,14 @@ function CreateStory() {
 
         <select
           required
-          value={story_data.category}
+          value={story_data.category_title}
           onChange={(e) => {
             handleOnChange(e);
           }}
           className="_select"
-          name="category"
+          name="category_title"
         >
-          <option value="">Select Category</option>
+          <option value="All">Select Category</option>
           <option value="Adventure">Adventure</option>
           <option value="Nature">Nature</option>
           <option value="Life">Life</option>

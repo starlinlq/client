@@ -1,12 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { Register, Story, Login, Profile } from "../interfaces";
-import { agent, user } from "../api/agent";
+import { agent } from "../api/agent";
 import axios from "axios";
 import { history } from "../../";
 
 export class UserStore {
   name: string = "";
-  id: string = "";
+  id: number = 0;
   loading: boolean = false;
   isAuth: boolean = false;
   profile: Profile[] = [];
@@ -94,7 +94,7 @@ export class UserStore {
     }
   };
 
-  loadUserStories = async (id: string) => {
+  loadUserStories = async (id: number) => {
     this.loading = true;
     try {
       let data = await agent.user.loadStories(id);

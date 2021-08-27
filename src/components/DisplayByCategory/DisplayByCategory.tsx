@@ -18,7 +18,7 @@ function DisplayByCategory({ category, itemToDisplay, flex }: Props) {
       .category(category, itemToDisplay)
       .then((response) => setStories(response));
   }
-  console.log(stories);
+
   return (
     <section className="displayByCategory">
       <div className="categoryTitle">
@@ -28,6 +28,7 @@ function DisplayByCategory({ category, itemToDisplay, flex }: Props) {
         {stories.map((story, index) => (
           <div className="story" key={story.id + index}>
             <StoryCard
+              likes={story.likes}
               flex={flex}
               id={story.id}
               date={story.created_at}
