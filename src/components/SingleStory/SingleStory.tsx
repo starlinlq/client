@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { story, user } from "../../app/api/agent";
+import { useParams } from "react-router-dom";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";
@@ -10,7 +9,6 @@ import ReactHtmlParser from "react-html-parser";
 import CreateComment from "../comments/CreateComment";
 import { Comment } from "../../app/interfaces";
 import Author from "../author/Author";
-import Paginate from "../paginate/Paginate";
 
 function SingleStory() {
   const { id } = useParams<{ id: string }>();

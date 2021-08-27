@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import { IoIosHeart } from "react-icons/io";
 import { useStore } from "../../app/stores/stores";
 import { observer } from "mobx-react-lite";
 import { agent } from "../../app/api/agent";

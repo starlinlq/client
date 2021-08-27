@@ -1,8 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Story, Comment, SingleStory } from "../interfaces";
+import { Story } from "../interfaces";
 import { agent } from "../api/agent";
 import { history } from "../../";
-import { GiHeavyThornyTriskelion } from "react-icons/gi";
 
 export class PostStore {
   loading = false;
@@ -36,13 +35,13 @@ export class PostStore {
     }
   };
 
-  paginateLogic(page: number) {
+  paginateLogic = (page: number) => {
     if (page === 1 && this.updatePages + 4 < this.totalPages) {
       this.updatePages += 1;
     } else if (page === -1 && this.updatePages - 1 > 0) {
       this.updatePages -= 1;
     }
-  }
+  };
 
   loadMorelogic = (index: number) => {
     console.log(index);

@@ -1,12 +1,7 @@
-import { isInteger } from "formik";
-import React, { Fragment, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { array } from "yup/lib/locale";
 import { useStore } from "../../app/stores/stores";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import { PostStore } from "../../app/stores/postStore";
-import { BsTypeH1 } from "react-icons/bs";
 
 import { observer } from "mobx-react-lite";
 

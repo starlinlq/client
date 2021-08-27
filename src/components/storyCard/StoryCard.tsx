@@ -1,8 +1,5 @@
-import React from "react";
-import { Story } from "../../app/interfaces";
 import { CgArrowLongRight } from "react-icons/cg";
 import { Link } from "react-router-dom";
-import { IoIosHeartEmpty } from "react-icons/io";
 import Like from "../like/Like";
 
 function StoryCard({
