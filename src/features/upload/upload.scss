@@ -20,3 +20,48 @@
     }
   }
 }
+
+.upload_container {
+  .picture_container {
+    display: flex;
+    justify-content: center;
+    img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      object-fit: cover;
+    }
+  }
+
+  .profile_picture {
+    .profile_icon {
+      width: 100%;
+      font-size: 80px;
+      margin: auto;
+      cursor: pointer;
+    }
+    p {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .file-upload {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+
+    .file-upload__input {
+      display: none;
+    }
+
+    .file-upload__button {
+      margin: 10px 0;
+    }
+
+    .file-upload__button:active {
+      color: red;
+    }
+  }
+}

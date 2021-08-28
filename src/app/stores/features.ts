@@ -3,7 +3,7 @@ import { agent } from "../api/agent";
 
 class Features {
   loading = false;
-  url: string | null = null;
+  url: string = "";
   currentPage: number = 1;
   constructor() {
     makeAutoObservable(this);
@@ -19,7 +19,7 @@ class Features {
     this.set_loading(true);
     const newForm = new FormData();
     newForm.append("image", image);
-    let img = await agent.story.upload(newForm);
+    let img = await agent.features.upload(newForm);
     if (img) {
       this.set_url(img.url);
       this.set_loading(false);

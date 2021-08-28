@@ -41,7 +41,7 @@ function NavBar() {
                 <a href="/create" className="button">
                   Create Story
                 </a>
-                <div ref={ref} className="account">
+                <div ref={ref} className="user_account_menu">
                   <div className="user">
                     <RiAccountCircleLine />
                     <p> Hi {user.name}</p>

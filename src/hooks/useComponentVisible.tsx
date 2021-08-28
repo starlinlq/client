@@ -5,20 +5,18 @@ export default function useComponentVisible(initialValue: boolean) {
   const ref = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: any) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setVisible(false);
-    } else {
+    if (ref.current && ref.current.contains(event.target)) {
       setVisible(true);
+    } else {
+      setVisible(false);
     }
   };
 
   useEffect(
     function () {
-      document.addEventListener("click", handleClickOutside, true);
+      document.addEventListener("click", handleClickOutside);
 
-      return () => {
-        document.removeEventListener("click", handleClickOutside, true);
-      };
+      return () => document.removeEventListener("click", handleClickOutside);
     },
     [ref]
   );

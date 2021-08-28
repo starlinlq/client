@@ -50,8 +50,15 @@ export const _comments = {
 };
 
 export const user = {
-  register: ({ name, email, password }: Register) =>
-    requests.post<User>("/register", { name, email, password }),
+  register: ({ name, email, password, photo_url, city, about }: Register) =>
+    requests.post<User>("/register", {
+      name,
+      email,
+      password,
+      city,
+      photo_url,
+      about,
+    }),
   login: ({ email, password }: Login) =>
     requests.post<User>("/login", { email, password }),
   validate: () => requests.get<User>("/validate"),
@@ -74,11 +81,14 @@ export const user = {
     }),
 };
 
-export const story = {
+export const features = {
   upload: (image: any) =>
-    requests.post<{ status: string; url: string }>("/post/upload", image, {
+    requests.post<{ status: string; url: string }>("/upload", image, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
+};
+
+export const story = {
   create: ({ title, story, photo_url, category_title }: Story) =>
     requests.post<Story>(
       "/post/create",
@@ -152,4 +162,4 @@ axios.interceptors.response.use(
   }
 );
 
-export const agent = { user, story, _comments };
+export const agent = { user, story, _comments, features };

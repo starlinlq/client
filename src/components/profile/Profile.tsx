@@ -55,7 +55,7 @@ function Profile() {
             <div className="details">
               <div className="edit">
                 {" "}
-                <p>starlin</p>
+                <p>{data.user_name}</p>
                 <div onClick={handleActive}>
                   {" "}
                   <BiEdit className="icon" onClick={handleEdit} />
@@ -112,7 +112,7 @@ function Profile() {
             onClick={handleLoadMore}
           >
             {userStories.length === 0
-              ? "No Stories"
+              ? ""
               : user.posts.length < 10 || currentDisplay >= user.posts.length
               ? "No more stories to display"
               : "Load More Stories"}

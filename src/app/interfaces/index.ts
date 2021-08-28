@@ -3,6 +3,9 @@ export interface Register {
   email?: string;
   password: string;
   id?: number | undefined;
+  photo_url: string;
+  city: string;
+  about: string;
 }
 
 export interface Comment {
@@ -51,7 +54,7 @@ export interface Profile {
   city: string;
   profile_pic_url: string;
   about_me: string;
-  name: string;
+  user_name: string;
 }
 
 /*

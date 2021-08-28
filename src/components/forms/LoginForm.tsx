@@ -18,7 +18,7 @@ function RegisterForm() {
     email: Yup.string().required("email is required"),
     password: Yup.string().required("name is required"),
   });
-  console.log(id);
+
 
   function handlFormSubmit(data: Login) {
     user.getUser(data);

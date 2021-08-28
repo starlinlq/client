@@ -42,17 +42,23 @@ export class UserStore {
       });
   };
 
-  registerUser = async ({ name, email, password }: Register) => {
+  registerUser = async ({
+    name,
+    email,
+    password,
+    city,
+    about,
+    photo_url,
+  }: Register) => {
     this.loading = true;
     agent.user
-      .register({ name, email, password })
+      .register({ name, email, password, photo_url, city, about })
       .then((r: any) => {
-        console.log(r);
-        this.name = r.name;
-        this.id = r.id;
-        this.profile = [r.profile];
-        this.setToken(r.token.token);
         runInAction(() => {
+          this.name = r.name;
+          this.id = r.id;
+          this.profile = [r.profile];
+          this.setToken(r.token.token);
           this.isAuth = true;
           this.loading = false;
         });
@@ -127,7 +133,7 @@ export class UserStore {
             city: userData.city,
             profile_pic_url: userData.url,
             about_me: userData.about,
-            name: userData.name,
+            user_name: userData.name,
           },
         ];
       });
