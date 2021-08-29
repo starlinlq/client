@@ -14,6 +14,18 @@
   flex-direction: row;
   align-items: flex-end;
 
+  .delete {
+    button {
+      color: white;
+      border: 1px solid transparent;
+      background-color: red;
+      padding: 3px 4px;
+      border-radius: 10px;
+      height: 27px;
+      cursor: pointer;
+    }
+  }
+
   .category_like_container {
     position: absolute;
     z-index: 1;

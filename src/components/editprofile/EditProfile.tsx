@@ -43,6 +43,12 @@ export default function EditProfile({ setActive }: Props) {
     <div className="profile_edit">
       <form className="box-shadow" onSubmit={handleFormSubmit}>
         <div>
+          {warning && (
+            <span style={{ color: "red" }}> Please upload a picture</span>
+          )}
+          <Upload />
+        </div>
+        <div>
           <label htmlFor="name">Name</label>
           <input
             minLength={1}
@@ -78,19 +84,14 @@ export default function EditProfile({ setActive }: Props) {
             required
             minLength={5}
             maxLength={360}
+            rows={10}
+            cols={10}
             value={data.about}
             name="about"
             placeholder="Something about you"
             className="_input"
             onChange={handleFormData}
           />
-        </div>
-        <div>
-          <label htmlFor="profile picture">Profile picture</label>
-          {warning && (
-            <span style={{ color: "red" }}> Please upload a picture</span>
-          )}
-          <Upload />
         </div>
 
         <button className="button" type="submit">

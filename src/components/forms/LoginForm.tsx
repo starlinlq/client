@@ -1,66 +1,73 @@
-import * as Yup from "yup";
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Segment, Header, Button } from "semantic-ui-react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Login } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
-import { observer } from "mobx-react-lite";
-import Loading from "../../features/loader/Loading";
-import { history } from "../../";
-function RegisterForm() {
-  let login: Login = { email: "", password: "" };
-  const { id } = useParams<{ id: string }>();
-  const { user } = useStore();
-  const { isAuth } = user;
 
-  const validationSchema = Yup.object({
-    email: Yup.string().required("email is required"),
-    password: Yup.string().required("name is required"),
+function RegisterForm() {
+  const { user, features } = useStore();
+  const { id } = useParams<{ id: string }>();
+
+  const [validate, setValidate] = useState({
+    name: false,
+    password: false,
+  });
+  const [registerData, setRegisterData] = useState<Login>({
+    email: "",
+    password: "",
   });
 
-
-  function handlFormSubmit(data: Login) {
-    user.getUser(data);
-    if (id) {
-      history.push(`/story/${id}`);
-    } else if (user.isAuth) {
-      history.push("/");
-    }
+  function handleFormSubmit(e: any) {
+    e.preventDefault();
+    user.getUser(registerData);
   }
 
-  if (user.loading) {
-    return <Loading />;
-  }
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setRegisterData({ ...registerData, [name]: value });
+  };
 
   return (
-    <Segment clearing>
-      <Header content="login" sub color="teal" />
-      <Formik
-        validationSchema={validationSchema}
-        initialValues={login}
-        onSubmit={(values) => handlFormSubmit(values)}
-      >
-        {({ handleSubmit }) => (
-          <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
-            <Field type="email" name="email" placeholder="Email" />
-            <ErrorMessage name="email" component="div" />
-            <Field type="password" name="password" placeholder="Password" />
-            <ErrorMessage name="email" component="div" />
-            <Button floated="right" positive type="submit" content="Submit" />
-            <Button
-              as={Link}
-              to="/"
-              floated="right"
-              positive
-              type="button"
-              content="Cancel"
+    <div className="login_form_container">
+      <div className="content box-shadow ">
+        <div className="img_container">
+          <img
+            src="https://www.teahub.io/photos/full/1-18488_iphone-6-background-black-and-white.jpg"
+            alt="story"
+          />
+        </div>
+
+        <div className="form_wrapper">
+          <div className="signup">
+            <h1>Sign in</h1>
+            <p>welcome back</p>
+          </div>
+          <form className="register_form" onSubmit={handleFormSubmit}>
+            <label htmlFor="email">Email address</label>
+            <input
+              value={registerData.email}
+              onChange={handleChange}
+              minLength={10}
+              name="email"
+              type="text"
+              placeholder="Write your email"
             />
-          </Form>
-        )}
-      </Formik>
-    </Segment>
+            <label htmlFor="password">Password</label>
+            <input
+              value={registerData.password}
+              onChange={handleChange}
+              minLength={8}
+              type="password"
+              name="password"
+              placeholder="Your password"
+            />
+            <button type="submit" onClick={handleFormSubmit}>
+              Sign in
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default observer(RegisterForm);
+export default RegisterForm;

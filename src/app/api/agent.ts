@@ -66,7 +66,7 @@ export const user = {
     requests.get<void>("/logout", {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
-  loadStories: (id: number) =>
+  loadProfile: (id: number) =>
     requests.get<{ posts: Story[]; profile: Profile[] }>(`/profile/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
@@ -102,6 +102,7 @@ export const story = {
       { headers: { Authorization: `${localStorage.getItem("Authoriation")}` } }
     ),
   show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),
+  delete: (id: number) => requests.delete(`post/delete/${id}`, headers),
   all: (page: number, category: string) =>
     requests.get<any>(`/post/stories/page/${page}`, {
       headers: { category },

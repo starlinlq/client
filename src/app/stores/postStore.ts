@@ -20,6 +20,7 @@ export class PostStore {
   currentPage: number = 1;
   selectedCategory = "all";
   isLoadingMore = false;
+  itemTodelete: number = 0;
 
   constructor() {
     makeAutoObservable(this);
@@ -104,6 +105,17 @@ export class PostStore {
       runInAction(() => {
         this.loading = false;
       });
+    }
+  };
+
+  public delete = async (id: number) => {
+    try {
+      await agent.story.delete(id);
+      runInAction(() => {
+        this.itemTodelete = id;
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 

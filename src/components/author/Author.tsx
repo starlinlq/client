@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface Props {
   name: string | undefined;
   profile_photo: string;
-  id: string;
+  id: number;
 }
 export default function Author({ name, profile_photo, id }: Props) {
   return (

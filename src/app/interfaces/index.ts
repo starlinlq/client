@@ -26,7 +26,7 @@ export interface Story {
   comments: Comment[];
   created_at: string;
   profile_photo: string;
-  user_id: string;
+  user_id: number;
   likes: {
     user_id: number;
     post_id: number;
@@ -55,6 +55,7 @@ export interface Profile {
   profile_pic_url: string;
   about_me: string;
   user_name: string;
+  user_id?: number;
 }
 
 /*

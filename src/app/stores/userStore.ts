@@ -24,15 +24,13 @@ export class UserStore {
         headers: { Authorization: `${localStorage.getItem("Authorization")}` },
       })
       .then((r: any) => {
-        if (r.data) {
-          runInAction(() => {
-            this.isAuth = true;
-            this.name = r.data.name;
-            this.id = r.data.id;
-            this.profile = [r.data.profile];
-            this.loading = false;
-          });
-        }
+        runInAction(() => {
+          this.isAuth = true;
+          this.name = r.data.name;
+          this.id = r.data.id;
+          this.profile = [r.data.profile];
+          this.loading = false;
+        });
       })
       .catch((error) => {
         runInAction(() => {
@@ -99,11 +97,11 @@ export class UserStore {
       });
     }
   };
-
-  loadUserStories = async (id: number) => {
+/*
+  loadProfile = async (id: number) => {
     this.loading = true;
     try {
-      let data = await agent.user.loadStories(id);
+      let data = await agent.user.loadProfile(id);
       console.log(data);
       runInAction(() => {
         this.profile = data.profile;
@@ -114,6 +112,8 @@ export class UserStore {
       console.log(error);
     }
   };
+
+  */
 
   editUserProfile = async (userData: {
     name: string;

@@ -1,12 +1,10 @@
-import * as Yup from "yup";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { Register } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import { history } from "../../";
 import Upload from "../../features/upload/Upload";
-import { features } from "../../app/api/agent";
 
 function RegisterForm() {
   const { user, features } = useStore();

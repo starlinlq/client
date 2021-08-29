@@ -1,8 +1,11 @@
 import { CgArrowLongRight } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useStore } from "../../app/stores/stores";
 import Like from "../like/Like";
+import { observer } from "mobx-react-lite";
 
 function StoryCard({
+  user_id,
   name,
   story,
   title,
@@ -20,6 +23,7 @@ function StoryCard({
   photo_url: string;
   category: string;
   date: string;
+  user_id?: number;
   flex?: boolean;
   likes: {
     user_id: number;
@@ -29,6 +33,10 @@ function StoryCard({
     updated_at: string;
   }[];
 }) {
+  const { post, user } = useStore();
+  const handleDelete = () => {
+    post.delete(id);
+  };
   return (
     <div
       className={`story_card d-flex ${flex ? "column-width" : "row-width"} `}
@@ -58,9 +66,16 @@ function StoryCard({
         <div className="likes">
           <Like likes={likes} story_id={id} />
         </div>
+        {user_id && user_id === user.id && (
+          <div className="delete">
+            <button type="button" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default StoryCard;
+export default observer(StoryCard);
