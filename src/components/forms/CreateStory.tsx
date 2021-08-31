@@ -21,6 +21,7 @@ type Edit = {
   editData?: Function;
   update?: boolean;
   story_id?: number;
+  description?: string;
 };
 
 const modules = {
@@ -45,13 +46,24 @@ function CreateStory({
   editData,
   story_id,
   update,
+  description,
 }: Edit) {
   const [story_data, setStoryData] = useState({
-    story: `${story ? story : ""}`,
-    title: `${title ? title : ""}`,
-    photo_url: `${photo_url ? photo_url : ""}`,
-    category_title: `${category ? category : ""}`,
+    story: story ? story : "",
+    title: title ? title : "",
+    photo_url: photo_url ? photo_url : "",
+    category_title: category ? category : "",
+    description: description ? description : "",
   });
+  const [options, setOptions] = useState([
+    { option: "all" },
+    { option: "Nature" },
+    { option: "Adventure" },
+    { option: "Comedy" },
+    { option: "Rebirth" },
+    { option: "Universe" },
+    { option: "Family" },
+  ]);
 
   const [warning = { title: false, image: false, story: false }, setWarning] =
     useState<Warning>();
@@ -101,13 +113,19 @@ function CreateStory({
     }
   };
 
-  useEffect(function () {}, []);
+  useEffect(function () {
+    if (category) {
+      let data = options.filter((element) => element.option !== category);
+      let new_data = [{ option: category }, ...data];
+      setOptions(new_data);
+    }
+  }, []);
 
   if (loading) {
     return <Loading />;
   }
   return (
-    <div className="create_story_container ">
+    <div className="create_story_container  ">
       <header className="create_title">Begin writing your story.</header>
       <form
         className="_form"
@@ -129,6 +147,15 @@ function CreateStory({
           name="title"
           placeholder="Title"
         />
+        <textarea
+          value={story_data.description}
+          onChange={(e) => handleOnChange(e)}
+          placeholder="Story description: min 50 characters"
+          name="description"
+          className="text_area"
+          cols={5}
+          rows={5}
+        />
         {warning.story && (
           <label className="_required">
             story should be at least 500 characters
@@ -143,23 +170,22 @@ function CreateStory({
           modules={modules}
         />
 
-        {!update && (
-          <select
-            required
-            value={story_data.category_title}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-            className="_select"
-            name="category_title"
-          >
-            <option value="All">Select Category</option>
-            <option value="Adventure">Adventure</option>
-            <option value="Nature">Nature</option>
-            <option value="Life">Life</option>
-            <option value="Universe">Universe</option>
-          </select>
-        )}
+        <select
+          required
+          value={story_data.category_title}
+          onChange={(e) => {
+            handleOnChange(e);
+          }}
+          className="_select"
+          name="category_title"
+        >
+          <>
+            {!category && <option value="All">Select Category</option>}
+            {options.map((value) => (
+              <option value={value.option}>{value.option}</option>
+            ))}
+          </>
+        </select>
 
         {warning.image && (
           <label className="_required"> Please upload an image</label>

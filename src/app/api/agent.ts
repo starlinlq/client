@@ -95,10 +95,10 @@ export const story = {
       { title, story, photo_url, category: category_title },
       { headers: { Authorization: `${localStorage.getItem("Authorization")}` } }
     ),
-  edit: ({ title, story, photo_url, id }: Story) =>
+  edit: ({ title, story, photo_url, id, category_title, description }: Story) =>
     requests.put<Story>(
       `/post/update/${id}`,
-      { title, story, photo_url },
+      { title, story, photo_url, category_title, description },
       headers
     ),
   show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),

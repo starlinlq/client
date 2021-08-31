@@ -41,10 +41,18 @@
     align-items: center;
 
     .nav-links {
+      height: 100%;
+      display: flex;
+      align-items: center;
+
       a {
         margin-right: 30px;
+        border-bottom: 1px solid transparent;
+
+        transition: all 250ms ease-in-out;
         &:hover {
-          color: orangered;
+          border-color: black;
+          color: #333333;
         }
       }
     }
@@ -70,6 +78,7 @@
       border: 1px solid transparent;
       border-radius: 2px;
       cursor: pointer;
+      transition: all 250ms;
 
       &:hover {
         background-color: transparent;
@@ -85,6 +94,7 @@
       font-size: 25px;
       margin-left: 10px;
       margin-top: 4px;
+      transition: all 250ms;
 
       &:hover {
         color: orangered;

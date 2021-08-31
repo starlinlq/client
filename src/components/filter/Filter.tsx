@@ -1,14 +1,36 @@
 import { observable } from "mobx";
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { BsFilter } from "react-icons/bs";
 import { useStore } from "../../app/stores/stores";
-
-function Filter() {
+type Props = {
+  id?: string;
+};
+function Filter({ id }: Props) {
   const { post } = useStore();
+  const [options, setOptions] = useState([
+    { option: "all" },
+    { option: "Nature" },
+    { option: "Adventure" },
+    { option: "Comedy" },
+    { option: "Rebirth" },
+    { option: "Universe" },
+    { option: "Family" },
+  ]);
   function handleCategory(e: React.ChangeEvent<HTMLSelectElement>) {
     const category = e.target.value;
     post.get(1, category);
   }
+
+  useEffect(() => {
+    if (id) {
+      let data = options.filter(
+        (element: { option: string }) => element.option !== id
+      );
+      let newData = [{ option: id }, ...data];
+      setOptions(newData);
+    }
+  }, [id]);
 
   return (
     <div className="filter_container">
@@ -19,13 +41,11 @@ function Filter() {
         className="category"
         onChange={(e) => handleCategory(e)}
       >
-        <option value="all">All</option>
-        <option value="Nature">Nature</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Comedy">Comedy</option>
-        <option value="Rebirth">Rebirth</option>
-        <option value="Universe">Universe</option>
-        <option value="Family">Family</option>
+        {options.map((value) => (
+          <>
+            <option value={value.option}>{value.option}</option>
+          </>
+        ))}
       </select>
     </div>
   );

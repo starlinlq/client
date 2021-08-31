@@ -49,7 +49,7 @@ function App() {
             <CreateStory />
           </Route>
           <Route path="/bookmark" component={Bookmark} />
-          <Route path="/stories" component={DisplayStories} />
+          <Route path="/stories/:id?" component={DisplayStories} />
           <Route path="/story/:id" component={SingleStory} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/" component={Home} />

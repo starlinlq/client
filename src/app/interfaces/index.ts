@@ -16,6 +16,7 @@ export interface Comment {
 }
 
 export interface Story {
+  description?: string;
   story: string;
   photo_url: string;
   title: string;
@@ -56,7 +57,6 @@ export interface Profile {
   about_me: string;
   user_name: string;
   user_id?: number;
- 
 }
 
 /*

@@ -4,6 +4,7 @@ import { agent } from "../../app/api/agent";
 import { Story } from "../../app/interfaces";
 import StoryCard from "../storyCard/StoryCard";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
+import { BiChevronRight } from "react-icons/bi";
 import { useRef } from "react";
 interface Props {
   category: string;
@@ -42,7 +43,11 @@ function DisplayByCategory({ category, itemToDisplay, flex }: Props) {
           </>
         )}
         <div className="categoryTitle">
-          <h2>{category}</h2>
+          <h3>{category.toUpperCase()}</h3>
+          <div className="explore_more">
+            <a href={`/stories/${category}`}>MORE</a>
+          </div>
+          <BiChevronRight className="icon" />
         </div>
         <div
           className={flex ? "container-row " : "container-column"}

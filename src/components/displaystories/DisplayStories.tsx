@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Story } from "../../app/interfaces";
 import { useStore } from "../../app/stores/stores";
 import Loading from "../../features/loader/Loading";
@@ -8,11 +9,14 @@ import Paginate from "../paginate/Paginate";
 import StoryCard from "../storyCard/StoryCard";
 
 function DisplayStories() {
+  const { id } = useParams<{ id: string }>();
   const { post } = useStore();
   const { story, loading } = post;
 
   useEffect(() => {
-    if (story.length === 0) {
+    if (story.length === 0 && id) {
+      post.get(1, id);
+    } else if (story.length === 0) {
       post.get(1, "all");
     }
   }, []);
@@ -20,7 +24,7 @@ function DisplayStories() {
   return (
     <div className="stories_container">
       <div className="filter box-shadow">
-        <Filter />
+        <Filter id={id} />
       </div>
       {loading ? (
         <Loading />

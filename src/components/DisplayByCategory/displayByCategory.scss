@@ -35,14 +35,15 @@
     }
     .left_icon_container {
       position: absolute;
-      left: 1px;
+      left: 2px;
       top: 0;
       margin-top: 41px;
       width: 90px;
-      height: 351px;
+      height: 355px;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 5px;
       opacity: 0;
       transition: opacity 300ms ease-in-out;
       background: linear-gradient(to left, rgba(0, 0, 0, 0), rgb(0, 0, 0));
@@ -81,6 +82,9 @@
       .left_icon_container {
         opacity: 0.7;
       }
+      .explore_more {
+        width: fit-content;
+      }
     }
   }
   .container-column {
@@ -97,15 +101,41 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-height: 800px;
-    overflow-y: scroll;
+    height: fit-content;
+    width: fit-content;
+    overflow: scroll;
+  }
+
+  @keyframes test {
+    from {
+    }
   }
 
   .categoryTitle {
-    h2 {
-      margin-bottom: 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    h3 {
       font-family: $title-font;
       font-weight: 500;
+    }
+
+    .explore_more {
+      width: 0;
+
+      overflow: hidden;
+      a {
+        padding: 0;
+        margin: 0;
+
+        text-decoration: none;
+        font-size: 15px;
+        color: gray;
+        padding-left: 10px;
+        &:hover {
+          color: black;
+        }
+      }
     }
   }
 

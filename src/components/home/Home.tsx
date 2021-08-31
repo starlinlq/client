@@ -5,9 +5,9 @@ export default function Home() {
   return (
     <div className="home_container">
       <Header />
-      <DisplayByCategory category="Universe" itemToDisplay={8} />
-      <DisplayByCategory category="Nature" itemToDisplay={8} flex={true} />
-      <DisplayByCategory category="Rebirth" itemToDisplay={8} />
+      <DisplayByCategory category="Universe" itemToDisplay={20} />
+      <DisplayByCategory category="Nature" itemToDisplay={6} flex={true} />
+      <DisplayByCategory category="Rebirth" itemToDisplay={20} />
     </div>
   );
 }
