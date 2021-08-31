@@ -13,19 +13,23 @@ import SingleStory from "./components/singlestory/SingleStory";
 import Profile from "./components/profile/Profile";
 import Home from "./components/home/Home";
 import Bookmark from "./components/bookmark/Bookmark";
+import smoothscroll from "smoothscroll-polyfill";
+import { useRef } from "react";
 
 function App() {
   const { user } = useStore();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let token = localStorage.getItem("Authorization");
+
     if (token) {
       user.validate();
     }
   }, []);
 
   return (
-    <>
+    <div className="my_app">
       <NavBar />
       <ToastContainer
         position="bottom-right"
@@ -51,7 +55,7 @@ function App() {
           <Route path="/" component={Home} />
         </Switch>
       </div>
-    </>
+    </div>
   );
 }
 

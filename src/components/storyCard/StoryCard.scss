@@ -13,6 +13,16 @@
   object-fit: contain;
   flex-direction: row;
   align-items: flex-end;
+  transition: transform 100ms;
+
+  &:hover {
+    transform: scale(1.01);
+
+    img {
+      filter: brightness(85%);
+      border-radius: 5px;
+    }
+  }
 
   .confirm_delete {
     text-align: center;
@@ -85,6 +95,8 @@
     z-index: -1;
     object-fit: cover;
     filter: brightness(75%);
+    transition: filter 200ms;
+    transition: border-radius 50ms;
   }
 
   ._content {
