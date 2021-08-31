@@ -2,18 +2,19 @@ import { observer } from "mobx-react-lite";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useStore } from "../../app/stores/stores";
-import { IoPersonCircleOutline } from "react-icons/io5";
+import { IoPersonCircleOutline, IoImageOutline } from "react-icons/io5";
 
 interface Image {
   image: File;
 }
 
-interface Props {
+type Props = {
   user?: boolean;
   story?: boolean;
-}
+  type?: string;
+};
 
-export default observer(function Upload({ user, story }: Props) {
+export default observer(function Upload({ user, story, type }: Props) {
   const [selectedFile, setSelectedFile] = useState<Image>();
   const [uploaded, setUploaded] = useState(false);
   const { features } = useStore();
@@ -59,15 +60,32 @@ export default observer(function Upload({ user, story }: Props) {
           <div>
             {uploaded ? (
               <div className="picture_container">
-                <img src={features.url} alt="profile" onClick={handleFile} />
+                <img
+                  src={features.url}
+                  alt="profile"
+                  className={type === "Profile" ? "profile_img" : "story_img"}
+                  onClick={handleFile}
+                />
               </div>
             ) : (
               <div className="profile_picture">
-                <IoPersonCircleOutline
-                  onClick={handleFile}
-                  className="profile_icon"
-                />
-                <p>Select profile picture</p>
+                {type === "Profile" ? (
+                  <>
+                    <IoPersonCircleOutline
+                      onClick={handleFile}
+                      className="profile_icon"
+                    />
+                    <p>Select profile picture</p>
+                  </>
+                ) : (
+                  <>
+                    <IoImageOutline
+                      onClick={handleFile}
+                      className="profile_icon"
+                    />
+                    <p>Select story picture</p>{" "}
+                  </>
+                )}
               </div>
             )}
             <div className="file-upload">

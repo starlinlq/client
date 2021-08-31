@@ -25,12 +25,20 @@
   .picture_container {
     display: flex;
     justify-content: center;
-    img {
+    .profile_img {
       border-radius: 50%;
       width: 120px;
       height: 120px;
       cursor: pointer;
       object-fit: cover;
+    }
+
+    .story_img {
+      object-fit: cover;
+      object-position: center;
+      width: 550px;
+      height: 300px;
+      cursor: pointer;
     }
   }
 

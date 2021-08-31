@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useStore } from "../../app/stores/stores";
 import Like from "../like/Like";
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
+import { BiEdit } from "react-icons/bi";
 
 function StoryCard({
   user_id,
@@ -15,7 +17,9 @@ function StoryCard({
   flex,
   category,
   likes,
+  editData,
 }: {
+  editData?: Function;
   name: string | undefined;
   story: string;
   title: string;
@@ -34,9 +38,25 @@ function StoryCard({
   }[];
 }) {
   const { post, user } = useStore();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   const handleDelete = () => {
-    post.delete(id);
+    setConfirmDelete(true);
   };
+
+  const handleConfirmDelete = (type: string) => {
+    if (type === "Yes") {
+      post.delete(id);
+    }
+    setConfirmDelete(false);
+  };
+
+  const handleEdit = () => {
+    if (editData) {
+      editData({ story, category, title, active: true, photo_url });
+    }
+  };
+
   return (
     <div
       className={`story_card d-flex ${flex ? "column-width" : "row-width"} `}
@@ -59,7 +79,7 @@ function StoryCard({
           </Link>
         </div>
       </div>
-      <div className="category_like_container">
+      <div className="options_container">
         <div className="category_title">
           <p>{category}</p>
         </div>
@@ -73,7 +93,31 @@ function StoryCard({
             </button>
           </div>
         )}
+        {user_id && user_id === user.id && (
+          <div className="edit">
+            <BiEdit className="edit_icon" onClick={handleEdit} />
+          </div>
+        )}
       </div>
+      {user_id && user_id === user.id && confirmDelete && (
+        <div className="confirm_delete">
+          <p>Are you sure?</p>
+          <button
+            type="button"
+            className="button"
+            onClick={() => handleConfirmDelete("Yes")}
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            className="button"
+            onClick={() => handleConfirmDelete("No")}
+          >
+            No
+          </button>
+        </div>
+      )}
     </div>
   );
 }

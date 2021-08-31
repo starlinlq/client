@@ -6,12 +6,20 @@ import Loading from "../../features/loader/Loading";
 import ReactQuill from "react-quill";
 import Upload from "../../features/upload/Upload";
 import { history } from "../../index";
+import { Story } from "../../app/interfaces";
 
 interface Warning {
   title: boolean;
   story: boolean;
   image: boolean;
 }
+type Edit = {
+  story?: string;
+  category?: string;
+  title?: string;
+  photo_url?: string;
+  editData?: Function;
+};
 
 const modules = {
   toolbar: [
@@ -27,11 +35,12 @@ const modules = {
   ],
 };
 
-function CreateStory() {
+function CreateStory({ story, title, category, photo_url, editData }: Edit) {
   const [story_data, setStoryData] = useState({
-    story: "",
-    title: "",
-    category_title: "",
+    story: `${story ? story : ""}`,
+    title: `${title ? title : ""}`,
+    photo_url: `${photo_url ? photo_url : ""}`,
+    category_title: `${category ? category : ""}`,
   });
 
   const [warning = { title: false, image: false, story: false }, setWarning] =
@@ -61,6 +70,19 @@ function CreateStory() {
       post.create({ ...story_data, photo_url: features.url });
     }
   };
+  const handleCancel = () => {
+    if (story && editData) {
+      editData({
+        story: "",
+        title: "",
+        category: "",
+        photo_url: "",
+        active: false,
+      });
+    } else {
+      history.push("/");
+    }
+  };
 
   useEffect(function () {}, []);
 
@@ -77,6 +99,7 @@ function CreateStory() {
         }}
         autoComplete="off"
       >
+        <Upload />
         <input
           minLength={12}
           type="text"
@@ -123,16 +146,12 @@ function CreateStory() {
           <label className="_required"> Please upload an image</label>
         )}
 
-        <Upload />
-
-        <div>
+        <div className="form_buttons">
           <button type="submit" className="button button-w">
             Submit
           </button>
           <button
-            onClick={() => {
-              history.push("/");
-            }}
+            onClick={handleCancel}
             type="button"
             className="button button-w"
           >

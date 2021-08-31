@@ -46,7 +46,7 @@ export default function EditProfile({ setActive }: Props) {
           {warning && (
             <span style={{ color: "red" }}> Please upload a picture</span>
           )}
-          <Upload />
+          <Upload type="Profile" />
         </div>
         <div>
           <label htmlFor="name">Name</label>

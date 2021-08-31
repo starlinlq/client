@@ -9,11 +9,7 @@ $name_font: "Anton", sans-serif;
 body {
   background-color: #fafafa;
 }
-.create_story_container {
-  padding: 5px;
-  margin-top: 44px;
-  border-radius: 2px;
-}
+
 
 .loadingspinner {
   pointer-events: none;
@@ -109,23 +105,8 @@ body {
   border: solid 1px #cccccc;
 }
 
-._form {
-  display: flex;
-  flex-direction: column;
-  .testing02 {
-    height: 200px;
-    margin: 10px 0;
-  }
-}
 
-.create_title {
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-family: $primary-font;
-  font-weight: 700;
-}
+
 
 .button-w {
   padding: 10px 60px !important;

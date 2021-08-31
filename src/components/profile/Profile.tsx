@@ -9,6 +9,15 @@ import { BiEdit } from "react-icons/bi";
 import EditProfile from "../editprofile/EditProfile";
 import { Profile as p, Story } from "../../app/interfaces";
 import { agent } from "../../app/api/agent";
+import CreateStory from "../forms/CreateStory";
+
+type Edit = {
+  story: string;
+  title: string;
+  category: string;
+  active: boolean;
+  photo_url: string;
+};
 
 function Profile() {
   const [userData, setUserData] = useState<{
@@ -18,6 +27,13 @@ function Profile() {
   const { id } = useParams<{ id: string }>();
   const [active, setActive] = useState(false);
   const { user, post } = useStore();
+  const [editData, setEditData] = useState<Edit>({
+    title: "",
+    category: "",
+    story: "",
+    photo_url: "",
+    active: false,
+  });
 
   const [currentDisplay, setCurrentDisplay] = useState(18);
   const [userStories, setUserStories] = useState<Story[]>([]);
@@ -102,6 +118,7 @@ function Profile() {
             userStories.map((data) => (
               <Fragment key={data.id}>
                 <StoryCard
+                  editData={setEditData}
                   user_id={data.user_id}
                   likes={data.likes}
                   date={data.created_at.slice(0, 10)}
@@ -141,6 +158,18 @@ function Profile() {
           </button>
         </div>
       </div>
+
+      {editData.active && (
+        <div className="edit_profile box-shadow">
+          <CreateStory
+            editData={setEditData}
+            title={editData.title}
+            category={editData.category}
+            story={editData.story}
+            photo_url={editData.photo_url}
+          />
+        </div>
+      )}
     </div>
   );
 }

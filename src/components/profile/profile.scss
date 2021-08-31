@@ -3,6 +3,15 @@
   display: flex;
   margin-top: 44px;
 
+  .edit_profile {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    z-index: 999;
+  }
+
   .stories {
     .featured {
       font-size: 20px;
@@ -107,6 +116,29 @@
     h1 {
       height: fit-content;
       width: fit-content;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+
+    .stories {
+      .featured {
+        font-size: 20px;
+        font-family: $title-font;
+        padding-bottom: 10px;
+        margin-left: 0px;
+      }
+      h1 {
+        margin-left: 0px;
+      }
+      .content {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-left: 0px;
+      }
     }
   }
 }
