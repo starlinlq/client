@@ -9,7 +9,9 @@
 
   .nav_menus {
     font-weight: 500;
+    height: 100%;
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -61,6 +63,33 @@
   .user-links {
     align-items: center;
     height: 100%;
+    .link_to_create {
+      background-color: #333333;
+      padding: 5px 15px;
+      color: white;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: transparent;
+        border-color: #333333;
+        color: black;
+      }
+
+      @media screen and (max-width: 650px) {
+        display: none;
+      }
+    }
+    .icon {
+      font-size: 24px;
+      margin-left: 10px;
+      margin-top: 4px;
+
+      &:hover {
+        color: orangered;
+      }
+    }
   }
 
   .n-link {
@@ -75,6 +104,12 @@
       display: flex;
       align-items: center;
       min-width: 100px;
+      img {
+        height: 25px;
+        width: 25px;
+        border-radius: 5px;
+        object-fit: cover;
+      }
       p {
         padding-left: 5px;
       }

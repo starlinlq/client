@@ -12,10 +12,28 @@ export class UserStore {
   profile: Profile[] = [];
   editMode = false;
   posts: Story[] = [];
+  bookmark: any[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  handlebookmark = () => {
+    let index = 0;
+    let bookmark = [];
+    console.log(this.bookmark + "");
+
+    do {
+      if (this.bookmark[index].post) {
+        bookmark.push({
+          ...this.bookmark[index].post,
+        });
+      }
+      index += 1;
+    } while (index < this.bookmark.length);
+
+    return bookmark;
+  };
 
   validate = () => {
     this.loading = true;
@@ -25,10 +43,11 @@ export class UserStore {
       })
       .then((r: any) => {
         runInAction(() => {
-          this.isAuth = true;
           this.name = r.data.name;
           this.id = r.data.id;
           this.profile = [r.data.profile];
+          this.bookmark = r.data.bookmark;
+          this.isAuth = true;
           this.loading = false;
         });
       })
@@ -38,6 +57,7 @@ export class UserStore {
           this.isAuth = false;
         });
       });
+    console.log(this.bookmark);
   };
 
   registerUser = async ({
@@ -97,7 +117,7 @@ export class UserStore {
       });
     }
   };
-/*
+  /*
   loadProfile = async (id: number) => {
     this.loading = true;
     try {

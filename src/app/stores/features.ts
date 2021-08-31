@@ -5,6 +5,7 @@ class Features {
   loading = false;
   url: string = "";
   currentPage: number = 1;
+  bookmark: number = 0;
   constructor() {
     makeAutoObservable(this);
   }
@@ -14,6 +15,11 @@ class Features {
   }
 
   set_image_url(url: string) {}
+
+  handlebookmark = (n: number) => {
+    console.log(n);
+    this.bookmark = n;
+  };
 
   async upload_image(image: File) {
     this.set_loading(true);

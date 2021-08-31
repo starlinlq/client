@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
-import { IoIosHeart } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { useStore } from "../../app/stores/stores";
 import { observer } from "mobx-react-lite";
 import { agent } from "../../app/api/agent";
@@ -29,7 +29,7 @@ interface LikeData {
   }[];
 }
 function Like({ story_id, likes }: Props) {
-  const { user } = useStore();
+  const { user, features } = useStore();
 
   const [likeData, setLikeData] = useState<LikeData>({
     likes: [],
@@ -40,6 +40,7 @@ function Like({ story_id, likes }: Props) {
 
   const handleUseEffect = () => {
     let like = likes.find((element) => element.user_id === user.id);
+
     if (like) {
       setLikeData({ likes, count: likes.length, active: true, id: like.id });
     } else {
@@ -51,12 +52,14 @@ function Like({ story_id, likes }: Props) {
   const handleLike = async () => {
     if (likeData.active && likeData.id && user.isAuth) {
       await agent.story.disLike(likeData.id);
+      features.handlebookmark(story_id);
       let data = likeData.likes.filter(
         (element) => element.user_id !== user.id
       );
       setLikeData({ likes: data, count: data.length, active: false });
     } else if (user.isAuth) {
       let data = await agent.story.like(story_id);
+
       setLikeData({
         likes: [...likeData.likes, data],
         count: likeData.likes.length + 1,

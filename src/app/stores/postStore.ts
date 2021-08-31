@@ -59,7 +59,6 @@ export class PostStore {
         console.log(posts);
         this.story = posts.data;
         this.currentPage = posts.meta.current_page;
-        console.log(this.currentPage);
         this.totalPages = posts.meta.last_page;
         this.loading = false;
       });
@@ -80,6 +79,7 @@ export class PostStore {
         this.selectedStory = [{ ...data.post[0], profile_photo: data.url }];
         this.comments = data.post[0].comments;
         this.currentComments = data.post[0].comments.slice(0, 10);
+
         this.loading = false;
       });
     } catch (error) {

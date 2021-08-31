@@ -5,12 +5,14 @@ import { RiMenu3Fill, RiCloseLine, RiAccountCircleLine } from "react-icons/ri";
 import { GiPhotoCamera } from "react-icons/gi";
 import MobileMenu from "../mobilemenu/MobileMenu";
 import useComponentVisible from "../../hooks/useComponentVisible";
+import { BsBookmarks } from "react-icons/bs";
 
 function NavBar() {
   const [mobile, setMobile] = useState(false);
   const { ref, visible } = useComponentVisible(false);
   const { user } = useStore();
   const { isAuth } = user;
+  console.log(isAuth);
 
   function handleLogOut() {
     user.logOutUser();
@@ -38,18 +40,29 @@ function NavBar() {
           <div className="user-links d-flex">
             {isAuth ? (
               <>
-                <a href="/create" className="button">
+                <a href="/create" className="link_to_create">
                   Create Story
                 </a>
-                <div ref={ref} className="user_account_menu">
+                <a href="/bookmark">
+                  <BsBookmarks className="icon" />
+                </a>
+
+                <div
+                  ref={window.innerWidth < 700 ? null : ref}
+                  className="user_account_menu"
+                >
                   <div className="user">
-                    <RiAccountCircleLine />
-                    <p> Hi {user.name}</p>
+                    <img
+                      src="https://res.cloudinary.com/starlinlq/image/upload/v1630137970/test/zux61skehosoh9hmj7b9.jpg"
+                      alt="profile"
+                    />
+                    <p> HI {user.name.toUpperCase()}</p>
                   </div>
 
                   <div className={visible ? "active box-shadow" : "not_active"}>
                     <a href="/account">Account</a>
                     <a href={`/profile/${user.id}`}>Profile</a>
+
                     <button className="" type="button" onClick={handleLogOut}>
                       Log out
                     </button>

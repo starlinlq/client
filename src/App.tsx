@@ -12,6 +12,7 @@ import DisplayStories from "./components/displaystories/DisplayStories";
 import SingleStory from "./components/singlestory/SingleStory";
 import Profile from "./components/profile/Profile";
 import Home from "./components/home/Home";
+import Bookmark from "./components/bookmark/Bookmark";
 
 function App() {
   const { user } = useStore();
@@ -43,6 +44,7 @@ function App() {
           <Route exact path="/create">
             <CreateStory />
           </Route>
+          <Route path="/bookmark" component={Bookmark} />
           <Route path="/stories" component={DisplayStories} />
           <Route path="/story/:id" component={SingleStory} />
           <Route path="/profile/:id" component={Profile} />
