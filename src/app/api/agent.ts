@@ -76,7 +76,7 @@ export const user = {
     url: string;
     city: string;
   }) =>
-    requests.put("/profile/update", userInfo, {
+    requests.put<Profile>("/profile/update", userInfo, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
 };
@@ -97,9 +97,9 @@ export const story = {
     ),
   edit: ({ title, story, photo_url, id }: Story) =>
     requests.put<Story>(
-      "/post/update",
+      `/post/update/${id}`,
       { title, story, photo_url },
-      { headers: { Authorization: `${localStorage.getItem("Authoriation")}` } }
+      headers
     ),
   show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),
   delete: (id: number) => requests.delete(`post/delete/${id}`, headers),

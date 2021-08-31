@@ -12,27 +12,31 @@ import { agent } from "../../app/api/agent";
 import CreateStory from "../forms/CreateStory";
 
 type Edit = {
+  story_id: number;
   story: string;
   title: string;
   category: string;
   active: boolean;
   photo_url: string;
+  update: boolean;
 };
 
 function Profile() {
   const [userData, setUserData] = useState<{
     posts: Story[];
-    profile: p[];
+    profile: any[];
   }>({ posts: [], profile: [] });
   const { id } = useParams<{ id: string }>();
   const [active, setActive] = useState(false);
   const { user, post } = useStore();
   const [editData, setEditData] = useState<Edit>({
+    story_id: 0,
     title: "",
     category: "",
     story: "",
     photo_url: "",
     active: false,
+    update: false,
   });
 
   const [currentDisplay, setCurrentDisplay] = useState(18);
@@ -67,20 +71,30 @@ function Profile() {
         setUserData(data);
       }
     };
-
-    handleData();
-  }, [id]);
+    if (user.id !== parseInt(id) && user.id !== 0) {
+      handleData();
+    } else {
+      setUserData({ posts: user.stories, profile: [...user.profile] });
+      setUserStories(user.stories.slice(0, 9));
+    }
+  }, [id, user.stories, user.id, user.editMode, user.profile]);
 
   useEffect(
     function () {
-      setUserStories(userData.posts.slice(0, 9));
+      if (user.id !== parseInt(id)) {
+        setUserStories(userData.posts.slice(0, 9));
+      }
     },
     [userData.posts]
   );
 
   return (
     <div className="profile">
-      <div>{active && <EditProfile setActive={setActive} />}</div>
+      <div>
+        {active && (
+          <EditProfile setActive={setActive} photo_url={user.profile_pic} />
+        )}
+      </div>
       {userData?.profile.map((data) => (
         <div className="p_container" key={data.id}>
           <div className="account">
@@ -162,11 +176,13 @@ function Profile() {
       {editData.active && (
         <div className="edit_profile box-shadow">
           <CreateStory
+            update={editData.update}
             editData={setEditData}
             title={editData.title}
             category={editData.category}
             story={editData.story}
             photo_url={editData.photo_url}
+            story_id={editData.story_id}
           />
         </div>
       )}

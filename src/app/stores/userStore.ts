@@ -9,10 +9,14 @@ export class UserStore {
   id: number = 0;
   loading: boolean = false;
   isAuth: boolean = false;
+  stories: Story[] = [];
   profile: Profile[] = [];
   editMode = false;
   posts: Story[] = [];
   bookmark: any[] = [];
+  profile_pic: string = "";
+  about: string = "";
+  city: string = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -43,9 +47,14 @@ export class UserStore {
       })
       .then((r: any) => {
         runInAction(() => {
-          this.name = r.data.name;
-          this.id = r.data.id;
-          this.profile = [r.data.profile];
+          console.log(r.data.user[0].profile);
+          this.profile = [r.data.user[0].profile];
+          this.stories = r.data.user[0].posts;
+          this.profile_pic = r.data.user[0].profile.profile_pic_url;
+          this.about = r.data.user[0].profile.about_me;
+          this.city = r.data.user[0].profile.city;
+          this.name = r.data.user[0].profile.user_name;
+          this.id = r.data.user[0].id;
           this.bookmark = r.data.bookmark;
           this.isAuth = true;
           this.loading = false;
@@ -143,19 +152,13 @@ export class UserStore {
   }) => {
     this.editMode = true;
     try {
-      await agent.user.editProfile(userData);
+      let data = await agent.user.editProfile(userData);
+      console.log(data);
       runInAction(() => {
-        this.editMode = false;
         this.name = userData.name;
-        this.profile = [
-          {
-            id: this.id,
-            city: userData.city,
-            profile_pic_url: userData.url,
-            about_me: userData.about,
-            user_name: userData.name,
-          },
-        ];
+        this.profile_pic = userData.url;
+        this.profile = [data];
+        this.editMode = false;
       });
     } catch (error) {
       console.log(error);

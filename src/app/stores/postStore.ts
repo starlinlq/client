@@ -108,6 +108,13 @@ export class PostStore {
     }
   };
 
+  update = async (data: any) => {
+    try {
+      await agent.story.edit(data);
+      history.push(`/story/${data.id}`);
+    } catch (error) {}
+  };
+
   public delete = async (id: number) => {
     try {
       await agent.story.delete(id);

@@ -3,20 +3,29 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useStore } from "../../app/stores/stores";
+import { observer } from "mobx-react-lite";
 import Upload from "../../features/upload/Upload";
 interface Props {
   setActive: Function;
+  photo_url?: string;
 }
-export default function EditProfile({ setActive }: Props) {
-  const [data, setData] = useState({ name: "", about: "", city: "" });
+function EditProfile({ setActive, photo_url }: Props) {
   const [warning, setWarning] = useState(false);
   const { features, user } = useStore();
+  const [data, setData] = useState({
+    name: user.name,
+    about: user.about,
+    city: user.city,
+  });
 
   function handleFormSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (features.url) {
-      user.editUserProfile({ ...data, url: features.url });
+    if (features.url || photo_url) {
+      user.editUserProfile({
+        ...data,
+        url: photo_url ? photo_url : features.url,
+      });
       setActive(false);
       setWarning(false);
     } else {
@@ -43,10 +52,7 @@ export default function EditProfile({ setActive }: Props) {
     <div className="profile_edit">
       <form className="box-shadow" onSubmit={handleFormSubmit}>
         <div>
-          {warning && (
-            <span style={{ color: "red" }}> Please upload a picture</span>
-          )}
-          <Upload type="Profile" />
+          <Upload type="Profile" photo_url={photo_url} />
         </div>
         <div>
           <label htmlFor="name">Name</label>
@@ -104,3 +110,4 @@ export default function EditProfile({ setActive }: Props) {
     </div>
   );
 }
+export default observer(EditProfile);

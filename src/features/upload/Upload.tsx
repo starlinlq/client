@@ -12,9 +12,15 @@ type Props = {
   user?: boolean;
   story?: boolean;
   type?: string;
+  photo_url?: string;
 };
 
-export default observer(function Upload({ user, story, type }: Props) {
+export default observer(function Upload({
+  user,
+  story,
+  type,
+  photo_url,
+}: Props) {
   const [selectedFile, setSelectedFile] = useState<Image>();
   const [uploaded, setUploaded] = useState(false);
   const { features } = useStore();
@@ -58,10 +64,14 @@ export default observer(function Upload({ user, story, type }: Props) {
       ) : (
         <>
           <div>
-            {uploaded ? (
+            {uploaded || photo_url ? (
               <div className="picture_container">
                 <img
-                  src={features.url}
+                  src={
+                    photo_url && features.url.length === 0
+                      ? photo_url
+                      : features.url
+                  }
                   alt="profile"
                   className={type === "Profile" ? "profile_img" : "story_img"}
                   onClick={handleFile}

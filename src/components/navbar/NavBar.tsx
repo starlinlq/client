@@ -12,7 +12,6 @@ function NavBar() {
   const { ref, visible } = useComponentVisible(false);
   const { user } = useStore();
   const { isAuth } = user;
-  console.log(isAuth);
 
   function handleLogOut() {
     user.logOutUser();
@@ -52,10 +51,7 @@ function NavBar() {
                   className="user_account_menu"
                 >
                   <div className="user">
-                    <img
-                      src="https://res.cloudinary.com/starlinlq/image/upload/v1630137970/test/zux61skehosoh9hmj7b9.jpg"
-                      alt="profile"
-                    />
+                    <img src={user.profile_pic} alt="profile" />
                     <p> HI {user.name.toUpperCase()}</p>
                   </div>
 

@@ -19,6 +19,8 @@ type Edit = {
   title?: string;
   photo_url?: string;
   editData?: Function;
+  update?: boolean;
+  story_id?: number;
 };
 
 const modules = {
@@ -35,7 +37,15 @@ const modules = {
   ],
 };
 
-function CreateStory({ story, title, category, photo_url, editData }: Edit) {
+function CreateStory({
+  story,
+  title,
+  category,
+  photo_url,
+  editData,
+  story_id,
+  update,
+}: Edit) {
   const [story_data, setStoryData] = useState({
     story: `${story ? story : ""}`,
     title: `${title ? title : ""}`,
@@ -64,10 +74,16 @@ function CreateStory({ story, title, category, photo_url, editData }: Edit) {
     e.preventDefault();
     if (story_data.story.length < 500) {
       _warning("story", true);
-    } else if (!features.url) {
+    } else if (!features.url && !photo_url) {
       _warning("image", true);
-    } else {
+    } else if (!update) {
       post.create({ ...story_data, photo_url: features.url });
+    } else {
+      post.update({
+        ...story_data,
+        id: story_id,
+        photo_url: features.url.length > 1 ? features.url : photo_url,
+      });
     }
   };
   const handleCancel = () => {
@@ -78,6 +94,7 @@ function CreateStory({ story, title, category, photo_url, editData }: Edit) {
         category: "",
         photo_url: "",
         active: false,
+        update: false,
       });
     } else {
       history.push("/");
@@ -99,7 +116,7 @@ function CreateStory({ story, title, category, photo_url, editData }: Edit) {
         }}
         autoComplete="off"
       >
-        <Upload />
+        <Upload photo_url={photo_url} />
         <input
           minLength={12}
           type="text"
@@ -126,21 +143,23 @@ function CreateStory({ story, title, category, photo_url, editData }: Edit) {
           modules={modules}
         />
 
-        <select
-          required
-          value={story_data.category_title}
-          onChange={(e) => {
-            handleOnChange(e);
-          }}
-          className="_select"
-          name="category_title"
-        >
-          <option value="All">Select Category</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Nature">Nature</option>
-          <option value="Life">Life</option>
-          <option value="Universe">Universe</option>
-        </select>
+        {!update && (
+          <select
+            required
+            value={story_data.category_title}
+            onChange={(e) => {
+              handleOnChange(e);
+            }}
+            className="_select"
+            name="category_title"
+          >
+            <option value="All">Select Category</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Nature">Nature</option>
+            <option value="Life">Life</option>
+            <option value="Universe">Universe</option>
+          </select>
+        )}
 
         {warning.image && (
           <label className="_required"> Please upload an image</label>

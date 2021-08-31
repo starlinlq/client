@@ -53,7 +53,7 @@ function StoryCard({
 
   const handleEdit = () => {
     if (editData) {
-      editData({ story, category, title, active: true, photo_url });
+      editData({ story, category, title, active: true, photo_url, story_id: id, update: true });
     }
   };
 

@@ -56,6 +56,7 @@ export interface Profile {
   about_me: string;
   user_name: string;
   user_id?: number;
+ 
 }
 
 /*
