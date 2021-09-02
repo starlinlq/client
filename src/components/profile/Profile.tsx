@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Fragment } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,8 @@ import EditProfile from "../editprofile/EditProfile";
 import { Profile as p, Story } from "../../app/interfaces";
 import { agent } from "../../app/api/agent";
 import CreateStory from "../forms/CreateStory";
+import Follow from "../follow/Follow";
+import Follower from "../follower/Follower";
 
 type Edit = {
   story_id: number;
@@ -25,9 +27,16 @@ function Profile() {
   const [userData, setUserData] = useState<{
     posts: Story[];
     profile: any[];
-  }>({ posts: [], profile: [] });
+    followersCount: number;
+    followingCount: number;
+  }>({ posts: [], profile: [], followersCount: 0, followingCount: 0 });
   const { id } = useParams<{ id: string }>();
   const [active, setActive] = useState(false);
+
+  const [displayFollow, setDisplayFollow] = useState({
+    active: false,
+    current: "",
+  });
   const { user, post } = useStore();
   const [editData, setEditData] = useState<Edit>({
     story_id: 0,
@@ -63,33 +72,41 @@ function Profile() {
   const handleActive = () => {
     setActive(!active);
   };
+  const handleCount = (n: number, type: string = "Followers") => {
+    if (type === "Followers") {
+      setUserData({ ...userData, followersCount: userData.followersCount + n });
+    } else {
+      setUserData({ ...userData, followingCount: userData.followingCount + n });
+    }
+  };
 
   useEffect(() => {
     let handleData = async () => {
       let data = await agent.user.loadProfile(parseInt(id));
+
       if (data) {
         setUserData(data);
+        setUserStories(data.posts.slice(0, 9));
       }
     };
-    if (user.id !== parseInt(id) && user.id !== 0) {
-      handleData();
-    } else {
-      setUserData({ posts: user.stories, profile: [...user.profile] });
-      setUserStories(user.stories.slice(0, 9));
-    }
-  }, [id, user.stories, user.id, user.editMode, user.profile]);
 
-  useEffect(
-    function () {
-      if (user.id !== parseInt(id)) {
-        setUserStories(userData.posts.slice(0, 9));
-      }
-    },
-    [userData.posts]
-  );
+    handleData();
+  }, [id]);
+
+  const handleDisplayFollowers = (name: string) => {
+    setDisplayFollow({ active: true, current: name });
+  };
 
   return (
     <div className="profile">
+      {displayFollow.active && (
+        <Follower
+          setActive={setDisplayFollow}
+          id={parseInt(id)}
+          current={displayFollow.current}
+          handleCount={handleCount}
+        />
+      )}
       <div>
         {active && (
           <EditProfile setActive={setActive} photo_url={user.profile_pic} />
@@ -109,10 +126,26 @@ function Profile() {
                     <BiEdit className="icon" onClick={handleEdit} />
                   )}
                 </div>
+                {user.id !== userData.profile[0].user_id && (
+                  <div className="follow_button">
+                    <Follow id={data.user_id} handleCount={handleCount} />
+                  </div>
+                )}
               </div>
-              <div className="followers">
-                <span>0 followers</span>
-                <span>{userData.posts.length} stories</span>
+              <div className="followers_container">
+                <span
+                  className="followers"
+                  onClick={() => handleDisplayFollowers("Followers")}
+                >
+                  {userData.followersCount} Followers
+                </span>
+                <span
+                  className="followers"
+                  onClick={() => handleDisplayFollowers("Following")}
+                >
+                  {userData.followingCount} Following
+                </span>
+                <span className="stories">{userData.posts.length} stories</span>
               </div>
               <div className="about">
                 <p>{data.about_me}</p>

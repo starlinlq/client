@@ -7,7 +7,9 @@ export interface Register {
   city: string;
   about: string;
 }
-
+export type Follower = {
+  data: {}[];
+};
 export interface Comment {
   id: number;
   user_id: number;

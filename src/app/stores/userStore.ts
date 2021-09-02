@@ -14,6 +14,8 @@ export class UserStore {
   editMode = false;
   posts: Story[] = [];
   bookmark: any[] = [];
+  followers: any[] = [];
+  following: any[] = [];
   profile_pic: string = "";
   about: string = "";
   city: string = "";
@@ -47,7 +49,8 @@ export class UserStore {
       })
       .then((r: any) => {
         runInAction(() => {
-          console.log(r.data.user[0].profile);
+          console.log(r.data.user[0].following);
+          this.following = r.data.user[0].following;
           this.profile = [r.data.user[0].profile];
           this.stories = r.data.user[0].posts;
           this.profile_pic = r.data.user[0].profile.profile_pic_url;

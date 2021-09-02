@@ -6,6 +6,7 @@ import {
   User,
   Profile,
   SingleStory,
+  Follower,
 } from "../interfaces";
 import { toast } from "react-toastify";
 import { history } from "../../";
@@ -67,7 +68,12 @@ export const user = {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
   loadProfile: (id: number) =>
-    requests.get<{ posts: Story[]; profile: Profile[] }>(`/profile/${id}`, {
+    requests.get<{
+      posts: Story[];
+      profile: Profile[];
+      followersCount: number;
+      followingCount: number;
+    }>(`/profile/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
   editProfile: (userInfo: {
@@ -79,6 +85,16 @@ export const user = {
     requests.put<Profile>("/profile/update", userInfo, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
+  follow: (id: number) =>
+    requests.post<void>("/follower/follow", { follower_id: id }, headers),
+  unfollow: (id: number) =>
+    requests.delete<void>(`/follower/unfollow/${id}`, headers),
+  followers: (id: number, limit: number = 30, current: string) =>
+    requests.get<{ data: [] }>(`follower/show/${id}`, {
+      headers: { limit, current },
+    }),
+  removeFollower: (id: number) =>
+    requests.delete(`follower/remove/${id}`, headers),
 };
 
 export const features = {

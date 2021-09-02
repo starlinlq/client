@@ -1,0 +1,19 @@
+.follow_container {
+  display: inline-block;
+
+  button {
+    background-color: white;
+    width: 90px;
+    padding: 4px 5px;
+    color: black;
+    border: 1px solid #333333;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: orangered;
+    }
+  }
+
+ 
+}

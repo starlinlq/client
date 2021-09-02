@@ -13,6 +13,7 @@
   }
 
   .stories {
+    overflow: hidden;
     .featured {
       font-size: 20px;
       font-family: $title-font;
@@ -54,6 +55,10 @@
       display: flex;
       align-items: center;
 
+      .follow_button {
+        margin-left: 10px;
+      }
+
       p {
         padding: 10px 0;
         font-size: 20px;
@@ -72,6 +77,7 @@
     }
     .details {
       width: 100%;
+
       .about {
         margin: 15px 0;
         p {
@@ -91,12 +97,13 @@
         }
       }
 
-      .followers {
+      .followers_container {
         width: 100%;
-
+        .followers {
+        }
         span {
           font-size: 16px;
-          padding-right: 25px;
+          padding-right: 10px;
           font-weight: bold;
         }
       }
