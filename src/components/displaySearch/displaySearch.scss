@@ -1,7 +1,12 @@
 .dislpay_search_container {
   min-width: 350px;
-  height: 300px;
+
+  max-height: 300px;
   overflow-y: scroll;
+  .no_results {
+    height: 100px;
+    padding-left: 5px;
+  }
 
   .search_result_cont {
     display: flex;

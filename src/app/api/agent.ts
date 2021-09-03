@@ -95,6 +95,7 @@ export const user = {
     }),
   removeFollower: (id: number) =>
     requests.delete(`follower/remove/${id}`, headers),
+  search: (query: string) => requests.get<any>(`/profile/search/${query}`),
 };
 
 export const features = {

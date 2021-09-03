@@ -45,11 +45,6 @@ function NavBar() {
           <a href="/top">TOP</a>
         </div>
         <div className="nav_menus">
-          {features.searhResult.active && (
-            <div className="search_result_nav box-shadow">
-              <DisplaySearch />
-            </div>
-          )}
           <div className="user-links d-flex">
             <div className="search_container_nav">
               <Search />
