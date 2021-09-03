@@ -55,6 +55,17 @@
       display: flex;
       align-items: center;
 
+      .edit_button {
+        margin-left: 10px;
+        background-color: white;
+
+        &:hover {
+          background-color: #333333;
+          color: white;
+          border-color: transparent;
+        }
+      }
+
       .follow_button {
         margin-left: 10px;
       }
@@ -98,13 +109,22 @@
       }
 
       .followers_container {
-        width: 100%;
-        .followers {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: grey;
+        .followers,
+        .following {
+          cursor: pointer;
+          &:hover {
+            color: black;
+          }
         }
-        span {
-          font-size: 16px;
-          padding-right: 10px;
-          font-weight: bold;
+
+        .total {
+          color: black;
+          padding-right: 5px;
+          font-weight: 600;
         }
       }
     }

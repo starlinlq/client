@@ -7,13 +7,42 @@
   position: relative;
   background-color: white !important;
 
+  .mobile_nav {
+    position: absolute;
+    top: 60px;
+    background: white;
+    height: 100vh;
+    z-index: 999;
+    border-left: 1px solid transparent;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 0;
+
+    right: 0;
+    transition: width 0.5s;
+  }
+
+  .is-nav-open {
+    width: 270px;
+  }
+
   .nav_menus {
     font-weight: 500;
     height: 100%;
     display: flex;
-
     justify-content: center;
     align-items: center;
+    position: relative;
+    .search_result_nav {
+      position: absolute;
+      top: 60px;
+      left: 0px;
+      background-color: white;
+      z-index: 999;
+    }
+
+    .search_container_nav {
+      margin-right: 10px;
+    }
 
     .b_menu {
       display: none;
@@ -44,6 +73,10 @@
       height: 100%;
       display: flex;
       align-items: center;
+
+      @media screen and (max-width: 650px) {
+        display: none;
+      }
 
       a {
         margin-right: 30px;
@@ -99,6 +132,10 @@
       &:hover {
         color: orangered;
       }
+    }
+
+    @media screen and (max-width: 300px) {
+      display: none;
     }
   }
 

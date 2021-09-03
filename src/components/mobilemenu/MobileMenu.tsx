@@ -1,6 +1,8 @@
 import React from "react";
-
-const MobileMenu = () => {
+type Props = {
+  active: boolean;
+};
+const MobileMenu = ({ active }: Props) => {
   return (
     <div className="mobile_menu">
       <a href="/">HOME</a>

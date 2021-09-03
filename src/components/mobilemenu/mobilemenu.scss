@@ -1,30 +1,12 @@
 .mobile_menu {
-  position: absolute;
-  top: 50px;
-  background: #150e56;
-  height: 100vh;
-  animation: example 200ms linear 1 forwards;
-  z-index: 999;
-
-  right: 0;
-
   a {
     font-family: $title-font;
-    border-right: 3px solid orangered;
+    border-right: 3px solid #333333;
     display: block;
     width: 100%;
     text-align: center;
-    color: white;
+    color: black;
     padding: 15px 0;
     margin: 10px 0;
-  }
-
-  @keyframes example {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 70%;
-    }
   }
 }

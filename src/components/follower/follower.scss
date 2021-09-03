@@ -40,6 +40,7 @@
     .follower_data_container {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin: 7px 10px;
       .content {
         display: flex;
@@ -48,6 +49,10 @@
         color: black;
         p {
           margin-left: 5px;
+
+          &:hover {
+            color: orangered;
+          }
         }
         .picture {
           width: 50px;

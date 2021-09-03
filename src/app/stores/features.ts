@@ -6,12 +6,21 @@ class Features {
   url: string = "";
   currentPage: number = 1;
   bookmark: number = 0;
+  searhResult: { data: any[]; type: string; active: boolean } = {
+    data: [],
+    type: "",
+    active: false,
+  };
   constructor() {
     makeAutoObservable(this);
   }
 
   setPage(page: number) {
     this.currentPage = page;
+  }
+
+  setSearchData(data: any) {
+    this.searhResult = data;
   }
 
   set_image_url(url: string) {}

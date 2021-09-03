@@ -12,6 +12,7 @@ import { agent } from "../../app/api/agent";
 import CreateStory from "../forms/CreateStory";
 import Follow from "../follow/Follow";
 import Follower from "../follower/Follower";
+import { GiPhotoCamera } from "react-icons/gi";
 
 type Edit = {
   story_id: number;
@@ -118,14 +119,12 @@ function Profile() {
             <img src={data.profile_pic_url} alt="profile_picture" />
             <div className="details">
               <div className="edit">
-                {" "}
                 <p>{data.user_name}</p>
-                <div onClick={handleActive}>
-                  {" "}
-                  {user.id === userData.profile[0].user_id && (
-                    <BiEdit className="icon" onClick={handleEdit} />
-                  )}
-                </div>
+                {user.id === userData.profile[0].user_id && (
+                  <button className="edit_button button" onClick={handleActive}>
+                    Edit Profile
+                  </button>
+                )}
                 {user.id !== userData.profile[0].user_id && (
                   <div className="follow_button">
                     <Follow id={data.user_id} handleCount={handleCount} />
@@ -133,19 +132,22 @@ function Profile() {
                 )}
               </div>
               <div className="followers_container">
-                <span
-                  className="followers"
-                  onClick={() => handleDisplayFollowers("Followers")}
-                >
-                  {userData.followersCount} Followers
-                </span>
-                <span
-                  className="followers"
-                  onClick={() => handleDisplayFollowers("Following")}
-                >
-                  {userData.followingCount} Following
-                </span>
-                <span className="stories">{userData.posts.length} stories</span>
+                <div className="stories">
+                  <span className="total">{userData.posts.length}</span>
+                  <span>stories</span>
+                </div>
+                <div className="followers">
+                  <span className="total">{userData.followersCount}</span>
+                  <span onClick={() => handleDisplayFollowers("Followers")}>
+                    Followers
+                  </span>
+                </div>
+                <div className="following">
+                  <span className="total">{userData.followingCount}</span>
+                  <span onClick={() => handleDisplayFollowers("Following")}>
+                    Following
+                  </span>
+                </div>
               </div>
               <div className="about">
                 <p>{data.about_me}</p>

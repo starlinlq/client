@@ -102,6 +102,7 @@ export const features = {
     requests.post<{ status: string; url: string }>("/upload", image, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
+  search: (value: string) => requests.get<any>(`/post/search/${value}`),
 };
 
 export const story = {

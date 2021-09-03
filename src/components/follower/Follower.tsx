@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/stores";
 import { Link } from "react-router-dom";
 import { SearchCategory } from "semantic-ui-react";
+import { useRef } from "react";
 type Props = {
   setActive: Function;
   id: number;
@@ -20,6 +21,7 @@ function Follower({ id, current, setActive, handleCount }: Props) {
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(30);
   const [data, setData] = useState<any[]>([]);
+  const ref = useRef<HTMLDivElement>(null);
   const { user } = useStore();
 
   const handleClick = () => {
@@ -41,9 +43,21 @@ function Follower({ id, current, setActive, handleCount }: Props) {
     handleCall();
   }, []);
 
+  const handleOutsideClick = (e: any) => {
+    if (ref.current && !ref.current.contains(e.target)) {
+      setActive({ active: false });
+    }
+  };
+
+  useEffect(function () {
+    window.addEventListener("click", handleOutsideClick);
+
+    return () => window.removeEventListener("click", handleOutsideClick);
+  }, []);
+
   return (
     <div className="display_followers_container">
-      <div className="display_followers box-shadow">
+      <div className="display_followers box-shadow" ref={ref}>
         <div className="type box-shadow">
           <p>{current}</p>{" "}
           <AiOutlineCloseCircle className="close_icon" onClick={handleClick} />

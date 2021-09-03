@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/stores";
 import { RiMenu3Fill, RiCloseLine, RiAccountCircleLine } from "react-icons/ri";
@@ -6,25 +6,34 @@ import { GiPhotoCamera } from "react-icons/gi";
 import MobileMenu from "../mobilemenu/MobileMenu";
 import useComponentVisible from "../../hooks/useComponentVisible";
 import { BsBookmarks } from "react-icons/bs";
+import Search from "../search/Search";
+import DisplaySearch from "../displaySearch/DisplaySearch";
 
 function NavBar() {
   const [mobile, setMobile] = useState(false);
   const { ref, visible } = useComponentVisible(false);
-  const { user } = useStore();
+  const { user, features } = useStore();
   const { isAuth } = user;
+  const mobileNavRef = useRef<HTMLDivElement>(null);
 
   function handleLogOut() {
     user.logOutUser();
   }
 
   function handleMobile() {
+    if (mobileNavRef.current) {
+      mobileNavRef.current.classList.toggle("is-nav-open");
+    }
     setMobile(!mobile);
   }
 
   return (
     <div className="nav_container box-shadow">
       <nav className="_nav container d-flex">
-        {mobile && <MobileMenu />}
+        <div className="mobile_nav" ref={mobileNavRef}>
+          <MobileMenu active={mobile} />
+        </div>
+
         <div className="logo">
           <GiPhotoCamera className="icon" />
           <a href="/">STORYNARY</a>
@@ -36,7 +45,15 @@ function NavBar() {
           <a href="/top">TOP</a>
         </div>
         <div className="nav_menus">
+          {features.searhResult.active && (
+            <div className="search_result_nav box-shadow">
+              <DisplaySearch />
+            </div>
+          )}
           <div className="user-links d-flex">
+            <div className="search_container_nav">
+              <Search />
+            </div>
             {isAuth ? (
               <>
                 <a href="/create" className="link_to_create">
