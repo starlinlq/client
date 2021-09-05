@@ -10,19 +10,24 @@ import DisplaySearch from "../displaySearch/DisplaySearch";
 
 function Search() {
   const [selection, setSelection] = useState("story");
-  const [value, setValue] = useState("");
+  const [display, setDisplay] = useState(false);
   const { features } = useStore();
   const debouncedValue = useDebouce(500, features.searchQuery);
   const ref = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (e: any) => {
     setSelection(e.target.value);
   };
   const handleClickOutside = (e: any) => {
     if (ref.current && ref.current.contains(e.target)) {
-      features.setSearchActive(!features.searchActive);
-      features.setSearchQuery();
+      features.setSearchActive(true);
     } else {
+      if (display && wrapperRef.current) {
+        wrapperRef.current.classList.toggle("is-search-open");
+        setDisplay(false);
+      }
+      features.setSearchQuery();
       features.setSearchActive();
     }
   };
@@ -36,7 +41,14 @@ function Search() {
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [display]);
+
+  const handleOpenSearch = () => {
+    if (wrapperRef.current && !display) {
+      wrapperRef.current.classList.toggle("is-search-open");
+      setDisplay(true);
+    }
+  };
   useEffect(() => {
     const handleCall = async () => {
       if (debouncedValue.length > 2) {
@@ -71,23 +83,26 @@ function Search() {
   }, [debouncedValue]);
   return (
     <div className="search_container" onClick={handleInputClick} ref={ref}>
-      {features.searchActive && (
-        <div className="search_result_nav box-shadow">
-          <DisplaySearch />
-        </div>
-      )}
+      <BiSearch className="search_icon" onClick={handleOpenSearch} />
       <div className="">
-        <select name="select" id="" onChange={handleSelect}>
-          <option value="story">STORY</option>
-          <option value="user">USER</option>
-        </select>{" "}
-        <input
-          type="text"
-          className=""
-          placeholder="Search"
-          value={features.searchQuery}
-          onChange={handleInput}
-        />
+        {features.searchActive && (
+          <div className="search_result_nav box-shadow">
+            <DisplaySearch />
+          </div>
+        )}
+        <div className="search_wrapper" ref={wrapperRef}>
+          <select name="select" id="" onChange={handleSelect}>
+            <option value="story">STORY</option>
+            <option value="user">USER</option>
+          </select>{" "}
+          <input
+            type="text"
+            className=""
+            placeholder="Search"
+            value={features.searchQuery}
+            onChange={handleInput}
+          />
+        </div>
       </div>
     </div>
   );

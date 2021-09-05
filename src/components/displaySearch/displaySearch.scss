@@ -1,7 +1,7 @@
 .dislpay_search_container {
   min-width: 350px;
-
   max-height: 300px;
+
   overflow-y: scroll;
   .no_results {
     height: 100px;
@@ -39,5 +39,9 @@
         color: grey;
       }
     }
+  }
+
+  @media screen and (max-width: 800px) {
+    min-width: 100%;
   }
 }

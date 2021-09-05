@@ -16,13 +16,12 @@
     border-left: 1px solid transparent;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     width: 0;
-
     right: 0;
     transition: width 0.5s;
   }
 
   .is-nav-open {
-    width: 270px;
+    width: 250px;
   }
 
   .nav_menus {
@@ -41,7 +40,7 @@
     }
 
     .search_container_nav {
-      margin-right: 10px;
+      margin-right: 5px;
     }
 
     .b_menu {
@@ -119,7 +118,7 @@
         color: black;
       }
 
-      @media screen and (max-width: 650px) {
+      @media screen and (max-width: 800px) {
         display: none;
       }
     }
@@ -131,6 +130,9 @@
 
       &:hover {
         color: orangered;
+      }
+      @media screen and (max-width: 650px) {
+        display: none;
       }
     }
 
@@ -159,6 +161,9 @@
       }
       p {
         padding-left: 5px;
+      }
+      @media screen and (max-width: 650px) {
+        display: none;
       }
     }
   }

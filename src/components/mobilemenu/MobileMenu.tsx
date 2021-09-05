@@ -1,4 +1,5 @@
 import React from "react";
+import Search from "../search/Search";
 type Props = {
   active: boolean;
 };

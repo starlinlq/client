@@ -42,7 +42,6 @@ function NavBar() {
         <div className="nav-links d-flex">
           <a href="/">HOME</a>
           <a href="/stories">STORIES</a>
-          <a href="/top">TOP</a>
         </div>
         <div className="nav_menus">
           <div className="user-links d-flex">
