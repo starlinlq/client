@@ -18,8 +18,6 @@ function DisplaySearch() {
     }
   };
 
-  console.log(features.noResults);
-
   return (
     <div className="dislpay_search_container">
       {features.loading ? (

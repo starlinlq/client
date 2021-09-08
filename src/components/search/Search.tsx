@@ -14,24 +14,20 @@ function Search() {
   const { features } = useStore();
   const debouncedValue = useDebouce(500, features.searchQuery);
   const ref = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (e: any) => {
     setSelection(e.target.value);
   };
   const handleClickOutside = (e: any) => {
     if (ref.current && ref.current.contains(e.target)) {
-      features.setSearchActive(true);
+      setDisplay(true);
     } else {
-      if (display && wrapperRef.current) {
-        wrapperRef.current.classList.toggle("is-search-open");
-        setDisplay(false);
-      }
+      setDisplay(false);
       features.setSearchQuery();
       features.setSearchActive();
     }
   };
-  const handleInputClick = () => {};
+
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     features.setSearchQuery(event.target.value);
   };
@@ -41,14 +37,8 @@ function Search() {
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, [display]);
+  }, []);
 
-  const handleOpenSearch = () => {
-    if (wrapperRef.current && !display) {
-      wrapperRef.current.classList.toggle("is-search-open");
-      setDisplay(true);
-    }
-  };
   useEffect(() => {
     const handleCall = async () => {
       if (debouncedValue.length > 2) {
@@ -82,28 +72,26 @@ function Search() {
     handleCall();
   }, [debouncedValue]);
   return (
-    <div className="search_container" onClick={handleInputClick} ref={ref}>
-      <BiSearch className="search_icon" onClick={handleOpenSearch} />
-      <div className="">
-        {features.searchActive && (
-          <div className="search_result_nav box-shadow">
-            <DisplaySearch />
-          </div>
-        )}
-        <div className="search_wrapper" ref={wrapperRef}>
-          <select name="select" id="" onChange={handleSelect}>
-            <option value="story">STORY</option>
-            <option value="user">USER</option>
-          </select>{" "}
-          <input
-            type="text"
-            className=""
-            placeholder="Search"
-            value={features.searchQuery}
-            onChange={handleInput}
-          />
-        </div>
+    <div className="search_container" ref={ref}>
+      <div className="search_wrapper">
+        <select name="select" id="" onChange={handleSelect}>
+          <option value="story">STORY</option>
+          <option value="user">USER</option>
+        </select>{" "}
+        <input
+          type="text"
+          className=""
+          placeholder="Search"
+          value={features.searchQuery}
+          onChange={handleInput}
+        />
+        <BiSearch className="search_icon" />
       </div>
+      {display && (
+        <div className="search_result_nav box-shadow ">
+          <DisplaySearch />
+        </div>
+      )}
     </div>
   );
 }

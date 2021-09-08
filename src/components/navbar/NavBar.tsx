@@ -30,6 +30,9 @@ function NavBar() {
   return (
     <div className="nav_container box-shadow">
       <nav className="_nav container d-flex">
+        <div className="search_container_nav">
+          <Search />
+        </div>
         <div className="mobile_nav" ref={mobileNavRef}>
           <MobileMenu active={mobile} />
         </div>
@@ -45,13 +48,10 @@ function NavBar() {
         </div>
         <div className="nav_menus">
           <div className="user-links d-flex">
-            <div className="search_container_nav">
-              <Search />
-            </div>
             {isAuth ? (
               <>
                 <a href="/create" className="link_to_create">
-                  Create Story
+                  SHARE
                 </a>
                 <a href="/bookmark">
                   <BsBookmarks className="icon" />
