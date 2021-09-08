@@ -13,12 +13,11 @@ import SingleStory from "./components/singlestory/SingleStory";
 import Profile from "./components/profile/Profile";
 import Home from "./components/home/Home";
 import Bookmark from "./components/bookmark/Bookmark";
-import smoothscroll from "smoothscroll-polyfill";
-import { useRef } from "react";
+
+import Footer from "./components/footer/Foooter";
 
 function App() {
   const { user } = useStore();
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let token = localStorage.getItem("Authorization");
@@ -30,30 +29,35 @@ function App() {
 
   return (
     <div className="my_app">
-      <NavBar />
-      <ToastContainer
-        position="bottom-right"
-        hideProgressBar
-        closeOnClick
-        pauseOnHover
-      />
-      <div className="container">
-        <Switch>
-          <Route path="/register/:id?">
-            {user.isAuth ? <Redirect to="/" /> : <RegisterForm />}
-          </Route>
-          <Route path="/login/:id?">
-            {user.isAuth ? <Redirect to="/" /> : <LoginForm />}
-          </Route>
-          <Route exact path="/create">
-            <CreateStory />
-          </Route>
-          <Route path="/bookmark" component={Bookmark} />
-          <Route path="/stories/:id?" component={DisplayStories} />
-          <Route path="/story/:id" component={SingleStory} />
-          <Route path="/profile/:id" component={Profile} />
-          <Route path="/" component={Home} />
-        </Switch>
+      <div className="">
+        <NavBar />
+        <ToastContainer
+          position="bottom-right"
+          hideProgressBar
+          closeOnClick
+          pauseOnHover
+        />
+        <div className="container ">
+          <Switch>
+            <Route path="/register/:id?">
+              {user.isAuth ? <Redirect to="/" /> : <RegisterForm />}
+            </Route>
+            <Route path="/login/:id?">
+              {user.isAuth ? <Redirect to="/" /> : <LoginForm />}
+            </Route>
+            <Route exact path="/create">
+              <CreateStory />
+            </Route>
+            <Route path="/bookmark" component={Bookmark} />
+            <Route path="/stories/:id?" component={DisplayStories} />
+            <Route path="/story/:id" component={SingleStory} />
+            <Route path="/profile/:id" component={Profile} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </div>
+      </div>
+      <div className="container footer">
+        <Footer />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export default function ShareAStory() {
         alt="share a story"
       />
       <Link className="title" to="/create">
-        <h1>SHARE A MEMORY</h1>
+        <h1>SHARE A STORY</h1>
       </Link>
     </div>
   );

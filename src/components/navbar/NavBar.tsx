@@ -1,18 +1,17 @@
 import { useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../app/stores/stores";
-import { RiMenu3Fill, RiCloseLine, RiAccountCircleLine } from "react-icons/ri";
+import { RiMenu3Fill, RiCloseLine } from "react-icons/ri";
 import { GiPhotoCamera } from "react-icons/gi";
 import MobileMenu from "../mobilemenu/MobileMenu";
 import useComponentVisible from "../../hooks/useComponentVisible";
 import { BsBookmarks } from "react-icons/bs";
 import Search from "../search/Search";
-import DisplaySearch from "../displaySearch/DisplaySearch";
 
 function NavBar() {
   const [mobile, setMobile] = useState(false);
   const { ref, visible } = useComponentVisible(false);
-  const { user, features } = useStore();
+  const { user } = useStore();
   const { isAuth } = user;
   const mobileNavRef = useRef<HTMLDivElement>(null);
 
@@ -39,19 +38,19 @@ function NavBar() {
 
         <div className="logo">
           <GiPhotoCamera className="icon" />
-          <a href="/">STORYNARY</a>
+          <a href="/">Storynary</a>
         </div>
 
         <div className="nav-links d-flex">
-          <a href="/">HOME</a>
-          <a href="/stories">STORIES</a>
+          <a href="/">Home</a>
+          <a href="/stories">Stories</a>
         </div>
         <div className="nav_menus">
           <div className="user-links d-flex">
             {isAuth ? (
               <>
                 <a href="/create" className="link_to_create">
-                  SHARE
+                  Create
                 </a>
                 <a href="/bookmark">
                   <BsBookmarks className="icon" />
@@ -63,7 +62,7 @@ function NavBar() {
                 >
                   <div className="user">
                     <img src={user.profile_pic} alt="profile" />
-                    <p> HI {user.name.toUpperCase()}</p>
+                    <p> Hi {user.name}</p>
                   </div>
 
                   <div className={visible ? "active box-shadow" : "not_active"}>

@@ -1,18 +1,16 @@
 import { observer } from "mobx-react-lite";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Fragment } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useStore } from "../../app/stores/stores";
 import StoryCard from "../storyCard/StoryCard";
-import { BiEdit } from "react-icons/bi";
 import EditProfile from "../editprofile/EditProfile";
-import { Profile as p, Story } from "../../app/interfaces";
+import { Story } from "../../app/interfaces";
 import { agent } from "../../app/api/agent";
 import CreateStory from "../forms/CreateStory";
 import Follow from "../follow/Follow";
 import Follower from "../follower/Follower";
-import { GiPhotoCamera } from "react-icons/gi";
 
 type Edit = {
   story_id: number;
