@@ -1,4 +1,4 @@
-# mindborn 
+# Storynary 
 
 Storynary is an app that allows users to post interesting moments in their lives that later became stories.
 
@@ -6,7 +6,7 @@ Storynary is an app that allows users to post interesting moments in their lives
 
 - React
 - JavaScript
-- -Typescript
+- Typescript
 - Scss
 - Adonis.js
 - Cloudinary
