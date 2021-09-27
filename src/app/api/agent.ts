@@ -11,41 +11,37 @@ import {
 import { toast } from "react-toastify";
 import { history } from "../../";
 import { request } from "http";
-
+//axios.defaults.baseURL = "https://storynary.herokuapp.com/api";
 const response = <T>(response: AxiosResponse<T>) => response.data;
 const headers = {
   headers: { Authorization: `${localStorage.getItem("Authorization")}` },
 };
-const sleep = (time: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
-};
 
-axios.defaults.baseURL = "http://127.0.0.1:3333/api";
+let local = "http://127.0.0.1:3333/api";
+let baseurl = "https://storynary.herokuapp.com/api";
 
 const requests = {
   get: <T>(url: string, headers?: {}) =>
-    axios.get<T>(url, headers).then(response),
+    axios.get<T>(`${baseurl}${url}`, headers).then(response),
   post: <T>(url: string, body: {}, headers?: {}) =>
-    axios.post<T>(url, body, headers).then(response),
+    axios.post<T>(`${baseurl}${url}`, body, headers).then(response),
   put: <T>(url: string, body: {}, headers: {}) =>
-    axios.put<T>(url, body, headers).then(response),
+    axios.put<T>(`${baseurl}${url}`, body, headers).then(response),
   delete: <T>(url: string, headers: {}) =>
-    axios.delete<T>(url, headers).then(response),
+    axios.delete<T>(`${baseurl}${url}`, headers).then(response),
 };
 
 export const _comments = {
   create: (comment: { comment: string; story_id: number }) =>
-    requests.post<Comment>(`comment/create/${comment.story_id}`, comment, {
+    requests.post<Comment>(`/comment/create/${comment.story_id}`, comment, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
   edit: (comment: { comment: string; id: number }) =>
-    requests.put(`comment/update/${comment.id}`, comment, {
+    requests.put(`/comment/update/${comment.id}`, comment, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
   delete: (id: number) =>
-    requests.delete<void>(`comment/delete/${id}`, {
+    requests.delete<void>(`/comment/delete/${id}`, {
       headers: { Authorization: `${localStorage.getItem("Authorization")}` },
     }),
 };
@@ -90,11 +86,11 @@ export const user = {
   unfollow: (id: number) =>
     requests.delete<void>(`/follower/unfollow/${id}`, headers),
   followers: (id: number, limit: number = 30, current: string) =>
-    requests.get<{ data: [] }>(`follower/show/${id}`, {
+    requests.get<{ data: [] }>(`/follower/show/${id}`, {
       headers: { limit, current },
     }),
   removeFollower: (id: number) =>
-    requests.delete(`follower/remove/${id}`, headers),
+    requests.delete(`/follower/remove/${id}`, headers),
   search: (query: string) => requests.get<any>(`/profile/search/${query}`),
 };
 
@@ -119,8 +115,8 @@ export const story = {
       { title, story, photo_url, category_title, description },
       headers
     ),
-  show: (id: string) => requests.get<SingleStory>(`post/show/${id}`),
-  delete: (id: number) => requests.delete(`post/delete/${id}`, headers),
+  show: (id: string) => requests.get<SingleStory>(`/post/show/${id}`),
+  delete: (id: number) => requests.delete(`/post/delete/${id}`, headers),
   all: (page: number, category: string) =>
     requests.get<any>(`/post/stories/page/${page}`, {
       headers: { category },
@@ -128,9 +124,9 @@ export const story = {
   category: (category: string, limit?: number) =>
     requests.get<Story[]>(`/post/category/${category}`, { headers: { limit } }),
   limit: (limit: number, category?: string) =>
-    requests.get<Story[]>(`post/show/amount/${limit}`),
+    requests.get<Story[]>(`/post/show/amount/${limit}`),
   disLike: (like_id: number) =>
-    requests.delete(`post/like/${like_id}`, headers),
+    requests.delete(`/post/like/${like_id}`, headers),
   like: (story_id: number) =>
     requests.post<{
       user_id: number;
@@ -138,16 +134,17 @@ export const story = {
       created_at: string;
       id: number;
       updated_at: string;
-    }>(`post/like/${story_id}`, {}, headers),
+    }>(`/post/like/${story_id}`, {}, headers),
 };
 
 axios.interceptors.response.use(
   async (response) => {
-    await sleep(100);
+    console.log(response);
     return response;
   },
   (error: AxiosError) => {
     const { data, config, status } = error.response!;
+
     switch (status) {
       case 400:
         if (typeof data === "string") {
@@ -161,17 +158,18 @@ axios.interceptors.response.use(
         toast.error("invalid account details");
         break;
       case 401:
-        /* if (localStorage.getItem("Authorization")) {
+        if (localStorage.getItem("Authorization")) {
           localStorage.removeItem("Authorization");
         }
-        */
+        history.push("/login");
         toast.error("Unathorize Request");
+
         break;
       case 404:
         history.push("/not-found");
         break;
       case 500:
-        toast.error("server error, please try again later");
+        toast.error("baseurl error, please try again later");
         break;
 
       default:

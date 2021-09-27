@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { agent } from "../../app/api/agent";
 import { Story } from "../../app/interfaces";
+import { format } from "timeago.js";
 
 export default function Header() {
   const [stories, setStories] = useState<Story[]>([]);
@@ -14,14 +15,14 @@ export default function Header() {
 
   useEffect(function () {
     agent.story
-      .limit(3)
+      .limit(5)
       .then((response) => {
         setCurrent(response[0]);
         setStories(response);
       })
       .catch((error) => console.log(error));
-    let interval = setInterval(handleInterval, 7000);
-    return () => clearInterval(interval);
+    // let interval = setInterval(handleInterval, 7000);
+    //return () => clearInterval(interval);
   }, []);
 
   let handleInterval = () => {
@@ -53,7 +54,7 @@ export default function Header() {
             <span>FEATURED STORIES</span>
             <h1>{current.title.toUpperCase()}</h1>
             <div className="author_info">
-              <p>{current.created_at.slice(0, 10)} </p>
+              <p>{format(current.created_at)} </p>
               <a href={`/`}>by {current.user_name}</a>
             </div>
             <p>

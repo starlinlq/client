@@ -13,8 +13,8 @@ import SingleStory from "./components/singlestory/SingleStory";
 import Profile from "./components/profile/Profile";
 import Home from "./components/home/Home";
 import Bookmark from "./components/bookmark/Bookmark";
-
 import Footer from "./components/footer/Foooter";
+import axios from "axios";
 
 function App() {
   const { user } = useStore();
@@ -25,6 +25,14 @@ function App() {
     if (token) {
       user.validate();
     }
+
+    async function get() {
+      try {
+        console.log(test);
+      } catch (error) {}
+    }
+
+    get();
   }, []);
 
   return (

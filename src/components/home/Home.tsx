@@ -6,12 +6,10 @@ export default function Home() {
     <div className="home_container">
       <Header />
       <DisplayByCategory category="Universe" itemToDisplay={20} />
-      <DisplayByCategory category="Family" itemToDisplay={20} />
       <DisplayByCategory category="Nature" itemToDisplay={6} flex={true} />
       <DisplayByCategory category="Rebirth" itemToDisplay={20} />
       <DisplayByCategory category="Adventure" itemToDisplay={20} />
       <ShareAStory />
-    
     </div>
   );
 }

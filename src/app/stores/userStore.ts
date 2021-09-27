@@ -44,7 +44,7 @@ export class UserStore {
   validate = () => {
     this.loading = true;
     axios
-      .get("http://127.0.0.1:3333/api/validate", {
+      .get("https://storynary.herokuapp.com/api/validate", {
         headers: { Authorization: `${localStorage.getItem("Authorization")}` },
       })
       .then((r: any) => {
@@ -91,6 +91,7 @@ export class UserStore {
           this.setToken(r.token.token);
           this.isAuth = true;
           this.loading = false;
+          this.profile_pic = r.photo_url;
         });
       })
       .catch((error) => {

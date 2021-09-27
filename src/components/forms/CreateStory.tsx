@@ -53,7 +53,6 @@ function CreateStory({
     title: title ? title : "",
     photo_url: photo_url ? photo_url : "",
     category_title: category ? category : "",
-    description: description ? description : "",
   });
   const [options, setOptions] = useState([
     { option: "all" },
@@ -84,7 +83,7 @@ function CreateStory({
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (story_data.story.length < 500) {
+    if (story_data.story.length < 300) {
       _warning("story", true);
     } else if (!features.url && !photo_url) {
       _warning("image", true);
@@ -147,15 +146,7 @@ function CreateStory({
           name="title"
           placeholder="Title"
         />
-        <textarea
-          value={story_data.description}
-          onChange={(e) => handleOnChange(e)}
-          placeholder="Story description: min 50 characters"
-          name="description"
-          className="text_area"
-          cols={5}
-          rows={5}
-        />
+
         {warning.story && (
           <label className="_required">
             story should be at least 500 characters

@@ -5,6 +5,7 @@ import Like from "../like/Like";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
+import { format } from "timeago.js";
 
 function StoryCard({
   user_id,
@@ -53,7 +54,15 @@ function StoryCard({
 
   const handleEdit = () => {
     if (editData) {
-      editData({ story, category, title, active: true, photo_url, story_id: id, update: true });
+      editData({
+        story,
+        category,
+        title,
+        active: true,
+        photo_url,
+        story_id: id,
+        update: true,
+      });
     }
   };
 
@@ -64,7 +73,7 @@ function StoryCard({
       <img src={photo_url} alt={title} />
       <div className="_content">
         <div className="title_container">
-          <p className="date">{date.slice(0, 10)}</p>
+          <p className="date">{format(date)}</p>
           <p className="title">{title.slice(0, 45).toUpperCase()}</p>
           <div className="author_name">
             <span>by</span>

@@ -62,11 +62,10 @@ function NavBar() {
                 >
                   <div className="user">
                     <img src={user.profile_pic} alt="profile" />
-                    <p> Hi {user.name}</p>
+                    <p> Hi {user.name.split(" ")[0]}</p>
                   </div>
 
                   <div className={visible ? "active box-shadow" : "not_active"}>
-                    <a href="/account">Account</a>
                     <a href={`/profile/${user.id}`}>Profile</a>
 
                     <button className="" type="button" onClick={handleLogOut}>

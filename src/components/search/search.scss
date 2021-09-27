@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 240px;
+  width: 300px;
   height: fit-content;
   border: 1px solid #333333;
   border-radius: 2px;
@@ -11,6 +11,7 @@
 
   @media screen and (max-width: 800px) {
     width: 190px;
+    right: 0;
   }
 
   .search_wrapper {

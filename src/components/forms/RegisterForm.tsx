@@ -104,7 +104,7 @@ function RegisterForm() {
             )}
             {step === 2 && (
               <div className="step_2">
-                <Upload user={true} />
+                <Upload user={true} type="Profile" />
                 <label htmlFor="city">Your name</label>
                 <input
                   value={registerData.name}
